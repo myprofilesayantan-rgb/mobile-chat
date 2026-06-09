@@ -4,6 +4,7 @@ import { ChatBrain } from './brain.js';
 const brain = new ChatBrain();
 
 // Hook DOM elements
+const app = document.getElementById('app');
 const messagesLog = document.getElementById('messages-log');
 const typingIndicator = document.getElementById('typing-indicator');
 const chipsContainer = document.getElementById('chips-container');
@@ -13,8 +14,24 @@ const resetBtn = document.getElementById('reset-btn');
 const speakerToggle = document.getElementById('speaker-toggle');
 const micBtn = document.getElementById('mic-btn');
 
+// Hook landing page components
+const welcomeIntro = document.getElementById('welcome-intro');
+
+// Hook drawer components
+const menuBtn = document.getElementById('menu-btn');
+const sideDrawer = document.getElementById('side-drawer');
+const closeDrawerBtn = document.getElementById('close-drawer-btn');
+const menuNewChat = document.getElementById('menu-new-chat');
+
+// Hook drawer shortcut buttons
+const promptAbout = document.getElementById('prompt-about');
+const promptProjects = document.getElementById('prompt-projects');
+const promptSkills = document.getElementById('prompt-skills');
+const promptContact = document.getElementById('prompt-contact');
+
 // Audio states (unmuted by default)
 let isMuted = false;
+let hasSpokenIntro = false;
 
 // Handle Speaker Toggle
 speakerToggle.addEventListener('click', () => {
@@ -34,7 +51,6 @@ if ('speechSynthesis' in window) {
 
 /**
  * Clean markdown symbols and emojis for clean Speech Synthesis output.
- * @param {string} text 
  */
 function cleanSpeechText(text) {
   return text
@@ -56,7 +72,6 @@ function cleanSpeechText(text) {
 
 /**
  * Read text out loud using Web Speech Synthesis.
- * @param {string} text 
  */
 function speakText(text) {
   if (isMuted || !('speechSynthesis' in window)) return;
@@ -77,6 +92,70 @@ function speakText(text) {
   utterance.rate = 1.05; // Conversational pacing
   window.speechSynthesis.speak(utterance);
 }
+
+/**
+ * Speaks the landing welcome introduction.
+ */
+function triggerLandingVoiceover() {
+  if (hasSpokenIntro || !welcomeIntro || app.classList.contains('chat-mode')) return;
+  hasSpokenIntro = true;
+  
+  const textToRead = "Welcome to my portfolio. Ask anything about me. I am a U X Strategist, System Thinker and Product Designer.";
+  setTimeout(() => {
+    speakText(textToRead);
+  }, 600);
+
+  // Remove interaction triggers
+  document.removeEventListener('click', triggerLandingVoiceover);
+  document.removeEventListener('touchstart', triggerLandingVoiceover);
+}
+
+document.addEventListener('click', triggerLandingVoiceover);
+document.addEventListener('touchstart', triggerLandingVoiceover);
+window.addEventListener('DOMContentLoaded', triggerLandingVoiceover);
+
+/**
+ * Drawer Toggle Event Listeners
+ */
+if (menuBtn && sideDrawer && closeDrawerBtn) {
+  menuBtn.addEventListener('click', () => {
+    sideDrawer.classList.add('open');
+  });
+
+  closeDrawerBtn.addEventListener('click', () => {
+    sideDrawer.classList.remove('open');
+  });
+
+  // Close drawer if user clicks on the dimmed background
+  sideDrawer.addEventListener('click', (e) => {
+    if (e.target === sideDrawer) {
+      sideDrawer.classList.remove('open');
+    }
+  });
+}
+
+// Drawer reset to new chat/landing page
+if (menuNewChat) {
+  menuNewChat.addEventListener('click', () => {
+    sideDrawer.classList.remove('open');
+    resetToLanding();
+  });
+}
+
+// Drawer Shortcut Prompts trigger submissions
+const setupShortcut = (btnEl, promptText) => {
+  if (btnEl) {
+    btnEl.addEventListener('click', () => {
+      sideDrawer.classList.remove('open');
+      handleUserSubmit(promptText);
+    });
+  }
+};
+
+setupShortcut(promptAbout, "Tell me about yourself");
+setupShortcut(promptProjects, "Show me your projects");
+setupShortcut(promptSkills, "What are your skills?");
+setupShortcut(promptContact, "How can I contact you?");
 
 /**
  * Web Speech Recognition Configuration
@@ -113,11 +192,11 @@ if (SpeechRecognition) {
     stopListeningState();
   };
 
-  micBtn.addEventListener('click', () => {
+  micBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (isListening) {
       recognition.stop();
     } else {
-      // Cancel speech synthesis to prevent feedback loop
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
@@ -129,39 +208,31 @@ if (SpeechRecognition) {
     }
   });
 } else {
-  // Hide voice button if browser lacks SpeechRecognition support
   micBtn.style.display = 'none';
 }
 
 function stopListeningState() {
   isListening = false;
   micBtn.classList.remove('listening');
-  messageInput.placeholder = "Type a message or click a chip...";
+  messageInput.placeholder = "Ask me anything about me";
 }
 
 /**
  * Format raw message text into HTML.
- * Supports bold syntax (**text**) and basic lists (- or *).
- * @param {string} text 
- * @returns {string} HTML string
  */
 function formatMarkdown(text) {
   if (!text) return "";
   
-  // Escape HTML tags to prevent XSS
   let formatted = text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-  // Bold text (**word** or **phrase**)
   formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-  // Bullet point lists
   const lines = formatted.split('\n');
   let inList = false;
   const processedLines = lines.map(line => {
-    // Check if line starts with bullet point
     const match = line.match(/^(\s*)([•\-\*\d+\.])\s+(.*)/);
     if (match) {
       const isOrdered = /^\d+/.test(match[2]);
@@ -177,7 +248,7 @@ function formatMarkdown(text) {
       let suffix = "";
       if (inList) {
         inList = false;
-        suffix = '</ul>'; // fallback close tag
+        suffix = '</ul>';
       }
       return `${suffix}${line}`;
     }
@@ -191,42 +262,197 @@ function formatMarkdown(text) {
 }
 
 /**
- * Renders a new message bubble in the conversation view.
- * @param {string} text 
- * @param {boolean} isUser 
+ * Appends copy button panel to bot bubbles.
  */
-function appendMessage(text, isUser = false) {
+function createMessageActions(textToCopy) {
+  const container = document.createElement('div');
+  container.className = 'message-actions';
+
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'action-btn';
+  copyBtn.title = 'Copy response';
+  copyBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+  `;
+
+  copyBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      copyBtn.style.color = 'var(--accent-blue)';
+      setTimeout(() => {
+        copyBtn.style.color = 'var(--text-secondary)';
+      }, 1000);
+    });
+  });
+
+  container.appendChild(copyBtn);
+  return container;
+}
+
+/**
+ * Evaluates responses and appends interactive cards.
+ */
+function checkAndAppendRichContent(text, container) {
+  const lowercaseText = text.toLowerCase();
+
+  // Skills Visual Graph
+  if (lowercaseText.includes("technology matrix") || lowercaseText.includes("core technology matrix")) {
+    const card = document.createElement('div');
+    card.className = 'skill-card';
+    card.innerHTML = `
+      <div class="skill-row">
+        <div class="skill-header"><span>Frontend Development</span><span>92%</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="92%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Design & CSS Mechanics</span><span>88%</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="88%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Modular Frameworks</span><span>85%</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="85%"></div></div>
+      </div>
+    `;
+    container.appendChild(card);
+    
+    setTimeout(() => {
+      card.querySelectorAll('.skill-bar-inner').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width');
+      });
+    }, 100);
+  }
+
+  // Project cards
+  if (lowercaseText.includes("spotlight projects") || lowercaseText.includes("selected work highlights")) {
+    const p1 = document.createElement('div');
+    p1.className = 'project-card';
+    p1.innerHTML = `
+      <div class="project-card-title">🛸 AeroChat (Mobile Core)</div>
+      <div class="project-card-desc">Interactive mobile-optimized AI chat container highlighting glassmorphism.</div>
+      <div class="project-tags">
+        <span class="project-tag">HTML5</span><span class="project-tag">CSS Variables</span><span class="project-tag">Vanilla JS</span>
+      </div>
+    `;
+    p1.addEventListener('click', () => handleUserSubmit("AeroChat"));
+
+    const p2 = document.createElement('div');
+    p2.className = 'project-card';
+    p2.innerHTML = `
+      <div class="project-card-title">💎 Lumina Dashboard</div>
+      <div class="project-card-desc">Real-time telemetry HUD displaying SVG datasets and canvas lines.</div>
+      <div class="project-tags">
+        <span class="project-tag">Canvas API</span><span class="project-tag">Grid</span><span class="project-tag">HSL System</span>
+      </div>
+    `;
+    p2.addEventListener('click', () => handleUserSubmit("Lumina Dashboard"));
+
+    container.appendChild(p1);
+    container.appendChild(p2);
+  }
+}
+
+/**
+ * Appends user messages.
+ */
+function appendUserMessage(text) {
   const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${isUser ? 'message-user' : 'message-bot'}`;
-  
-  // Create message text container
+  messageDiv.className = 'message message-user';
+
   const contentSpan = document.createElement('span');
   contentSpan.innerHTML = formatMarkdown(text);
   messageDiv.appendChild(contentSpan);
 
-  // Time label
   const timeSpan = document.createElement('span');
   timeSpan.className = 'time-stamp';
   const now = new Date();
-  const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  timeSpan.textContent = timeStr;
+  timeSpan.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
   messageDiv.appendChild(timeSpan);
 
-  // Append to chat stream
   messagesLog.appendChild(messageDiv);
   scrollToBottom();
 }
 
 /**
- * Scrolls the messages container to the bottom.
+ * Word Streaming Text Engine.
+ */
+function streamBotMessage(fullText, chips) {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message message-bot';
+
+  const contentSpan = document.createElement('span');
+  messageDiv.appendChild(contentSpan);
+
+  // Blinking terminal cursor
+  const cursorSpan = document.createElement('span');
+  cursorSpan.className = 'typing-cursor';
+  messageDiv.appendChild(cursorSpan);
+
+  const timeSpan = document.createElement('span');
+  timeSpan.className = 'time-stamp';
+  const now = new Date();
+  timeSpan.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  messageDiv.appendChild(timeSpan);
+
+  messagesLog.appendChild(messageDiv);
+  scrollToBottom();
+
+  const words = fullText.split(' ');
+  let currentWordIndex = 0;
+  let accumulatedHTML = "";
+  
+  let shouldAutoScroll = true;
+  const scrollHandler = () => {
+    const threshold = 40;
+    shouldAutoScroll = (messagesLog.scrollHeight - messagesLog.scrollTop - messagesLog.clientHeight) < threshold;
+  };
+  messagesLog.addEventListener('scroll', scrollHandler);
+
+  const streamInterval = setInterval(() => {
+    if (currentWordIndex < words.length) {
+      accumulatedHTML = formatMarkdown(words.slice(0, currentWordIndex + 1).join(' '));
+      contentSpan.innerHTML = accumulatedHTML;
+      currentWordIndex++;
+      
+      if (shouldAutoScroll) {
+        scrollToBottom();
+      }
+    } else {
+      clearInterval(streamInterval);
+      messagesLog.removeEventListener('scroll', scrollHandler);
+      cursorSpan.remove();
+      
+      // Actions
+      messageDiv.appendChild(createMessageActions(fullText));
+      
+      // Rich Components
+      checkAndAppendRichContent(fullText, messageDiv);
+      
+      // Chips
+      renderChips(chips);
+      chipsContainer.style.opacity = '1';
+      chipsContainer.style.pointerEvents = 'auto';
+      
+      if (shouldAutoScroll) {
+        scrollToBottom();
+      }
+      
+      speakText(fullText);
+    }
+  }, 45);
+}
+
+/**
+ * Scroll to bottom.
  */
 function scrollToBottom() {
   messagesLog.scrollTop = messagesLog.scrollHeight;
 }
 
 /**
- * Updates suggestion chips in the footer.
- * @param {string[]} chips 
+ * Render quick action chips.
  */
 function renderChips(chips) {
   chipsContainer.innerHTML = '';
@@ -238,9 +464,7 @@ function renderChips(chips) {
     chipBtn.textContent = chipText;
     chipBtn.type = 'button';
     
-    // Clicking triggers sending the chip text
     chipBtn.addEventListener('click', () => {
-      // Cancel speech synthesis if user selects new option
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
@@ -252,49 +476,56 @@ function renderChips(chips) {
 }
 
 /**
- * Simulates bot typing logic and prints response.
- * @param {string} text 
- * @param {string[]} chips 
+ * Simulate response timers.
  */
 function simulateResponse(text, chips) {
-  // Show typing animation
   typingIndicator.style.display = 'block';
   scrollToBottom();
 
-  // Hide chips during typing
   chipsContainer.style.opacity = '0.3';
   chipsContainer.style.pointerEvents = 'none';
 
-  // Calculate dynamic delay based on reply length
-  const baseDelay = 600;
-  const wordDelay = Math.min(1200, text.split(' ').length * 30);
-  const totalDelay = baseDelay + wordDelay;
-
   setTimeout(() => {
     typingIndicator.style.display = 'none';
-    appendMessage(text, false);
-    renderChips(chips);
-    chipsContainer.style.opacity = '1';
-    chipsContainer.style.pointerEvents = 'auto';
-    speakText(text); // Speak bot reply
-  }, totalDelay);
+    streamBotMessage(text, chips);
+  }, 650);
+}
+
+/**
+ * Transition the app from landing-mode to chat-mode.
+ */
+function transitionToChatMode() {
+  if (app.classList.contains('landing-mode')) {
+    app.classList.remove('landing-mode');
+    app.classList.add('chat-mode');
+    
+    // Stop initial voiceover when entering chat
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
 }
 
 /**
  * Core submission handler.
- * @param {string} inputVal 
  */
 function handleUserSubmit(inputVal) {
   if (!inputVal.trim()) return;
 
-  // Render user bubble
-  appendMessage(inputVal, true);
-
-  // Fetch response from brain
-  const reply = brain.processMessage(inputVal);
-
-  // Trigger simulated answer sequence
-  simulateResponse(reply.text, reply.chips);
+  // Trigger UI transition if we are in landing page
+  if (app.classList.contains('landing-mode')) {
+    transitionToChatMode();
+    // Delay message load slightly to match smooth center-to-bottom animation
+    setTimeout(() => {
+      appendUserMessage(inputVal);
+      const reply = brain.processMessage(inputVal);
+      simulateResponse(reply.text, reply.chips);
+    }, 550);
+  } else {
+    appendUserMessage(inputVal);
+    const reply = brain.processMessage(inputVal);
+    simulateResponse(reply.text, reply.chips);
+  }
 }
 
 // Event listener for chat form submission
@@ -302,35 +533,53 @@ chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const val = messageInput.value;
   messageInput.value = '';
+  // reset input height on submit
+  messageInput.style.height = 'auto';
   handleUserSubmit(val);
 });
 
-// Event listener for reset/clear button
-resetBtn.addEventListener('click', () => {
+// Autogrowing input box height handler
+messageInput.addEventListener('input', () => {
+  messageInput.style.height = 'auto';
+  messageInput.style.height = messageInput.scrollHeight + 'px';
+});
+
+// Also trigger transition if they type enter key inside textarea
+messageInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    chatForm.dispatchEvent(new Event('submit'));
+  }
+});
+
+/**
+ * Resets conversational parameters and goes back to Screen 1.
+ */
+function resetToLanding() {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
   }
   messagesLog.innerHTML = '';
   brain.reset();
-  initWelcome();
-});
-
-/**
- * Welcomes user to the app on initial start.
- */
-function initWelcome() {
-  const welcome = brain.data.welcome;
-  simulateResponse(welcome.responses[0], welcome.chips);
+  
+  // Return to landing page state
+  app.classList.remove('chat-mode');
+  app.classList.add('landing-mode');
+  messageInput.value = '';
+  messageInput.style.height = 'auto';
+  hasSpokenIntro = false;
+  triggerLandingVoiceover();
 }
+
+// Reset button event trigger
+resetBtn.addEventListener('click', resetToLanding);
 
 // App lifecycle init
 async function startApp() {
   try {
     await brain.init('./brain_data.json');
-    initWelcome();
   } catch (err) {
     console.error("App startup failed:", err);
-    appendMessage("Error initializing portfolio matrix. Please reload.", false);
   }
 }
 
