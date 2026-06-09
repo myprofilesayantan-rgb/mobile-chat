@@ -574,6 +574,24 @@ function resetToLanding() {
 // Reset button event trigger
 resetBtn.addEventListener('click', resetToLanding);
 
+// Keep app-container viewport-bound on mobile devices when virtual keyboard pops up
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    if (window.innerWidth <= 480) {
+      const height = window.visualViewport.height;
+      app.style.height = `${height}px`;
+      
+      if (app.classList.contains('chat-mode')) {
+        setTimeout(() => {
+          messagesLog.scrollTop = messagesLog.scrollHeight;
+        }, 80);
+      }
+    } else {
+      app.style.height = '';
+    }
+  });
+}
+
 // App lifecycle init
 async function startApp() {
   try {
