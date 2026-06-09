@@ -92,7 +92,7 @@ body {
 .chat-header {
   padding: 12px 16px;
   background: var(--background);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,10 +111,17 @@ body {
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: 4px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+  background-color: var(--background-alt);
 }
 
 .menu-button svg {
@@ -158,7 +165,8 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  width: 38px;
+  height: 38px;
   color: var(--text-secondary);
   border-radius: 50%;
   display: flex;
@@ -189,8 +197,8 @@ body {
   align-items: center;
   text-align: center;
   padding: 0 24px;
-  margin-top: 36px;
-  margin-bottom: 24px;
+  margin-top: auto;
+  margin-bottom: 12px;
   max-height: 220px;
   opacity: 1;
   overflow: hidden;
@@ -368,7 +376,7 @@ body {
 
 /* In landing mode, vertical margins push card to center */
 .landing-mode .input-box-wrapper {
-  margin-top: 10px;
+  margin-top: 0;
   margin-bottom: auto;
 }
 
@@ -383,11 +391,11 @@ body {
   background: var(--background);
   border: 1px solid var(--border-light);
   border-radius: 20px;
-  padding: 12px 14px 10px 14px;
+  padding: 14px 16px 12px 16px;
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
 }
 
@@ -404,8 +412,8 @@ body {
   font-size: 14px;
   color: var(--text-primary);
   outline: none;
-  min-height: 24px;
-  max-height: 80px;
+  min-height: 36px;
+  max-height: 90px;
   line-height: 1.5;
 }
 
@@ -427,8 +435,8 @@ body {
 }
 
 .circle-btn {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--background-alt);
   border: none;
@@ -447,14 +455,14 @@ body {
 }
 
 .circle-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Circle Send Button */
 .send-btn-circle {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--text-primary);
   border: none;
@@ -476,8 +484,8 @@ body {
 }
 
 .send-btn-circle svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 /* Sound Wave & Listening pulse animations */
@@ -532,13 +540,16 @@ body {
 .partner-logo-large {
   height: 24px;
   object-fit: contain;
-  filter: grayscale(1) opacity(0.75);
 }
 
 .partner-logo {
   height: 18px;
   object-fit: contain;
-  filter: grayscale(1) opacity(0.75);
+}
+
+/* Invert white text in logos to black while preserving their brand colors */
+.logo-invert-text {
+  filter: invert(1) hue-rotate(180deg);
 }
 
 .hurix-logo-text {
@@ -644,8 +655,8 @@ body {
 }
 
 .action-btn {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--background-alt);
   border: 1px solid var(--border-light);
@@ -663,8 +674,8 @@ body {
 }
 
 .action-btn svg {
-  width: 11px;
-  height: 11px;
+  width: 13px;
+  height: 13px;
 }
 
 /* Rich Component Cards */
@@ -838,11 +849,13 @@ body {
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: 6px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  transition: background-color 0.2s ease;
 }
 
 .close-btn:hover {
@@ -915,6 +928,63 @@ body {
   border-top: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
+}
+
+/* Landscape Orientation Warning Overlay */
+.landscape-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.warning-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 320px;
+}
+
+.warning-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--accent-blue);
+  animation: rotate-device 2s infinite ease-in-out;
+}
+
+.warning-content h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.warning-content p {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@keyframes rotate-device {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+}
+
+/* Show warning overlay only on mobile screen widths in landscape mode */
+@media (max-width: 900px) and (orientation: landscape) {
+  .landscape-warning {
+    display: flex;
+  }
 }
 
 /* Mobile responsive query */
