@@ -115,7 +115,7 @@ function triggerLandingVoiceover() {
   if (hasSpokenIntro || !welcomeIntro || app.classList.contains('chat-mode')) return;
   hasSpokenIntro = true;
   
-  const textToRead = "Welcome to my portfolio. Ask anything about me. I am a U X Strategist, System Thinker and Product Designer.";
+  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my portfolio. Ask me anything about my U X strategy, case studies, or product thinking.";
   setTimeout(() => {
     speakText(textToRead);
   }, 600);

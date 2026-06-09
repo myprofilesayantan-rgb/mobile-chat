@@ -5,7 +5,7 @@
   --background-alt: #f9fafb;
   --text-primary: #111827;
   --text-secondary: #4b5563;
-  --text-tertiary: #9ca3af;
+  --text-tertiary: #6b7280; /* Darker gray for WCAG AA compliance (4.5:1 minimum contrast) */
   --border-light: #e5e7eb;
   --accent-blue: #3b82f6;
   --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 8px 15px -6px rgba(0, 0, 0, 0.04);
@@ -25,6 +25,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Accessible focus outlines for keyboard navigators */
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible {
+  outline: 2.5px solid var(--accent-blue);
+  outline-offset: 2px;
 }
 
 html, body {
@@ -586,6 +594,22 @@ body {
 .partner-logo {
   height: 16px;
   object-fit: contain;
+}
+
+.natgeo-symbol-wrap {
+  width: 12px;
+  height: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.natgeo-symbol-wrap img {
+  height: 16px;
+  max-width: none;
+  object-fit: cover;
+  object-position: left;
 }
 
 .divider-line {

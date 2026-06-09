@@ -101,13 +101,13 @@
       
       <!-- Screen 1 Intro Welcome Text (Centered) -->
       <div class="welcome-intro-container" id="welcome-intro">
-        <h1 class="welcome-title">Hi!</h1>
-        <p class="welcome-subtitle">Welcome to my portfolio.<br>Ask anything about me.</p>
-        <p class="welcome-desc">I am a UX Strategist, System Thinker & Product Design</p>
+        <h1 class="welcome-title">Hi, I'm Sayantan.</h1>
+        <p class="welcome-subtitle">I bridge the gap between complex systems and intuitive user experiences.</p>
+        <p class="welcome-desc">Ask me anything about my UX strategy, case studies, or product thinking.</p>
       </div>
 
       <!-- Chat Messages Scroll Area -->
-      <main class="messages-container" id="messages-log">
+      <main class="messages-container" id="messages-log" aria-live="polite" aria-relevant="additions">
         <!-- Messages will stream here dynamically in chat mode -->
       </main>
 
@@ -144,7 +144,7 @@
             </div>
             <!-- Bottom Right Controls -->
             <div class="controls-right">
-              <button type="button" class="circle-btn" id="speaker-toggle" title="Toggle Voice Responses">
+              <button type="button" class="circle-btn" id="speaker-toggle" title="Toggle Voice Responses" aria-label="Toggle voice responses">
                 <svg id="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                   <path id="speaker-wave-1" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -191,12 +191,15 @@
           
           <div class="divider-line"></div>
           
-          <!-- Group 2: Worked through tenXengage (National Geographic & Hurix Digital) -->
+          <!-- Group 2: Worked through tenXengage (National Geographic, Blue Dart, & McGraw-Hill) -->
           <div class="partner-group">
             <span class="partner-group-label">Worked through tenXengage</span>
             <div class="partner-group-logos">
-              <img src="images/netgio_color.png" alt="National Geographic" class="partner-logo">
-              <img src="images/hurix_color.webp" alt="Hurix Digital" class="partner-logo">
+              <div class="natgeo-symbol-wrap">
+                <img src="images/netgio_color.png" alt="National Geographic" class="partner-logo">
+              </div>
+              <img src="images/bluedart_color.png" alt="Blue Dart" class="partner-logo">
+              <img src="images/mcgrawhill_color.png" alt="McGraw-Hill" class="partner-logo">
             </div>
           </div>
 
