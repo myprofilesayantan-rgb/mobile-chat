@@ -525,9 +525,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 24px 24px 30px 24px;
-  text-align: center;
+  padding: 16px 20px 24px 20px;
   margin-top: auto;
   max-height: 260px;
   opacity: 1;
@@ -538,36 +536,65 @@ body {
   width: 100%;
 }
 
-.partner-row {
+.partners-scroller {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.partners-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.partner-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.partner-group-label {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.partner-group-logos {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
-  width: 100%;
+  gap: 20px;
+  height: 28px;
 }
 
 .partner-logo-large {
-  height: 24px;
+  height: 20px;
   object-fit: contain;
 }
 
 .partner-logo {
-  height: 18px;
+  height: 16px;
   object-fit: contain;
+}
+
+.divider-line {
+  width: 1px;
+  background-color: var(--border-light);
+  align-self: stretch;
+  margin: 4px 0;
+  flex-shrink: 0;
 }
 
 /* Invert white text in logos to black while preserving their brand colors */
 .logo-invert-text {
   filter: invert(1) hue-rotate(180deg);
-}
-
-.partners-subtext {
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  margin-bottom: 2px;
 }
 
 /* Transition to Chat Mode: collapse screen 1 intro & logos */
