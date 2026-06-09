@@ -47,7 +47,7 @@ body {
   background-color: var(--background-deep);
   color: var(--on-surface);
   font-family: var(--font-family);
-  height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -358,7 +358,7 @@ body {
 
 /* Input Area Container */
 .input-container {
-  padding: 16px 20px 24px 20px; /* Extra bottom padding for safe-area layout */
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 16px)) 20px; /* Account for iOS/Android home bars */
   background: var(--surface-glass);
   border-top: 1px solid var(--surface-glass-border);
   backdrop-filter: blur(20px);
@@ -467,8 +467,8 @@ body {
     background-color: var(--surface-container-lowest);
   }
   .app-container {
-    height: 100vh;
-    max-height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     border-radius: 0;
     border: none;
   }
