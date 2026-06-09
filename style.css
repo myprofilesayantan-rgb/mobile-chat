@@ -559,6 +559,10 @@ body {
   flex-shrink: 0;
 }
 
+.partner-group.no-label {
+  margin-top: auto;
+}
+
 .partner-group-label {
   font-size: 8px;
   text-transform: uppercase;
