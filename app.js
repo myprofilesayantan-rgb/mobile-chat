@@ -84,7 +84,11 @@ function speakText(text) {
   
   // Prioritize a male English voice based on standard OS/browser voice lists
   const voices = window.speechSynthesis.getVoices();
-  const maleKeywords = ['david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male'];
+  const maleKeywords = [
+    'david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male',
+    'arthur', 'gordon', 'aaron', 'rishi', 'en-us-x-sfg#male', 'en-gb-x-fis', 
+    'en-us-x-iom', 'en-us-x-iog', 'en-us-x-tfn'
+  ];
   
   let chosenVoice = voices.find(v => {
     const nameLower = v.name.toLowerCase();
