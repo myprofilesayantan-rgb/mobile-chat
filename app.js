@@ -82,11 +82,22 @@ function speakText(text) {
   const cleaned = cleanSpeechText(text);
   const utterance = new SpeechSynthesisUtterance(cleaned);
   
-  // Find standard English voice
+  // Prioritize a male English voice based on standard OS/browser voice lists
   const voices = window.speechSynthesis.getVoices();
-  const enVoice = voices.find(v => v.lang.startsWith('en'));
-  if (enVoice) {
-    utterance.voice = enVoice;
+  const maleKeywords = ['david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male'];
+  
+  let chosenVoice = voices.find(v => {
+    const nameLower = v.name.toLowerCase();
+    return v.lang.startsWith('en') && maleKeywords.some(keyword => nameLower.includes(keyword));
+  });
+
+  // Fallback to any English voice if a male one is not explicitly found
+  if (!chosenVoice) {
+    chosenVoice = voices.find(v => v.lang.startsWith('en'));
+  }
+
+  if (chosenVoice) {
+    utterance.voice = chosenVoice;
   }
   
   utterance.rate = 1.05; // Conversational pacing

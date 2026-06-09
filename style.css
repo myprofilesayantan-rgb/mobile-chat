@@ -326,7 +326,7 @@ body {
 
 /* Suggestion Chips Row */
 .quick-reply-wrapper {
-  padding: 8px 16px;
+  padding: 4px 0 10px 0;
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
