@@ -197,7 +197,7 @@ body {
   align-items: center;
   text-align: center;
   padding: 0 24px;
-  margin-top: auto;
+  margin-top: 64px;
   margin-bottom: 12px;
   max-height: 220px;
   opacity: 1;
@@ -559,15 +559,6 @@ body {
 /* Invert white text in logos to black while preserving their brand colors */
 .logo-invert-text {
   filter: invert(1) hue-rotate(180deg);
-}
-
-.hurix-logo-text {
-  font-size: 14px;
-  font-weight: 700;
-  color: #111827;
-  letter-spacing: -0.02em;
-  font-family: var(--font-ui);
-  text-transform: lowercase;
 }
 
 .partners-subtext {
