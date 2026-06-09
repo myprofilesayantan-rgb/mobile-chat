@@ -43,11 +43,18 @@
   padding: 0;
 }
 
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+
 body {
   background-color: var(--background-deep);
   color: var(--on-surface);
   font-family: var(--font-family);
-  height: 100dvh; /* Use dynamic viewport height */
+  height: 100%;
+  height: -webkit-fill-available;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -467,8 +474,10 @@ body {
     background-color: var(--surface-container-lowest);
   }
   .app-container {
-    height: 100dvh;
-    max-height: 100dvh;
+    height: 100%;
+    height: -webkit-fill-available;
+    max-height: 100%;
+    max-height: -webkit-fill-available;
     border-radius: 0;
     border: none;
   }
