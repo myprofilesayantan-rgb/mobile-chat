@@ -1,0 +1,95 @@
+{
+  "welcome": {
+    "responses": [
+      "Hello! I am **Architect AI**, a virtual representation of the developer's portfolio. I can tell you about their **skills**, **projects**, **experience**, and how to **contact** them. What would you like to explore first?"
+    ],
+    "chips": ["Show Projects", "Explore Skills", "About Developer", "Get Contact Details"]
+  },
+  "fallback": {
+    "responses": [
+      "I'm not sure I understood that correctly. Try asking about my **skills**, **projects**, or **contact** details, or select one of the suggestions below.",
+      "Hmm, my neural nodes didn't quite parse that. Try typing 'skills' or 'projects' to navigate my portfolio module.",
+      "Interesting query! However, my core matrix is trained on the developer's portfolio. Ask me about their projects, experience, or tech stack!"
+    ],
+    "chips": ["Explore Skills", "Show Projects", "Get Contact Details", "About Developer"]
+  },
+  "intents": [
+    {
+      "id": "greeting",
+      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init"],
+      "responses": [
+        "System initialized. Connection established. Welcome! How can I help you explore this portfolio today?",
+        "Hello! I am ready to transmit data. Ask me about the developer's projects, technical skills, or work history!"
+      ],
+      "chips": ["Explore Skills", "Show Projects", "About Developer"]
+    },
+    {
+      "id": "about",
+      "keywords": ["about", "who", "developer", "creator", "profile", "bio", "designer", "architect", "you"],
+      "responses": [
+        "The creator of this portfolio is a passionate frontend developer and digital architect specializing in premium, highly interactive web applications. They focus on rich aesthetics, smooth animations, and solid code architecture.",
+        "They are a digital architect who bridges design and technology. They love crafting responsive interfaces, futuristic dark modes, and glassmorphic user experiences that work beautifully across all mobile form factors."
+      ],
+      "chips": ["Show Projects", "Explore Skills", "Get Contact Details"]
+    },
+    {
+      "id": "skills",
+      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "code", "frontend", "javascript", "css", "html", "react", "nextjs", "node"],
+      "responses": [
+        "Here is the developer's core technology matrix:\n\n⚡ **Frontend**: JavaScript (ES6+), HTML5, CSS3/SCSS, React.js, Next.js\n⚡ **Design/Styling**: Responsive Layouts, Glassmorphism, Micro-animations, CSS Grid/Flexbox\n⚡ **Tools & Systems**: Git/GitHub, Node.js, Webpack, Vite, Mobile-first optimization\n\nThey pride themselves on writing clean, modular code with rich interactive design.",
+        "The technical stack consists of:\n\n- **Core Languages**: Modern JavaScript (Vanilla JS is a favorite!), HTML5, and Semantic Layouts.\n- **Styling Master**: CSS3 custom variables, fluid design systems, and HSL palettes.\n- **Modern Workflows**: Component-driven development, git-based workflows, and cross-device responsive tuning."
+      ],
+      "chips": ["Show Projects", "Get Contact Details", "About Developer"]
+    },
+    {
+      "id": "projects",
+      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products"],
+      "responses": [
+        "Here are a few spotlight projects:\n\n1. 🛸 **AeroChat (Mobile Core)**: A responsive chat simulation with glassmorphic layout, micro-interactions, and local state sync.\n2. 💎 **Lumina Dashboard**: A high-density dark-mode system dashboard emphasizing fluid grid alignment and canvas-based telemetry display.\n3. 📦 **Modula-CSS**: A micro-utility classless CSS design system for rapid UI mockup.\n\nType the name of any project (e.g., **AeroChat**) to get a detailed breakdown!",
+        "Selected work highlights:\n\n- 🛸 **AeroChat**: Custom-themed messaging app using localized JSON database routing.\n- 💎 **Lumina Dashboard**: A real-time data-viz dashboard using custom HSL colors and SVG animations.\n- 📦 **Modula-CSS**: A lightweight styling library with modular custom properties.\n\nWhich one would you like to hear more about?"
+      ],
+      "chips": ["AeroChat Info", "Lumina Info", "Modula CSS Info", "Explore Skills"]
+    },
+    {
+      "id": "aerochat",
+      "keywords": ["aerochat", "aero chat", "aero"],
+      "responses": [
+        "**AeroChat (Mobile Core)**\n\n- **Role**: Sole Developer & Designer\n- **Tech**: HTML, CSS Custom Variables, Vanilla JS\n- **Details**: Built to demonstrate high-fidelity glassmorphism. Features dynamic typing indicators, context-aware chip actions, and responsive layout constraints under 480px width."
+      ],
+      "chips": ["Show Projects", "Get Contact Details"]
+    },
+    {
+      "id": "lumina",
+      "keywords": ["lumina", "dashboard", "telemetry"],
+      "responses": [
+        "**Lumina Dashboard**\n\n- **Role**: Creative Developer\n- **Tech**: Canvas API, HSL color tokens, CSS Grid\n- **Details**: Designed as a futuristic telemetry hud. Features real-time SVG charting, auto-adjusting grid layout, and a simulated 50ms render latency."
+      ],
+      "chips": ["Show Projects", "Get Contact Details"]
+    },
+    {
+      "id": "modula",
+      "keywords": ["modula", "css library", "modula-css"],
+      "responses": [
+        "**Modula-CSS**\n\n- **Role**: Open-source Creator\n- **Tech**: CSS Variables, PostCSS, Semantic HTML\n- **Details**: A modern toolset for developing clean, layout-rich websites with minimal styling footprints. Designed specifically for developers who prefer HTML-first configurations."
+      ],
+      "chips": ["Show Projects", "Explore Skills"]
+    },
+    {
+      "id": "experience",
+      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles"],
+      "responses": [
+        "**Professional Milestones**:\n\n- 🚀 **Lead Interactive Engineer** @ Digital Space (2024 - Present): Building state-of-the-art UI architectures.\n- 💻 **Frontend Developer** @ NexaCode (2022 - 2024): Developed responsive layouts, CSS-in-JS components, and design assets.\n- 🎓 **B.S. in Computer Science** (Graduated 2022): Specialized in human-computer interaction and design principles."
+      ],
+      "chips": ["Show Projects", "Explore Skills", "Get Contact Details"]
+    },
+    {
+      "id": "contact",
+      "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "github", "reach", "message", "write"],
+      "responses": [
+        "Let's build something incredible together! ✉️\n\n- 📧 **Email**: dev@architect-ai.local\n- 🐙 **GitHub**: github.com/architect-developer\n- 💼 **LinkedIn**: linkedin.com/in/architect-developer\n\nYou can also leave a message directly in this chat and my developer will fetch it from the database exports!",
+        "You can establish contact via:\n\n- 📧 **Email**: dev@architect-ai.local\n- 💼 **LinkedIn**: linkedin.com/in/architect-developer\n\nFeel free to ask other questions or click below to start over."
+      ],
+      "chips": ["Start Over", "Show Projects"]
+    }
+  ]
+}
