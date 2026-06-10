@@ -678,3 +678,29 @@ if (classicActionDownload) {
     if (cvBtn) cvBtn.click();
   });
 }
+
+// Font Resizer Accessibility controls
+const btnFontDecrease = document.getElementById('btn-font-decrease');
+const btnFontReset = document.getElementById('btn-font-reset');
+const btnFontIncrease = document.getElementById('btn-font-increase');
+const resumeScrollableBody = document.querySelector('.classic-resume-scrollable-body');
+
+function setFontScale(scale, activeBtn) {
+  if (resumeScrollableBody) {
+    resumeScrollableBody.style.setProperty('--resume-font-scale', scale);
+  }
+  [btnFontDecrease, btnFontReset, btnFontIncrease].forEach(btn => {
+    if (btn) btn.classList.remove('active');
+  });
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+if (btnFontDecrease) {
+  btnFontDecrease.addEventListener('click', () => setFontScale(0.85, btnFontDecrease));
+}
+if (btnFontReset) {
+  btnFontReset.addEventListener('click', () => setFontScale(1.0, btnFontReset));
+}
+if (btnFontIncrease) {
+  btnFontIncrease.addEventListener('click', () => setFontScale(1.2, btnFontIncrease));
+}
