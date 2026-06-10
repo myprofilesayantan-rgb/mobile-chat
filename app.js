@@ -39,11 +39,90 @@ const contentClassic = document.getElementById('content-classic');
 const classicShortcutAerochat = document.getElementById('classic-shortcut-aerochat');
 const classicShortcutLumina = document.getElementById('classic-shortcut-lumina');
 const classicActionDownload = document.getElementById('classic-action-download');
-// Audio states (unmuted by default)
-let isMuted = false;
+// Audio states (muted by default until voice support is confirmed)
+let isMuted = true;
 let hasSpokenIntro = false;
 
-// Handle Speaker Toggle
+// Voice keywords for persona matching
+const indianMaleKeywords = ['rishi', 'ravi', 'en-in', 'english (india)', 'english india'];
+const globalMaleKeywords = [
+  'david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male',
+  'arthur', 'gordon', 'aaron', 'en-us-x-sfg#male', 'en-gb-x-fis', 
+  'en-us-x-iom', 'en-us-x-iog', 'en-us-x-tfn'
+];
+
+/**
+ * Check if the browser has an English male voice available, prioritizing Indian English.
+ */
+function getSystemMaleVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  const voices = window.speechSynthesis.getVoices();
+  
+  // 1. Prioritize Indian English male voices
+  let voice = voices.find(v => {
+    const nameLower = v.name.toLowerCase();
+    const langLower = v.lang.toLowerCase();
+    const isIndianEng = langLower.includes('en-in') || langLower.includes('en_in');
+    return isIndianEng && (indianMaleKeywords.some(kw => nameLower.includes(kw)) || nameLower.includes('male'));
+  });
+
+  // 2. Fallback to generic Indian English voice (to retain local accent)
+  if (!voice) {
+    voice = voices.find(v => {
+      const langLower = v.lang.toLowerCase();
+      return langLower.includes('en-in') || langLower.includes('en_in');
+    });
+  }
+
+  // 3. Fallback to global English male voice if Indian accent packs are not installed
+  if (!voice) {
+    voice = voices.find(v => {
+      const nameLower = v.name.toLowerCase();
+      const langLower = v.lang.toLowerCase();
+      return langLower.startsWith('en') && globalMaleKeywords.some(kw => nameLower.includes(kw));
+    });
+  }
+
+  return voice;
+}
+
+/**
+ * Updates voice/speaker/mic visibility based on whether a male English voice is present.
+ */
+function updateVoiceSupport() {
+  const hasSpeechRec = (window.SpeechRecognition || window.webkitSpeechRecognition);
+  
+  if (!('speechSynthesis' in window)) {
+    if (speakerToggle) speakerToggle.style.display = 'none';
+    if (micBtn) micBtn.style.display = 'none';
+    return;
+  }
+  
+  const maleVoice = getSystemMaleVoice();
+  if (!maleVoice) {
+    // If no male voice is available, hide both speaker toggle and mic input to protect the persona
+    isMuted = true;
+    if (speakerToggle) {
+      speakerToggle.classList.add('speaker-muted');
+      speakerToggle.style.display = 'none';
+    }
+    if (micBtn) {
+      micBtn.style.display = 'none';
+    }
+  } else {
+    // Male voice found -> enable controls and defaults
+    isMuted = false;
+    if (speakerToggle) {
+      speakerToggle.classList.remove('speaker-muted');
+      speakerToggle.style.display = '';
+    }
+    if (micBtn && hasSpeechRec) {
+      micBtn.style.display = '';
+    }
+  }
+}
+
+// Handle Speaker Toggle click
 speakerToggle.addEventListener('click', () => {
   isMuted = !isMuted;
   speakerToggle.classList.toggle('speaker-muted', isMuted);
@@ -52,10 +131,11 @@ speakerToggle.addEventListener('click', () => {
   }
 });
 
-// Cache browser voices if supported
+// Cache and verify browser voices when loaded/changed
 if ('speechSynthesis' in window) {
+  updateVoiceSupport();
   window.speechSynthesis.onvoiceschanged = () => {
-    // warming up speech cache
+    updateVoiceSupport();
   };
 }
 
@@ -89,32 +169,18 @@ function speakText(text) {
   // Interrupt any current speaking
   window.speechSynthesis.cancel();
 
+  const maleVoice = getSystemMaleVoice();
+  if (!maleVoice) return; // Do not use generic fallback if it is a female/mismatched voice
+
   const cleaned = cleanSpeechText(text);
   const utterance = new SpeechSynthesisUtterance(cleaned);
+  utterance.voice = maleVoice;
   
-  // Prioritize a male English voice based on standard OS/browser voice lists
-  const voices = window.speechSynthesis.getVoices();
-  const maleKeywords = [
-    'david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male',
-    'arthur', 'gordon', 'aaron', 'rishi', 'en-us-x-sfg#male', 'en-gb-x-fis', 
-    'en-us-x-iom', 'en-us-x-iog', 'en-us-x-tfn'
-  ];
+  // Confident calibration parameters
+  utterance.rate = 1.08;   // Fluent, natural speed
+  utterance.pitch = 0.96;  // Deeper, authoritative resonance
+  utterance.volume = 1.0;  // Full scale volume
   
-  let chosenVoice = voices.find(v => {
-    const nameLower = v.name.toLowerCase();
-    return v.lang.startsWith('en') && maleKeywords.some(keyword => nameLower.includes(keyword));
-  });
-
-  // Fallback to any English voice if a male one is not explicitly found
-  if (!chosenVoice) {
-    chosenVoice = voices.find(v => v.lang.startsWith('en'));
-  }
-
-  if (chosenVoice) {
-    utterance.voice = chosenVoice;
-  }
-  
-  utterance.rate = 1.05; // Conversational pacing
   window.speechSynthesis.speak(utterance);
 }
 
@@ -532,6 +598,22 @@ function transitionToChatMode() {
 }
 
 /**
+ * Logs fallback questions to local storage for portfolio training.
+ */
+function logUnhandledQuestion(question) {
+  if (!question || !question.trim()) return;
+  try {
+    const list = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
+    if (!list.includes(question.trim())) {
+      list.push(question.trim());
+      localStorage.setItem('unhandled_questions', JSON.stringify(list));
+    }
+  } catch (e) {
+    console.error("Failed to log unhandled question:", e);
+  }
+}
+
+/**
  * Core submission handler.
  */
 function handleUserSubmit(inputVal) {
@@ -544,11 +626,17 @@ function handleUserSubmit(inputVal) {
     setTimeout(() => {
       appendUserMessage(inputVal);
       const reply = brain.processMessage(inputVal);
+      if (reply.intentId === 'fallback') {
+        logUnhandledQuestion(inputVal);
+      }
       simulateResponse(reply.text, reply.chips);
     }, 550);
   } else {
     appendUserMessage(inputVal);
     const reply = brain.processMessage(inputVal);
+    if (reply.intentId === 'fallback') {
+      logUnhandledQuestion(inputVal);
+    }
     simulateResponse(reply.text, reply.chips);
   }
 }
@@ -756,3 +844,48 @@ document.addEventListener('touchstart', (e) => {
 document.addEventListener('gesturestart', (e) => {
   e.preventDefault();
 });
+
+// Hidden Developer Panel: Click profile avatar 5 times to download logged unhandled questions
+const avatarImg = document.querySelector('.header-avatar');
+if (avatarImg) {
+  let clickCount = 0;
+  let clickTimeout = null;
+  
+  avatarImg.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(clickTimeout);
+    
+    clickTimeout = setTimeout(() => {
+      clickCount = 0;
+    }, 2000); // Reset count if clicks are spread out
+    
+    if (clickCount >= 5) {
+      clickCount = 0;
+      exportUnhandledQuestions();
+    }
+  });
+}
+
+function exportUnhandledQuestions() {
+  const list = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
+  if (list.length === 0) {
+    alert("No unhandled questions logged yet! The portfolio index successfully answered all queries.");
+    return;
+  }
+  
+  const content = list.join('\n\n');
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'unhandled_questions.txt';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  
+  if (confirm("Unhandled questions exported! Would you like to clear the logged questions history?")) {
+    localStorage.removeItem('unhandled_questions');
+  }
+}

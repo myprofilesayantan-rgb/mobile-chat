@@ -1,17 +1,16 @@
 {
   "welcome": {
     "responses": [
-      "Welcome! I am an interactive portfolio index mapping **Sayantan's professional journey**. Note that I am a structured, rule-based guide designed to navigate his work, not a generative AI chatbot. What would you like to explore first?"
+      "Welcome! I am an interactive portfolio index mapping **Sayantan's professional journey**. Please note that I am a structured, rule-based guide designed to help you explore his design achievements and career milestones, not a generative AI chatbot. What would you like to explore?"
     ],
-    "chips": ["Show Projects", "Explore Skills", "About Sayantan", "Get Contact Details"]
+    "chips": ["Explore Projects", "View Skills", "About Sayantan", "Get Contact Details"]
   },
   "fallback": {
     "responses": [
-      "I didn't quite catch that. Since I am a structured portfolio index of Sayantan's professional journey (and not a general AI chatbot), try asking about his **skills**, **projects**, or **contact** details, or use the menu items below.",
-      "My mapping matrix is focused specifically on Sayantan's career history and projects. Ask me about his tech stack, work experience, or select a quick option below.",
-      "This interface is set up as an interactive guide to Sayantan's UX and product portfolio. Ask me about his projects, experience, or skills!"
+      "I didn't quite catch that. Since I am a structured interactive guide to Sayantan's UX/Product Design portfolio, try asking about his **skills**, **work history**, **projects**, or select one of the options below.",
+      "My dataset is focused specifically on Sayantan Ghosh's product design career, tools, and experience. Ask me about his projects, technical expertise, or choose a shortcut below."
     ],
-    "chips": ["Explore Skills", "Show Projects", "Get Contact Details", "About Sayantan"]
+    "chips": ["View Skills", "Explore Projects", "Get Contact Details", "About Sayantan"]
   },
   "intents": [
     {
@@ -19,36 +18,59 @@
       "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init"],
       "responses": [
         "System initialized. Connection established. Welcome to Sayantan's interactive portfolio guide! How can I help you explore his professional journey today?",
-        "Hello! I am ready to transmit data. Ask me about Sayantan's projects, technical skills, or work history!"
+        "Hello! I am ready to guide you. Ask me about Sayantan's UX strategy, design systems, projects, or professional background!"
       ],
-      "chips": ["Explore Skills", "Show Projects", "About Sayantan"]
+      "chips": ["View Skills", "Explore Projects", "About Sayantan"]
     },
     {
       "id": "about",
-      "keywords": ["about", "who", "developer", "creator", "profile", "bio", "designer", "architect", "you"],
+      "keywords": ["about", "who", "developer", "creator", "profile", "bio", "designer", "architect", "you", "sayantan", "ghosh"],
       "responses": [
-        "This interface is an interactive index for Sayantan Ghosh's professional journey, built to guide you through his work honestly without hiding behind generative AI. Sayantan is a UX Strategist and Product Thinker who specializes in building clean design systems and responsive products.",
-        "I am a structured simulator designed to present Sayantan's career history, project milestones, and tech stack. Feel free to browse through the interactive shortcuts or check the Classic Resume tab for a traditional breakdown!"
+        "Sayantan Ghosh is a seasoned **UX Strategist & Product Thinker** with over 22 years of total experience (9 years in UX/Product Design and 13 years in visual/screen systems). He specializes in end-to-end product ownership, minimizing complexity in enterprise systems, and architecting scalable design systems with token structures.",
+        "With a background spanning major enterprises and global partner portals (such as Google and Cisco), Sayantan excels at translating user friction and data insights into intuitive, production-ready responsive layouts. He recently completed an Executive PG Certification in UI/UX Design from IIT Roorkee."
       ],
-      "chips": ["Show Projects", "Explore Skills", "Get Contact Details"]
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
     },
     {
       "id": "skills",
-      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "code", "frontend", "javascript", "css", "html", "react", "nextjs", "node"],
+      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research"],
       "responses": [
-        "Here is Sayantan's core technology matrix:\n\n⚡ **Frontend**: JavaScript (ES6+), HTML5, CSS3/SCSS, React.js, Next.js\n⚡ **Design/Styling**: Responsive Layouts, Glassmorphism, Micro-animations, CSS Grid/Flexbox\n⚡ **Tools & Systems**: Git/GitHub, Node.js, Webpack, Vite, Mobile-first optimization\n\nHe prides himself on writing clean, modular code with rich interactive design.",
-        "The technical stack consists of:\n\n- **Core Languages**: Modern JavaScript (Vanilla JS is a favorite!), HTML5, and Semantic Layouts.\n- **Styling Master**: CSS3 custom variables, fluid design systems, and HSL palettes.\n- **Modern Workflows**: Component-driven development, git-based workflows, and cross-device responsive tuning."
+        "Here is Sayantan's professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Technologies**: HTML5, Vanilla CSS/SCSS (custom variables, fluid layout mechanics), JavaScript (ES6+)\n📋 **Methodologies**: Human-Centered Design (HCD), Design Thinking, WCAG 2.1 Web Accessibility Guidelines, User Testing, Information Architecture (IA), Wireframing"
       ],
-      "chips": ["Show Projects", "Get Contact Details", "About Sayantan"]
+      "chips": ["Explore Projects", "Work History", "Get Contact Details"]
     },
     {
       "id": "projects",
-      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products"],
+      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products", "case studies"],
       "responses": [
-        "Here are a few spotlight projects:\n\n1. 🛸 **AeroChat (Mobile Core)**: A responsive chat simulation with glassmorphic layout, micro-interactions, and local state sync.\n2. 💎 **Lumina Dashboard**: A high-density dark-mode system dashboard emphasizing fluid grid alignment and canvas-based telemetry display.\n3. 📦 **Modula-CSS**: A micro-utility classless CSS design system for rapid UI mockup.\n\nType the name of any project (e.g., **AeroChat**) to get a detailed breakdown!",
-        "Selected work highlights:\n\n- 🛸 **AeroChat**: Custom-themed messaging app using localized JSON database routing.\n- 💎 **Lumina Dashboard**: A real-time data-viz dashboard using custom HSL colors and SVG animations.\n- 📦 **Modula-CSS**: A lightweight styling library with modular custom properties.\n\nWhich one would you like to hear more about?"
+        "Here are Sayantan's selected product design highlights:\n\n1. 📊 **SmartBI**: Enterprise Conversational AI Space translating complex multi-layered SQL query paths into natural language charts and reporting views.\n2. 🛡️ **SENTINEL**: System mapping tool built to streamline project coordination and isolate navigation blocks.\n3. 🩺 **TRACTO**: High-contrast health ecosystem dashboard for elderly care usability.\n4. 🛸 **AeroChat (Mobile Core)**: Custom-themed messaging app using localized JSON database routing.\n5. 💎 **Lumina Dashboard**: A real-time data-viz telemetry dashboard.\n\nSelect a project below or type its name to learn more details!",
+        "Selected work highlights include **SmartBI**, **SENTINEL**, and **TRACTO** in the enterprise space, along with interface prototypes like **AeroChat** and **Lumina Dashboard**. Which project would you like to explore?"
       ],
-      "chips": ["AeroChat Info", "Lumina Info", "Modula CSS Info", "Explore Skills"]
+      "chips": ["SmartBI Info", "SENTINEL Info", "TRACTO Info", "AeroChat Info", "Lumina Info"]
+    },
+    {
+      "id": "smartbi",
+      "keywords": ["smartbi", "smart bi", "conversational ai", "sql", "business intelligence"],
+      "responses": [
+        "**SmartBI — Enterprise Conversational AI Space**\n\n- **Objective**: Converts complex, multi-layered SQL query paths into a clean conversational natural language user experience.\n- **Design Work**: Designed responsive visualization layouts allowing non-technical stakeholders to build real-time charts and data reporting tables effortlessly.\n- **Impact**: Reduced user search-to-insight friction by optimizing information hierarchy, visual indicators, and cross-device responsive layout standards.\n- **Case Study Link**: [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "sentinel",
+      "keywords": ["sentinel", "automation", "project management", "pm tool"],
+      "responses": [
+        "**SENTINEL — Automation PM Product**\n\n- **Objective**: Designed the interface architecture for a system mapping tool built to clear project friction.\n- **Design Work**: Conducted strict operational audits to map and isolate user navigation blocks, generating a component structure that unifies tracking states and context cards cleanly."
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "tracto",
+      "keywords": ["tracto", "healthcare", "elderly care", "health suite"],
+      "responses": [
+        "**TRACTO — Elderly Healthcare Suite**\n\n- **Objective**: Created UI kits and visual dashboard screens for an integrated data health ecosystem.\n- **Design Work**: Refined dense analytical numbers into high-contrast visual dashboard readouts to safeguard usability for limited tech-literacy audiences."
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
     },
     {
       "id": "aerochat",
@@ -56,7 +78,7 @@
       "responses": [
         "**AeroChat (Mobile Core)**\n\n- **Role**: Sole Developer & Designer\n- **Tech**: HTML, CSS Custom Variables, Vanilla JS\n- **Details**: Built to demonstrate high-fidelity glassmorphism. Features dynamic typing indicators, context-aware chip actions, and responsive layout constraints under 480px width."
       ],
-      "chips": ["Show Projects", "Get Contact Details"]
+      "chips": ["Explore Projects", "Get Contact Details"]
     },
     {
       "id": "lumina",
@@ -64,32 +86,135 @@
       "responses": [
         "**Lumina Dashboard**\n\n- **Role**: Creative Developer\n- **Tech**: Canvas API, HSL color tokens, CSS Grid\n- **Details**: Designed as a futuristic telemetry hud. Features real-time SVG charting, auto-adjusting grid layout, and a simulated 50ms render latency."
       ],
-      "chips": ["Show Projects", "Get Contact Details"]
-    },
-    {
-      "id": "modula",
-      "keywords": ["modula", "css library", "modula-css"],
-      "responses": [
-        "**Modula-CSS**\n\n- **Role**: Open-source Creator\n- **Tech**: CSS Variables, PostCSS, Semantic HTML\n- **Details**: A modern toolset for developing clean, layout-rich websites with minimal styling footprints. Designed specifically for developers who prefer HTML-first configurations."
-      ],
-      "chips": ["Show Projects", "Explore Skills"]
+      "chips": ["Explore Projects", "Get Contact Details"]
     },
     {
       "id": "experience",
-      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles"],
+      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles", "timeline", "tenxengage", "fastcollab", "ayantek", "codelogics", "rummycircle", "playgames24x7", "archive", "blueprint"],
       "responses": [
-        "**Professional Milestones**:\n\n- 🚀 **Lead Interactive Engineer** @ Digital Space (2024 - Present): Building state-of-the-art UI architectures.\n- 💻 **Frontend Developer** @ NexaCode (2022 - 2024): Developed responsive layouts, CSS-in-JS components, and design assets.\n- 🎓 **B.S. in Computer Science** (Graduated 2022): Specialized in human-computer interaction and design principles."
+        "**Professional Experience & Industry Domains**:\n\n- 💼 **Senior Product Designer / Consultant** @ **TenXengage** (Feb 2021 — May 2026)\n  *Domain: Enterprise Portals & Global Collaborations (Google, Cisco)*\n  * Managed complete user journeys and assets for partner portals, raising recurring user satisfaction index scores by 15%.\n\n- 💼 **Senior Product Designer** @ **FastCollab** (June 2020 — Jan 2021)\n  *Domain: AI-driven Financial Corporate Travel (Fintech)*\n  * Formulated responsive wireframes and simplified complex financial ledger tracking logic.\n\n- 💼 **Senior Product Designer / Consultant** @ **Ayantek** (Apr 2017 — Jan 2020)\n  *Domain: High-Density Enterprise B2B SaaS Platforms*\n  * Developed interaction patterns, web app shells, and blueprints for dense client environments.\n\n- 💼 **Senior Product Designer** @ **CodeLogics** (Aug 2013 — Apr 2017)\n  *Domain: Interactive Interface Systems & Modular Scaffolding*\n  * Created pattern libraries to prevent developer layout implementation lag.\n\n- 💼 **Product Designer (UX/UI)** @ **Playgames24x7 (RummyCircle)** (May 2012 — Sep 2013)\n  *Domain: Multiplayer B2C Gaming UI & High-Volume Viewports*\n  * Optimized multiplayer layouts to eliminate accidental misclicks for millions of users.\n\n**Career Blueprint Archive (2003 — 2012)**:\n\n- 💼 **Lean UI Designer** @ **HurixDigital** (2011-2012) *(Domain: E-learning & Digital Publishing)*\n- 💼 **UI Manager & Designer** @ **RoyTech Software** (2008-2011) *(Domain: Enterprise Management Systems)*\n- 💼 **Freelance UI Practice** (2005-2008) *(Domain: Web Graphics & Site Assets)*\n- 💼 **Web Designer** @ **Aforeserve.com** (2003-2005) *(Domain: Web Layouts)*\n\n*(Note: For Sayantan's full 22-year work history details, please check his LinkedIn profile or download the PDF resume.)*"
       ],
-      "chips": ["Show Projects", "Explore Skills", "Get Contact Details"]
+      "chips": ["Explore Projects", "View Skills", "Education Background"]
+    },
+    {
+      "id": "education",
+      "keywords": ["education", "academic", "degree", "qualifications", "foundation", "learning", "study", "general education", "college", "schooling", "hsc", "10+2", "commerce"],
+      "responses": [
+        "Sayantan's academic background merges foundational business principles with specialized visual media and executive product design training:\n\n🎓 **Executive Postgraduate Certification in UI/UX Design** @ **IIT Roorkee** (2024-2025)\n🎓 **Professional Diploma in Web Design & Multi-platform Interactive Media** @ **Arena Animation**\n🎓 **General Education / Commerce**: West Bengal Council of Higher Secondary Education (10+2 Standard Academic Framework), 2001.\n\nFor a full list of specialized interactive systems and AI certifications, please ask about his **certifications**."
+      ],
+      "chips": ["View Certifications", "View Skills", "Work History"]
+    },
+    {
+      "id": "certifications",
+      "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials"],
+      "responses": [
+        "Here are Sayantan's professional certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-2025): Specialized in cognitive human behavior patterns, scalable navigation structures, and data display mechanics.\n🏆 **AI for Designers Professional Certification** — **Interaction Design Foundation (IxDF)** (2026): Focused on AI-assisted visual layout engineering, predictive UI models, and design loops.\n🏆 **Professional Diploma in Web Design & Multi-platform Interactive Media** — **Arena Animation**."
+      ],
+      "chips": ["Education Background", "View Skills", "Work History"]
     },
     {
       "id": "contact",
-      "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "github", "reach", "message", "write"],
+      "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "reach", "message", "write", "medium", "mail", "tel", "mobile"],
       "responses": [
-        "Let's build something incredible together! ✉️\n\n- 📧 **Email**: dev@architect-ai.local\n- 🐙 **GitHub**: github.com/architect-developer\n- 💼 **LinkedIn**: linkedin.com/in/architect-developer\n\nYou can also leave a message directly in this chat and Sayantan will fetch it from the database exports!",
-        "You can establish contact via:\n\n- 📧 **Email**: dev@architect-ai.local\n- 💼 **LinkedIn**: linkedin.com/in/architect-developer\n\nFeel free to ask other questions or click below to start over."
+        "Let's build something incredible together! Here is how you can reach Sayantan:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 💼 **LinkedIn**: linkedin.com/in/uxsayantan\n- ✍️ **Medium**: medium.com/@ghosh.sayantan1982\n- 📞 **Mobile**: +91 99596 29041\n- 📍 **Location**: Hyderabad, Telangana, India\n\nYou can also download his full PDF Resume directly using the download button on the bottom left!"
       ],
-      "chips": ["Start Over", "Show Projects"]
+      "chips": ["Start Over", "Explore Projects"]
+    },
+    {
+      "id": "personal",
+      "keywords": ["personal", "family", "schooling", "hobby", "hobbies", "dob", "birth", "age", "private life"],
+      "responses": [
+        "Sayantan is based in **Hyderabad, India**, where he pursues hobbies related to design systems, exploring new AI-assisted UX paradigms, and digital artwork. He completed his schooling/visual training in West Bengal. To keep this interaction professional, specific personal dates or family background details are kept private."
+      ],
+      "chips": ["View Skills", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "location_preference",
+      "keywords": ["location", "preferred location", "cities", "hyderabad", "relocate", "relocation", "where", "india", "telangana", "pan india", "pan-india", "mumbai", "bangalore", "pune", "delhi", "noida"],
+      "responses": [
+        "Sayantan is based in **Hyderabad, India**, and is fully open to **PAN India** opportunities (including relocation to major tech hubs like Bangalore, Mumbai, Pune, Noida/Delhi NCR, etc.). He is comfortable working in remote, hybrid, or on-site models depending on the role scale."
+      ],
+      "chips": ["Get Contact Details", "Explore Projects"]
+    },
+    {
+      "id": "methodology",
+      "keywords": ["methodology", "research", "methods", "user testing", "hcd", "design thinking", "wireframing", "information architecture", "ia", "heuristics", "process"],
+      "responses": [
+        "Sayantan applies a structured **Human-Centered Design (HCD)** process:\n\n1. **Empathy & Contextual Audits**: Wireframing and analyzing structural user friction points.\n2. **Information Architecture (IA)**: Sculpting user journeys and mapping detailed navigation matrices.\n3. **Figma Mockups & CSS Mechanics**: Translating layout maps into production-ready variables and components.\n4. **Validation**: Applying heuristic framework reviews and WCAG 2.1 compliance audits."
+      ],
+      "chips": ["Explore Projects", "View Skills"]
+    },
+    {
+      "id": "leadership",
+      "keywords": ["leadership", "manage", "lead", "leading", "team", "mentorship", "collaboration", "ownership"],
+      "responses": [
+        "With over 22 years of total industry experience, Sayantan brings robust leadership and end-to-end product ownership. He bridges communication gaps between executive stakeholders, design resources, and engineering teams, translating business targets into actionable components and pixel-perfect design system handoffs."
+      ],
+      "chips": ["Work History", "Get Contact Details"]
+    },
+    {
+      "id": "languages",
+      "keywords": ["languages", "language", "speak", "english", "hindi", "bengali"],
+      "responses": [
+        "Sayantan is fluent in **English**, **Hindi**, and **Bengali**, enabling smooth collaboration with cross-functional global teams."
+      ],
+      "chips": ["Get Contact Details", "Work History"]
+    },
+    {
+      "id": "notice_period",
+      "keywords": ["notice", "notice period", "availability", "when can you start", "start date", "joining", "immediate", "joiner"],
+      "responses": [
+        "Sayantan is an **Immediate Joiner** with no notice period delay. He is ready to begin work immediately upon alignment of terms. Please contact him at ghosh.sayantan1982@gmail.com to schedule an interview."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "current_role",
+      "keywords": ["current role", "present role", "present organization", "current job", "where do you work", "organization"],
+      "responses": [
+        "Sayantan is currently operating as a **Senior Product Designer & UX Consultant** at **TenXengage**, where he has been leading user journey mapping and layout systems for global Google and Cisco partner portals since February 2021."
+      ],
+      "chips": ["Work History", "Explore Projects"]
+    },
+    {
+      "id": "privacy_block",
+      "keywords": ["aadhaar", "pan", "passport", "bank", "account", "documents", "proof", "id number", "salary slip", "identity", "password", "passwords", "login", "credentials", "pin"],
+      "responses": [
+        "To protect data privacy, this portal does not store or share legal documents, identification numbers (Aadhaar, PAN, Passport), account passwords, or banking details. For official onboarding verifications, please reach out to Sayantan directly at ghosh.sayantan1982@gmail.com."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "deflect_jokes",
+      "keywords": ["joke", "jokes", "funny", "laugh", "tell me a joke"],
+      "responses": [
+        "I'd love to share a joke, but my program is currently optimized strictly for design portfolio reviews. Let's keep the focus on Sayantan's product strategy! Feel free to ask about his UX skills or highlight projects."
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    },
+    {
+      "id": "deflect_ctc",
+      "keywords": ["ctc", "salary", "expected ctc", "compensation", "package", "charge", "rates", "money", "how much"],
+      "responses": [
+        "Salary requirements, compensation expectations, and consulting rates are best discussed directly to align on project terms. Please contact Sayantan at ghosh.sayantan1982@gmail.com or call +91 99596 29041 to discuss custom terms."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "deflect_junk",
+      "keywords": ["test", "asdf", "qwerty", "junk", "gibberish", "hmm", "ok", "cool", "fine"],
+      "responses": [
+        "Hmm, it seems like your last message is incomplete or brief. Feel free to explore my structured portfolio guide by asking about my **skills**, **experience**, or **projects**!"
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    },
+    {
+      "id": "abuse_block",
+      "keywords": ["fuck", "shit", "ass", "bitch", "bastard", "idiot", "dick", "cunt", "abuse", "abusive", "stupid"],
+      "responses": [
+        "Let's maintain a professional conversation. I am here to present Sayantan's UX design portfolio, technical skills, and projects. Please let me know if you have any questions about his work."
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
     }
   ]
 }
