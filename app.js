@@ -239,7 +239,7 @@ if (SpeechRecognition) {
 function stopListeningState() {
   isListening = false;
   micBtn.classList.remove('listening');
-  messageInput.placeholder = "Ask me anything about me";
+  messageInput.placeholder = "Explore my professional journey...";
 }
 
 /**
