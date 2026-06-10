@@ -29,6 +29,16 @@ const promptProjects = document.getElementById('prompt-projects');
 const promptSkills = document.getElementById('prompt-skills');
 const promptContact = document.getElementById('prompt-contact');
 
+// Hook tab elements
+const tabInteractive = document.getElementById('tab-interactive');
+const tabClassic = document.getElementById('tab-classic');
+const contentInteractive = document.getElementById('content-interactive');
+const contentClassic = document.getElementById('content-classic');
+
+// Hook classic resume shortcut buttons
+const classicShortcutAerochat = document.getElementById('classic-shortcut-aerochat');
+const classicShortcutLumina = document.getElementById('classic-shortcut-lumina');
+const classicActionDownload = document.getElementById('classic-action-download');
 // Audio states (unmuted by default)
 let isMuted = false;
 let hasSpokenIntro = false;
@@ -618,3 +628,53 @@ async function startApp() {
 
 // Launch
 startApp();
+
+/* ==========================================================================
+   TOP TABS SELECTION & HTML RESUME SHORTCUT ACTIONS
+   ========================================================================== */
+
+function switchTab(activeTabId) {
+  if (activeTabId === 'interactive') {
+    tabInteractive.classList.add('active');
+    tabInteractive.setAttribute('aria-selected', 'true');
+    tabClassic.classList.remove('active');
+    tabClassic.setAttribute('aria-selected', 'false');
+    contentInteractive.classList.add('active');
+    contentClassic.classList.remove('active');
+  } else {
+    tabInteractive.classList.remove('active');
+    tabInteractive.setAttribute('aria-selected', 'false');
+    tabClassic.classList.add('active');
+    tabClassic.setAttribute('aria-selected', 'true');
+    contentInteractive.classList.remove('active');
+    contentClassic.classList.add('active');
+  }
+}
+
+if (tabInteractive && tabClassic) {
+  tabInteractive.addEventListener('click', () => switchTab('interactive'));
+  tabClassic.addEventListener('click', () => switchTab('classic'));
+}
+
+// Map traditional layout clicks back to interactive simulation triggers
+if (classicShortcutAerochat) {
+  classicShortcutAerochat.addEventListener('click', () => {
+    switchTab('interactive');
+    handleUserSubmit("AeroChat");
+  });
+}
+
+if (classicShortcutLumina) {
+  classicShortcutLumina.addEventListener('click', () => {
+    switchTab('interactive');
+    handleUserSubmit("Lumina Dashboard");
+  });
+}
+
+if (classicActionDownload) {
+  classicActionDownload.addEventListener('click', (e) => {
+    e.preventDefault();
+    const cvBtn = document.getElementById('download-btn');
+    if (cvBtn) cvBtn.click();
+  });
+}
