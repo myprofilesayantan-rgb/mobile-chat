@@ -358,6 +358,9 @@ body {
 .chat-mode .quick-reply-wrapper {
   opacity: 1;
   max-height: 50px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch; /* Smooth inertia scrolling on iOS */
 }
 
 .quick-reply-wrapper::-webkit-scrollbar {
