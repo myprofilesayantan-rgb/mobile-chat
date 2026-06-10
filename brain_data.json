@@ -33,9 +33,9 @@
     },
     {
       "id": "skills",
-      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research"],
+      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research", "ux research", "user research"],
       "responses": [
-        "Here is my professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Prototyping (AI-Assisted)**: I design layout systems in Figma, then use Antigravity and AI tools to translate them into pixel-perfect, responsive HTML/CSS staging.\n📋 **Methodologies**: Human-Centered Design (HCD), Design Thinking, WCAG 2.1 Web Accessibility Guidelines, User Testing, Information Architecture (IA), Wireframing"
+        "Here is my professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Prototyping (AI-Assisted)**: I design layout systems in Figma, then use Antigravity and AI tools to translate them into pixel-perfect, responsive HTML/CSS staging.\n📋 **Methodologies**: Human-Centered Design (HCD), Contextual Interviews, Mind Mapping, User Story Writing, Affinity & Empathy Mapping, Prototype Design, User Testing, A/B Testing, WCAG 2.1 Web Accessibility Guidelines, Information Architecture (IA), Wireframing"
       ],
       "chips": ["AI Workflow", "Skill Ratings", "Explore Projects"]
     },
@@ -60,7 +60,7 @@
       "id": "smartbi",
       "keywords": ["smartbi", "smart bi", "conversational ai", "sql", "business intelligence"],
       "responses": [
-        "**SmartBI — Enterprise Conversational AI Space**\n\n- **Objective**: Converts complex, multi-layered SQL query paths into a clean conversational natural language user experience.\n- **Design Work**: I designed responsive visualization layouts allowing non-technical stakeholders to build real-time charts and data reporting tables effortlessly.\n- **Impact**: Reduced user search-to-insight friction by optimizing information hierarchy, visual indicators, and cross-device responsive layout standards.\n- **Case Study Link**: [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)"
+        "**SmartBI — Enterprise Conversational AI Space**\n\n- **Objective**: Converts complex, multi-layered SQL query paths into a clean conversational natural language user experience.\n- **Design Work**: Designed responsive visualization layouts allowing non-technical stakeholders to build real-time charts and data reporting tables effortlessly.\n- **Impact**: Reduced user search-to-insight friction by optimizing information hierarchy, visual indicators, and cross-device responsive layout standards.\n\n🔗 **Explore the Interactive Prototype**: Visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor to interact with the real, fully functional prototype dashboard, or check out my [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)!"
       ],
       "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
     },
@@ -74,9 +74,9 @@
     },
     {
       "id": "tracto",
-      "keywords": ["tracto", "healthcare", "elderly care", "health suite"],
+      "keywords": ["tracto", "healthcare", "elderly care", "health suite", "user research case study", "ux research case study"],
       "responses": [
-        "**TRACTO — Elderly Healthcare Suite**\n\n- **Objective**: I created UI kits and visual dashboard screens for an integrated data health ecosystem.\n- **Design Work**: Refined dense analytical numbers into high-contrast visual dashboard readouts to safeguard usability for limited tech-literacy audiences."
+        "**TRACTO — Elderly Healthcare Suite (Core UX Research Project)**\n\n- **Objective**: Led the end-to-end UX research and interface design for an integrated healthcare data ecosystem built to safeguard usability for elderly patients with limited tech literacy.\n- **UX Research & Methodology**: Conducted **contextual interviews** and usability tests directly with elderly users, mapping findings into **empathy maps** and **affinity mapping** clusters to identify cognitive friction points. Structured the platform flow using **user story writing** and **mind mapping** tools.\n- **Design & Validation**: Designed high-contrast visual dashboard screens and custom UI kits in Figma, translating structures into responsive staging using AI layout assistants. Validated density through targeted **user testing** to replace complex analytical charts with clear, obvious health markers.\n\n🔗 **Explore the Interactive Prototype**: To interact with the live healthcare dashboard screens and responsive UI kit components, visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor."
       ],
       "chips": ["Explore Projects", "Get Contact Details"]
     },
@@ -138,9 +138,9 @@
     },
     {
       "id": "methodology",
-      "keywords": ["methodology", "research", "methods", "user testing", "hcd", "design thinking", "wireframing", "information architecture", "ia", "heuristics", "process"],
+      "keywords": ["methodology", "research", "methods", "user testing", "hcd", "design thinking", "wireframing", "information architecture", "ia", "heuristics", "process", "ab testing", "user stories", "empathy mapping", "affinity mapping", "mind mapping", "interviews", "ux research", "user research"],
       "responses": [
-        "I apply a structured **Human-Centered Design (HCD)** process:\n\n1. **Empathy & Contextual Audits**: Wireframing and analyzing structural user friction points.\n2. **Information Architecture (IA)**: Sculpting user journeys and mapping detailed navigation matrices.\n3. **Figma Mockups & CSS Mechanics**: Translating layout maps into production-ready variables and components.\n4. **Validation**: Applying heuristic framework reviews and WCAG 2.1 compliance audits."
+        "I apply a structured **Human-Centered Design (HCD)** process:\n\n1. 🔍 **Research & Discovery**: Conducting contextual interviews, mind mapping, user story writing, and drafting empathy & affinity maps to isolate core user needs.\n2. 🗺️ **Information Architecture (IA)**: Sculpting user flows, wireframe structures, and mapping detailed navigation frameworks.\n3. 🎨 **Design & Prototyping**: Engineering visual design tokens, figma layouts, and staging interactive prototypes using AI tools.\n4. 🧪 **Validation & Analytics**: Conducting user testing, running targeted A/B tests, applying heuristic frameworks, and verifying WCAG 2.1 compliance."
       ],
       "chips": ["Explore Projects", "View Skills"]
     },

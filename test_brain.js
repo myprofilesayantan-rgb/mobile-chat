@@ -24,6 +24,7 @@ async function runTests() {
     { input: "how do you use AI?", expectedIntent: "ai_workflow" },
     { input: "skill on AI", expectedIntent: "ai_workflow" },
     { input: "tell me about RummyCircle", expectedIntent: "rummycircle" },
+    { input: "what is your user research process?", expectedIntent: "methodology" },
     { input: "aksdjhfklashdf", expectedIntent: "fallback" }
   ];
 
