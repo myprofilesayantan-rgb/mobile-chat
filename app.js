@@ -390,21 +390,29 @@ function checkAndAppendRichContent(text, container) {
   const lowercaseText = text.toLowerCase();
 
   // Skills Visual Graph
-  if (lowercaseText.includes("technology matrix") || lowercaseText.includes("core technology matrix")) {
+  if (lowercaseText.includes("technology matrix") || lowercaseText.includes("core technology matrix") || lowercaseText.includes("skill ratings") || lowercaseText.includes("rating out of 5")) {
     const card = document.createElement('div');
     card.className = 'skill-card';
     card.innerHTML = `
       <div class="skill-row">
-        <div class="skill-header"><span>Frontend Development</span><span>92%</span></div>
+        <div class="skill-header"><span>UX Strategy & Interaction Architecture</span><span>4.9 / 5</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="98%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Design Systems & Token Engineering</span><span>4.9 / 5</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="98%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>Enterprise System Simplification</span><span>4.8 / 5</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="96%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>AI-Assisted Frontend Prototyping</span><span>4.7 / 5</span></div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="94%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-header"><span>AI-Assisted Design Workflows</span><span>4.6 / 5</span></div>
         <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="92%"></div></div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-header"><span>Design & CSS Mechanics</span><span>88%</span></div>
-        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="88%"></div></div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-header"><span>Modular Frameworks</span><span>85%</span></div>
-        <div class="skill-bar-outer"><div class="skill-bar-inner" data-width="85%"></div></div>
       </div>
     `;
     container.appendChild(card);

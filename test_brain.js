@@ -18,9 +18,12 @@ async function runTests() {
     { input: "who are you?", expectedIntent: "about" },
     { input: "what is your stack?", expectedIntent: "skills" },
     { input: "show me some of your work", expectedIntent: "projects" },
-    { input: "tell me more about AeroChat", expectedIntent: "aerochat" },
+    { input: "tell me more about SmartBI", expectedIntent: "smartbi" },
     { input: "how can I contact you?", expectedIntent: "contact" },
-    { input: "show me lumina", expectedIntent: "lumina" },
+    { input: "show me TRACTO dashboard", expectedIntent: "tracto" },
+    { input: "how do you use AI?", expectedIntent: "ai_workflow" },
+    { input: "skill on AI", expectedIntent: "ai_workflow" },
+    { input: "tell me about RummyCircle", expectedIntent: "rummycircle" },
     { input: "aksdjhfklashdf", expectedIntent: "fallback" }
   ];
 

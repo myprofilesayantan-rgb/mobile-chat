@@ -1,7 +1,7 @@
 {
   "welcome": {
     "responses": [
-      "Welcome! I am a **custom-coded interaction prototype** mapping my professional journey. I designed and engineered this from scratch to demonstrate layout hierarchy, system variables, and clean frontend logic using a deterministic JSON database (no generic AI wrappers). What would you like to explore first?"
+      "Welcome! I am a **custom-coded interaction prototype** mapping my professional journey. I designed this prototype and co-created its frontend code using AI assistants to demonstrate layout hierarchy, system variables, and clean frontend logic using a deterministic JSON database (no generic AI wrappers). What would you like to explore first?"
     ],
     "chips": ["Explore Projects", "View Skills", "About Sayantan", "Get Contact Details"]
   },
@@ -35,9 +35,17 @@
       "id": "skills",
       "keywords": ["skills", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research"],
       "responses": [
-        "Here is my professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Technologies**: HTML5, Vanilla CSS/SCSS (custom variables, fluid layout mechanics), JavaScript (ES6+)\n📋 **Methodologies**: Human-Centered Design (HCD), Design Thinking, WCAG 2.1 Web Accessibility Guidelines, User Testing, Information Architecture (IA), Wireframing"
+        "Here is my professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Prototyping (AI-Assisted)**: I design layout systems in Figma, then use Antigravity and AI tools to translate them into pixel-perfect, responsive HTML/CSS staging.\n📋 **Methodologies**: Human-Centered Design (HCD), Design Thinking, WCAG 2.1 Web Accessibility Guidelines, User Testing, Information Architecture (IA), Wireframing"
       ],
-      "chips": ["Explore Projects", "Work History", "Get Contact Details"]
+      "chips": ["AI Workflow", "Skill Ratings", "Explore Projects"]
+    },
+    {
+      "id": "skill_ratings",
+      "keywords": ["rate your skills", "skill ratings", "rating out of 5", "how would you rate yourself", "ratings", "score"],
+      "responses": [
+        "Based on my 22+ years of design experience, here are my core skill ratings:\n\n⭐ **UX Strategy & Interaction Architecture**: 4.9 / 5\n⭐ **Design Systems & Token Engineering**: 4.9 / 5\n⭐ **Enterprise System Simplification**: 4.8 / 5\n⭐ **AI-Assisted Frontend Prototyping (HTML/CSS layout staging)**: 4.7 / 5\n⭐ **AI-Assisted Design Workflows**: 4.6 / 5\n\n*(Note: I am a core UX/UI Designer. I do not write custom production code or software logic from scratch myself; instead, I utilize AI coding assistants to bridge my Figma structures and responsive layouts directly into clean, interactive frontend code.)*"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
     },
     {
       "id": "projects",
@@ -60,7 +68,7 @@
       "id": "sentinel",
       "keywords": ["sentinel", "automation", "project management", "pm tool"],
       "responses": [
-        "**SENTINEL — Automation PM Product**\n\n- **Objective**: I designed the interface architecture for a system mapping tool built to clear project friction.\n- **Design Work**: Conducted strict operational audits to map and isolate user navigation blocks, generating a component structure that unifies tracking states and context cards cleanly."
+        "**SENTINEL — AI-Driven Project Management Space**\n\n- **Objective**: Designed the interface architecture for a project system mapping tool built to replace operational friction with system awareness.\n- **Design Strategy**: Modeled AI as an \"intelligence layer\" rather than a human replacement. The interface maps fragmented communications and documents to automatically highlight risk patterns, identify missing project details, and preserve decision history.\n- **Design Work**: Conducted operational audits to isolate user navigation blocks, generating a unified dashboard layout of context-aware state cards. This drastically reduces the manual coordination burden on project managers, allowing them to focus on strategy and leadership.\n- **Philosophy**: *Projects are fundamentally human endeavors. The role of AI is to quietly assist human decision-making and keep the team aligned, keeping the human user at the center of the process.*"
       ],
       "chips": ["Explore Projects", "Get Contact Details"]
     },
@@ -71,6 +79,14 @@
         "**TRACTO — Elderly Healthcare Suite**\n\n- **Objective**: I created UI kits and visual dashboard screens for an integrated data health ecosystem.\n- **Design Work**: Refined dense analytical numbers into high-contrast visual dashboard readouts to safeguard usability for limited tech-literacy audiences."
       ],
       "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "rummycircle",
+      "keywords": ["rummycircle", "rummy circle", "playgames24x7", "gaming ui", "multiplayer gaming", "rummy", "card game"],
+      "responses": [
+        "**Playgames24x7 (RummyCircle) — Gameplay Interface Redesign**\n\n- **Objective**: Redesigned the gameplay layout for millions of active cash players who were losing games not because they lacked skill, but because they couldn't parse the visual indicators fast enough.\n- **Research**: Conducted field observations and user alignments with 40 to 50 active cash players playing with real money.\n- **Design Work**: Cleaned up visual table structures so timer, Joker, and declare cards stopped competing for attention; redesigned card grouping to be natural; and optimized turn indicators to prevent focus diversion.\n- **Impact**: Reduced visual friction and accidental misclicks during critical gameplay moments. The design was so successful it was later deployed to the free-to-play app version.\n- **Philosophy**: *If players have to think about the interface, they are already late. Design is about making sure the right things are obvious at the right moment.*"
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
     },
     {
       "id": "experience",
@@ -100,7 +116,7 @@
       "id": "contact",
       "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "reach", "message", "write", "medium", "mail", "tel", "mobile"],
       "responses": [
-        "Let's build something incredible together! Here is how you can reach me:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 💼 **LinkedIn**: linkedin.com/in/uxsayantan\n- ✍️ **Medium**: medium.com/@ghosh.sayantan1982\n- 📞 **Mobile**: +91 99596 29041\n- 📍 **Location**: Hyderabad, Telangana, India\n\nYou can also download my full PDF Resume directly using the download button on the bottom left!"
+        "Let's build something incredible together! Here is how you can reach me:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 💼 **LinkedIn**: linkedin.com/in/uxsayantan\n- ✍️ **Medium**: medium.com/@myprofile.sayantan\n- 📞 **Mobile**: +91 99596 29041\n- 📍 **Location**: Hyderabad, Telangana, India\n\nYou can also download my full PDF Resume directly using the download button on the bottom left!"
       ],
       "chips": ["Start Over", "Explore Projects"]
     },
@@ -174,7 +190,15 @@
       "responses": [
         "I built this interactive directory using custom JavaScript and a localized JSON database to showcase interaction design and front-end engineering in practice. By replacing open-ended generative AI models with a structured, rule-based lookup, I ensure complete data accuracy and prevent AI hallucinations—proving that complex enterprise requirements can be mapped into reliable, lightweight, and engaging UI environments. This is a deliberate showcase of my interaction design capabilities, not a reliance on generic AI wrappers."
       ],
-      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+      "chips": ["AI Workflow", "Explore Projects", "View Skills"]
+    },
+    {
+      "id": "ai_workflow",
+      "keywords": ["ai workflow", "ai use", "how do you use ai", "utilize ai", "ai tools", "antigravity", "google stitch", "google ai studio", "prompt engineering", "claude", "gemini", "ai integration", "ai design", "ai skill", "ai skills", "skills in ai", "skills on ai"],
+      "responses": [
+        "I treat AI as a design accelerator, not a strategy replacement. As I wrote in my article, *\"AI Shouldn’t Drive Your UX. You Should Drive the AI\"*—my workflow relies on strict human orchestration:\n\n1. 🍳 **Discovery (The 'Master Chef' Principle)**: I use LLMs (Gemini & Claude) as high-speed research assistants to tag emotional codes and user comments. Since raw transcripts miss pauses and hesitations, I manually inject these human-perceived contextual cues back into the synthesis prompts to build personas grounded in true emotion.\n2. 💡 **Collaborative Ideation**: I sketch visual layout directions on paper first to prevent AI hallucinations, then ask AI tools to act as a design critic to uncover 'blind areas' and behavioral gaps. I then build out the final high-fidelity layouts using **Figma**.\n3. ⚡ **Layout Staging (AI Translation)**: Once the design is finalized in Figma, I utilize **Antigravity** and specialized AI code staging assistants to translate my component logic and design tokens into pixel-perfect, responsive HTML/CSS prototypes.\n4. 📊 **Delivery & Analytics Loop**: Post-launch, I ingest live user analytics (GA4, Microsoft Clarity heatmaps, and 'tap rage' session recordings) and prompt AI to locate friction points, using those findings to refine layout details iteratively rather than recreate interfaces blindly.\n\nMy core philosophy: **Provide the soul. Use the engine for speed. Be the driver.**"
+      ],
+      "chips": ["Why Chat", "View Skills", "Explore Projects"]
     },
     {
       "id": "deflect_jokes",
