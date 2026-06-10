@@ -36,50 +36,50 @@ const contentInteractive = document.getElementById('content-interactive');
 const contentClassic = document.getElementById('content-classic');
 
 // Hook classic resume shortcut buttons
-const classicShortcutAerochat = document.getElementById('classic-shortcut-aerochat');
-const classicShortcutLumina = document.getElementById('classic-shortcut-lumina');
 const classicActionDownload = document.getElementById('classic-action-download');
 // Audio states (muted by default until voice support is confirmed)
 let isMuted = true;
 let hasSpokenIntro = false;
 
 // Voice keywords for persona matching
-const indianMaleKeywords = ['rishi', 'ravi', 'en-in', 'english (india)', 'english india'];
-const globalMaleKeywords = [
-  'david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male',
-  'arthur', 'gordon', 'aaron', 'en-us-x-sfg#male', 'en-gb-x-fis', 
-  'en-us-x-iom', 'en-us-x-iog', 'en-us-x-tfn'
-];
+const maleNames = ['rishi', 'ravi', 'david', 'mark', 'george', 'alex', 'daniel', 'male', 'google us english male', 'arthur', 'gordon', 'aaron', 'en-us-x-sfg#male', 'en-gb-x-fis', 'en-us-x-iom', 'en-us-x-iog', 'en-us-x-tfn'];
+const femaleKeywords = ['female', 'zira', 'heera', 'susan', 'hazel', 'samantha', 'karen', 'veena', 'sara', 'tessa', 'sfg#female', 'en-in-x-ahp#female'];
 
 /**
- * Check if the browser has an English male voice available, prioritizing Indian English.
+ * Check if the browser has an English male voice available, prioritizing Indian English and blacklisting female voices.
  */
 function getSystemMaleVoice() {
   if (!('speechSynthesis' in window)) return null;
   const voices = window.speechSynthesis.getVoices();
   
+  // Filter out any voice that contains female indicators
+  const cleanVoices = voices.filter(v => {
+    const nameLower = v.name.toLowerCase();
+    return !femaleKeywords.some(kw => nameLower.includes(kw));
+  });
+
   // 1. Prioritize Indian English male voices
-  let voice = voices.find(v => {
+  let voice = cleanVoices.find(v => {
     const nameLower = v.name.toLowerCase();
     const langLower = v.lang.toLowerCase();
     const isIndianEng = langLower.includes('en-in') || langLower.includes('en_in');
-    return isIndianEng && (indianMaleKeywords.some(kw => nameLower.includes(kw)) || nameLower.includes('male'));
+    return isIndianEng && (['rishi', 'ravi', 'male'].some(kw => nameLower.includes(kw)));
   });
 
-  // 2. Fallback to generic Indian English voice (to retain local accent)
+  // 2. Fallback to generic Indian English voice (only if it passed the clean blacklist filter)
   if (!voice) {
-    voice = voices.find(v => {
+    voice = cleanVoices.find(v => {
       const langLower = v.lang.toLowerCase();
       return langLower.includes('en-in') || langLower.includes('en_in');
     });
   }
 
-  // 3. Fallback to global English male voice if Indian accent packs are not installed
+  // 3. Fallback to global English male voice
   if (!voice) {
-    voice = voices.find(v => {
+    voice = cleanVoices.find(v => {
       const nameLower = v.name.toLowerCase();
       const langLower = v.lang.toLowerCase();
-      return langLower.startsWith('en') && globalMaleKeywords.some(kw => nameLower.includes(kw));
+      return langLower.startsWith('en') && maleNames.some(kw => nameLower.includes(kw));
     });
   }
 
@@ -191,7 +191,7 @@ function triggerLandingVoiceover() {
   if (hasSpokenIntro || !welcomeIntro || app.classList.contains('chat-mode')) return;
   hasSpokenIntro = true;
   
-  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my interactive portfolio index mapping my professional journey. Please note this is a structured guide and not a generative A I chatbot.";
+  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my custom-coded interactive text directory, built to showcase front-end logic, clean layout structures, and deterministic interaction design without relying on generic A I wrappers.";
   setTimeout(() => {
     speakText(textToRead);
   }, 600);
@@ -421,27 +421,39 @@ function checkAndAppendRichContent(text, container) {
     const p1 = document.createElement('div');
     p1.className = 'project-card';
     p1.innerHTML = `
-      <div class="project-card-title">🛸 AeroChat (Mobile Core)</div>
-      <div class="project-card-desc">Interactive mobile-optimized AI chat container highlighting glassmorphism.</div>
+      <div class="project-card-title">📊 SmartBI</div>
+      <div class="project-card-desc">Converts complex SQL queries into intuitive conversational natural language dashboards.</div>
       <div class="project-tags">
-        <span class="project-tag">HTML5</span><span class="project-tag">CSS Variables</span><span class="project-tag">Vanilla JS</span>
+        <span class="project-tag">Figma</span><span class="project-tag">AI UX</span><span class="project-tag">Data Viz</span>
       </div>
     `;
-    p1.addEventListener('click', () => handleUserSubmit("AeroChat"));
+    p1.addEventListener('click', () => handleUserSubmit("SmartBI"));
 
     const p2 = document.createElement('div');
     p2.className = 'project-card';
     p2.innerHTML = `
-      <div class="project-card-title">💎 Lumina Dashboard</div>
-      <div class="project-card-desc">Real-time telemetry HUD displaying SVG datasets and canvas lines.</div>
+      <div class="project-card-title">🛡️ SENTINEL</div>
+      <div class="project-card-desc">Interactive system mapping tool built to coordinate tracking states and clear project friction.</div>
       <div class="project-tags">
-        <span class="project-tag">Canvas API</span><span class="project-tag">Grid</span><span class="project-tag">HSL System</span>
+        <span class="project-tag">UX Strategy</span><span class="project-tag">App Mapping</span><span class="project-tag">System Audits</span>
       </div>
     `;
-    p2.addEventListener('click', () => handleUserSubmit("Lumina Dashboard"));
+    p2.addEventListener('click', () => handleUserSubmit("SENTINEL"));
+
+    const p3 = document.createElement('div');
+    p3.className = 'project-card';
+    p3.innerHTML = `
+      <div class="project-card-title">🩺 TRACTO</div>
+      <div class="project-card-desc">High-contrast visual dashboard screens for an integrated elderly care health suite.</div>
+      <div class="project-tags">
+        <span class="project-tag">UI Kit</span><span class="project-tag">Usability</span><span class="project-tag">Healthcare</span>
+      </div>
+    `;
+    p3.addEventListener('click', () => handleUserSubmit("TRACTO"));
 
     container.appendChild(p1);
     container.appendChild(p2);
+    container.appendChild(p3);
   }
 }
 
@@ -744,20 +756,7 @@ if (tabInteractive && tabClassic) {
   tabClassic.addEventListener('click', () => switchTab('classic'));
 }
 
-// Map traditional layout clicks back to interactive simulation triggers
-if (classicShortcutAerochat) {
-  classicShortcutAerochat.addEventListener('click', () => {
-    switchTab('interactive');
-    handleUserSubmit("AeroChat");
-  });
-}
-
-if (classicShortcutLumina) {
-  classicShortcutLumina.addEventListener('click', () => {
-    switchTab('interactive');
-    handleUserSubmit("Lumina Dashboard");
-  });
-}
+// Handle resume sharing and downloading
 
 async function handleResumeDownloadOrShare(e) {
   if (e) e.preventDefault();

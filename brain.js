@@ -86,6 +86,22 @@ export class ChatBrain {
     // Tokenize the input
     const tokens = this.tokenize(userMessage);
 
+    // Strict multi-language abuse check before scoring any other intent
+    const abuseIntent = this.data.intents.find(i => i.id === "abuse_block");
+    if (abuseIntent) {
+      const isAbusive = abuseIntent.keywords.some(keyword => {
+        // Match full phrase or single word token
+        return cleanedMessage.includes(keyword) || tokens.includes(keyword);
+      });
+      if (isAbusive) {
+        return {
+          text: this.getRandomElement(abuseIntent.responses),
+          chips: abuseIntent.chips,
+          intentId: "abuse_block"
+        };
+      }
+    }
+
     // Track intent matches and scores
     let bestMatch = null;
     let highestScore = 0;
