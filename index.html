@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Sayantan Ghosh - Interactive Portfolio</title>
   <meta name="description" content="Ask anything about my skills, projects, and career history through this conversational UI.">
   <link rel="stylesheet" href="style.css">
@@ -267,15 +267,16 @@
       <!-- Tab Content 2: Classic HTML Resume -->
       <div class="tab-content" id="content-classic">
         <div class="classic-resume-view">
+          
+          <!-- Accessibility Controls (Font Resizer) -->
+          <div class="resume-accessibility-controls" aria-label="Text Size Adjustment">
+            <span class="accessibility-label">Text Size:</span>
+            <button type="button" class="font-size-btn" id="btn-font-decrease" title="Decrease Text Size" aria-label="Decrease Text Size">A-</button>
+            <button type="button" class="font-size-btn active" id="btn-font-reset" title="Reset Text Size" aria-label="Reset Text Size">A</button>
+            <button type="button" class="font-size-btn" id="btn-font-increase" title="Increase Text Size" aria-label="Increase Text Size">A+</button>
+          </div>
+
           <div class="classic-resume-scrollable-body" tabindex="0" aria-label="Sayantan Ghosh Resume Content">
-            
-            <!-- Accessibility Controls (Font Resizer) -->
-            <div class="resume-accessibility-controls" aria-label="Text Size Adjustment">
-              <span class="accessibility-label">Text Size:</span>
-              <button type="button" class="font-size-btn" id="btn-font-decrease" title="Decrease Text Size" aria-label="Decrease Text Size">A-</button>
-              <button type="button" class="font-size-btn active" id="btn-font-reset" title="Reset Text Size" aria-label="Reset Text Size">A</button>
-              <button type="button" class="font-size-btn" id="btn-font-increase" title="Increase Text Size" aria-label="Increase Text Size">A+</button>
-            </div>
 
 
 

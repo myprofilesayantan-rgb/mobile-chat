@@ -1179,12 +1179,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px;
+  gap: 8px;
   background: #ffffff;
-  border: 1px dashed var(--border-light);
-  padding: 6px 12px;
-  border-radius: 8px;
-  margin-bottom: 2px;
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 20px;
+  z-index: 20;
 }
 
 .accessibility-label {
