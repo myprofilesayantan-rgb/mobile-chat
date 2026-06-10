@@ -255,14 +255,6 @@ body {
   padding-bottom: 16px;
 }
 
-.chat-mode .messages-container::after {
-  content: "";
-  display: block;
-  min-height: 200px;
-  width: 100%;
-  flex-shrink: 0;
-}
-
 .messages-container::-webkit-scrollbar {
   width: 4px;
 }
@@ -394,19 +386,15 @@ body {
   margin-bottom: auto;
 }
 
-/* In chat mode, position absolutely on bottom with a premium translucent backdrop so messages scroll behind */
+/* In chat mode, position relatively at bottom in natural flex flow to prevent overlapping text */
 .chat-mode .input-box-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 15%, rgba(255, 255, 255, 0.98) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  background: #ffffff;
   padding: 12px 20px calc(16px + env(safe-area-inset-bottom, 10px)) 20px;
   margin-top: 0;
   margin-bottom: 0;
   z-index: 15;
+  border-top: 1px solid var(--border-light);
 }
 
 .input-container-card {
