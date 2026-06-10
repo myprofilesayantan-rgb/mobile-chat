@@ -252,7 +252,7 @@ body {
 .chat-mode .messages-container {
   display: flex;
   opacity: 1;
-  padding-bottom: 16px;
+  padding-bottom: 32px;
 }
 
 .messages-container::-webkit-scrollbar {
