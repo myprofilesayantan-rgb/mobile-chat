@@ -671,12 +671,53 @@ if (classicShortcutLumina) {
   });
 }
 
+async function handleResumeDownloadOrShare(e) {
+  if (e) e.preventDefault();
+  const pdfUrl = 'resume/Sayantan_Ghosh_Product_Designer_Resume_V2.pdf';
+  
+  try {
+    const response = await fetch(pdfUrl);
+    const blob = await response.blob();
+    const file = new File([blob], 'Sayantan_Ghosh_Product_Designer_Resume_V2.pdf', { type: 'application/pdf' });
+    
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: "Sayantan Ghosh - Product Designer Resume",
+        text: "Sharing Sayantan Ghosh's Product Designer Resume V2"
+      });
+    } else if (navigator.share) {
+      const absoluteUrl = new URL(pdfUrl, window.location.href).href;
+      await navigator.share({
+        title: "Sayantan Ghosh - Product Designer Resume",
+        text: "Check out Sayantan Ghosh's Product Designer Resume V2",
+        url: absoluteUrl
+      });
+    } else {
+      triggerFallbackDownload(pdfUrl);
+    }
+  } catch (err) {
+    console.error("Sharing failed, falling back to download:", err);
+    triggerFallbackDownload(pdfUrl);
+  }
+}
+
+function triggerFallbackDownload(url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'Sayantan_Ghosh_Product_Designer_Resume_V2.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Bind both download buttons to the Share/Download handler
+const mainDownloadBtn = document.getElementById('download-btn');
+if (mainDownloadBtn) {
+  mainDownloadBtn.addEventListener('click', handleResumeDownloadOrShare);
+}
 if (classicActionDownload) {
-  classicActionDownload.addEventListener('click', (e) => {
-    e.preventDefault();
-    const cvBtn = document.getElementById('download-btn');
-    if (cvBtn) cvBtn.click();
-  });
+  classicActionDownload.addEventListener('click', handleResumeDownloadOrShare);
 }
 
 // Font Resizer Accessibility controls
