@@ -29,8 +29,7 @@
 
 /* Accessible focus outlines for keyboard navigators */
 button:focus-visible,
-a:focus-visible,
-textarea:focus-visible {
+a:focus-visible {
   outline: 2.5px solid var(--accent-blue);
   outline-offset: 2px;
 }
