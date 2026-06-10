@@ -125,7 +125,7 @@ function triggerLandingVoiceover() {
   if (hasSpokenIntro || !welcomeIntro || app.classList.contains('chat-mode')) return;
   hasSpokenIntro = true;
   
-  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my portfolio. Ask me anything about my U X strategy, case studies, or product thinking.";
+  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my interactive portfolio index mapping my professional journey. Please note this is a structured guide and not a generative A I chatbot.";
   setTimeout(() => {
     speakText(textToRead);
   }, 600);
