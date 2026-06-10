@@ -544,17 +544,37 @@ body {
 }
 
 .partners-scroller {
-  display: flex;
-  gap: 20px;
   width: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-bottom: 4px;
+  overflow: hidden;
+  position: relative;
+  /* Subtle side mask to fade out logos smoothly at edges */
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 .partners-scroller::-webkit-scrollbar {
   display: none;
+}
+
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.partners-track:hover {
+  animation-play-state: paused;
 }
 
 .partner-group {
