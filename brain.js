@@ -57,6 +57,18 @@ export class ChatBrain {
   }
 
   /**
+   * Checks if a keyword exists in the text as a whole word or phrase.
+   * @param {string} text
+   * @param {string} keyword
+   * @returns {boolean}
+   */
+  hasWholeWordOrPhrase(text, keyword) {
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b${escaped}\\b`, 'i');
+    return regex.test(text);
+  }
+
+  /**
    * Processes a user message and returns a reply.
    * @param {string} userMessage 
    * @returns {Object} response { text: string, chips: string[], intentId: string }
@@ -113,7 +125,7 @@ export class ChatBrain {
       // Look for keyword matches
       for (const keyword of intent.keywords) {
         // Full phrase check (e.g. "contact details", "aero chat")
-        if (cleanedMessage.includes(keyword)) {
+        if (this.hasWholeWordOrPhrase(cleanedMessage, keyword)) {
           // Increase weight for exact/longer matches
           score += keyword.split(' ').length * 2.5;
         }

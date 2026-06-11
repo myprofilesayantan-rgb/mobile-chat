@@ -15,6 +15,10 @@ async function runTests() {
 
   const testCases = [
     { input: "hello there", expectedIntent: "greeting" },
+    { input: "hi", expectedIntent: "greeting" },
+    { input: "thank you", expectedIntent: "thanks" },
+    { input: "bye", expectedIntent: "goodbye" },
+    { input: "this", expectedIntent: "fallback" },
     { input: "who are you?", expectedIntent: "about" },
     { input: "what is your stack?", expectedIntent: "skills" },
     { input: "show me some of your work", expectedIntent: "projects" },
@@ -25,6 +29,11 @@ async function runTests() {
     { input: "skill on AI", expectedIntent: "ai_workflow" },
     { input: "tell me about RummyCircle", expectedIntent: "rummycircle" },
     { input: "what is your user research process?", expectedIntent: "methodology" },
+    { input: "why are you looking for a change?", expectedIntent: "reason_for_change" },
+    { input: "how do you collaborate with developers?", expectedIntent: "developer_collaboration" },
+    { input: "where are your case study links?", expectedIntent: "portfolio_links" },
+    { input: "do you require visa sponsorship?", expectedIntent: "visa_remote" },
+    { input: "what is your design philosophy?", expectedIntent: "design_philosophy" },
     { input: "aksdjhfklashdf", expectedIntent: "fallback" }
   ];
 

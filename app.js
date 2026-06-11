@@ -37,6 +37,9 @@ const contentClassic = document.getElementById('content-classic');
 
 // Hook classic resume shortcut buttons
 const classicActionDownload = document.getElementById('classic-action-download');
+// Google Apps Script Web App URL to sync unanswered questions and user-provided leads to Google Sheets
+const GOOGLE_SHEET_URL = ''; 
+
 // Audio states (muted by default until voice support is confirmed)
 let isMuted = true;
 let hasSpokenIntro = false;
@@ -314,42 +317,90 @@ function stopListeningState() {
 function formatMarkdown(text) {
   if (!text) return "";
   
+  // 1. Escape HTML
   let formatted = text
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
+  // 2. Bold tags
   formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
+  // 3. Split into lines
   const lines = formatted.split('\n');
   let inList = false;
-  const processedLines = lines.map(line => {
-    const match = line.match(/^(\s*)([•\-\*\d+\.])\s+(.*)/);
-    if (match) {
-      const isOrdered = /^\d+/.test(match[2]);
-      const content = match[3];
-      
-      let prefix = "";
-      if (!inList) {
-        inList = true;
-        prefix = isOrdered ? '<ol>' : '<ul>';
-      }
-      return `${prefix}<li>${content}</li>`;
-    } else {
-      let suffix = "";
-      if (inList) {
-        inList = false;
-        suffix = '</ul>';
-      }
-      return `${suffix}${line}`;
-    }
-  });
+  let listType = ""; // "ul" or "ol"
+  const processedLines = [];
 
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    
+    // Check if line is a list item
+    const bulletMatch = line.match(/^(\s*)([•\-\*])\s+(.*)/);
+    const numberMatch = line.match(/^(\s*)(\d+)\.\s+(.*)/);
+    
+    if (bulletMatch) {
+      const content = bulletMatch[3];
+      if (!inList || listType !== "ul") {
+        if (inList) {
+          processedLines.push(`</${listType}>`);
+        }
+        processedLines.push("<ul>");
+        inList = true;
+        listType = "ul";
+      }
+      processedLines.push(`<li>${content}</li>`);
+    } else if (numberMatch) {
+      const content = numberMatch[3];
+      if (!inList || listType !== "ol") {
+        if (inList) {
+          processedLines.push(`</${listType}>`);
+        }
+        processedLines.push("<ol>");
+        inList = true;
+        listType = "ol";
+      }
+      processedLines.push(`<li>${content}</li>`);
+    } else {
+      // Not a list item
+      if (inList) {
+        processedLines.push(`</${listType}>`);
+        inList = false;
+        listType = "";
+      }
+      
+      if (trimmed === "") {
+        // Empty line represents a paragraph break
+        processedLines.push('<div class="paragraph-spacing"></div>');
+      } else {
+        processedLines.push(line);
+      }
+    }
+  }
+  
   if (inList) {
-    processedLines.push('</ul>');
+    processedLines.push(`</${listType}>`);
   }
 
-  return processedLines.join('<br>').replace(/<\/li><br>/g, '</li>').replace(/<\/ul><br>/g, '</ul>').replace(/<\/ol><br>/g, '</ol>');
+  // Join lines. For non-list lines that are just text, join them with <br> to preserve line breaks
+  let finalHTML = "";
+  for (let i = 0; i < processedLines.length; i++) {
+    const item = processedLines[i];
+    if (item === "<ul>" || item === "</ul>" || item === "<ol>" || item === "</ol>" || item.startsWith("<li>") || item.startsWith("<div")) {
+      finalHTML += item;
+    } else {
+      finalHTML += item;
+      if (i < processedLines.length - 1) {
+        const next = processedLines[i+1];
+        if (next !== "<ul>" && next !== "<ol>" && !next.startsWith("<div") && next !== "") {
+          finalHTML += "<br>";
+        }
+      }
+    }
+  }
+
+  return finalHTML;
 }
 
 /**
@@ -618,18 +669,84 @@ function transitionToChatMode() {
 }
 
 /**
- * Logs fallback questions to local storage for portfolio training.
+ * Unified logger to local storage and Google Sheets.
  */
-function logUnhandledQuestion(question) {
-  if (!question || !question.trim()) return;
-  try {
-    const list = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
-    if (!list.includes(question.trim())) {
-      list.push(question.trim());
-      localStorage.setItem('unhandled_questions', JSON.stringify(list));
+async function logToGoogleSheet(type, data) {
+  // 1. Local Fallback Logging
+  if (type === 'unhandled') {
+    try {
+      const list = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
+      if (!list.includes(data.trim())) {
+        list.push(data.trim());
+        localStorage.setItem('unhandled_questions', JSON.stringify(list));
+      }
+    } catch (e) {
+      console.error("Failed to log locally:", e);
     }
-  } catch (e) {
-    console.error("Failed to log unhandled question:", e);
+  } else if (type === 'user_data') {
+    try {
+      const list = JSON.parse(localStorage.getItem('user_provided_data') || '[]');
+      if (!list.includes(data.trim())) {
+        list.push(data.trim());
+        localStorage.setItem('user_provided_data', JSON.stringify(list));
+      }
+    } catch (e) {
+      console.error("Failed to log locally:", e);
+    }
+  }
+
+  // 2. Google Sheets Web App Sync
+  if (GOOGLE_SHEET_URL) {
+    try {
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ type, data, timestamp: new Date().toISOString() })
+      });
+    } catch (err) {
+      console.error("Failed to post to Google Sheet:", err);
+    }
+  }
+}
+
+/**
+ * Detects and logs user provided leads (emails, phone numbers, callback requests, or company names).
+ */
+function detectAndLogUserLeads(inputVal) {
+  const cleanInput = inputVal.trim().toLowerCase();
+  
+  // 1. Email validation (RFC 5322 regex)
+  const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+  const emails = inputVal.match(emailRegex) || [];
+  
+  // 2. Phone/Mobile/Landline validation (7 to 15 digits)
+  const phoneRegex = /(?:\+?\d{1,3}[\s.-]?)?\(?\d{2,5}\)?[\s.-]?\d{3,5}[\s.-]?\d{4,5}/g;
+  const rawPhones = inputVal.match(phoneRegex) || [];
+  const phones = rawPhones.filter(num => {
+    const digits = num.replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15;
+  });
+
+  // 3. Callback requests detection
+  const callbackKeywords = ['call back', 'callback', 'call me', 'contact me', 'talk to me', 'schedule a call', 'phone me', 'ring me', 'interview', 'discuss'];
+  const isCallbackRequest = callbackKeywords.some(keyword => cleanInput.includes(keyword));
+
+  // 4. Company Name Indicators
+  const companyIndicators = ['company', 'organization', 'agency', 'inc', 'corp', 'corporation', 'gmbh', 'pvt ltd', 'ltd', 'pvt. ltd.', 'hiring for', 'on behalf of', 'representing', 'represent'];
+  const hasCompanyInfo = companyIndicators.some(indicator => cleanInput.includes(indicator)) || /\b(?:at|from|representing)\s+([a-zA-Z0-9\s.]{2,30})\b/i.test(inputVal);
+
+  if (emails.length > 0 || phones.length > 0 || isCallbackRequest || hasCompanyInfo) {
+    const findings = [];
+    if (emails.length > 0) findings.push(`Emails: ${emails.join(', ')}`);
+    if (phones.length > 0) findings.push(`Phones: ${phones.join(', ')}`);
+    if (isCallbackRequest) findings.push(`Callback Requested`);
+    if (hasCompanyInfo) findings.push(`Company Context`);
+
+    const leadLogEntry = `Input: "${inputVal.trim()}" | Detected: [${findings.join(' | ')}]`;
+    logToGoogleSheet('user_data', leadLogEntry);
   }
 }
 
@@ -639,6 +756,9 @@ function logUnhandledQuestion(question) {
 function handleUserSubmit(inputVal) {
   if (!inputVal.trim()) return;
 
+  // Run lead validation and logging
+  detectAndLogUserLeads(inputVal);
+
   // Trigger UI transition if we are in landing page
   if (app.classList.contains('landing-mode')) {
     transitionToChatMode();
@@ -647,7 +767,7 @@ function handleUserSubmit(inputVal) {
       appendUserMessage(inputVal);
       const reply = brain.processMessage(inputVal);
       if (reply.intentId === 'fallback') {
-        logUnhandledQuestion(inputVal);
+        logToGoogleSheet('unhandled', inputVal);
       }
       simulateResponse(reply.text, reply.chips);
     }, 550);
@@ -655,7 +775,7 @@ function handleUserSubmit(inputVal) {
     appendUserMessage(inputVal);
     const reply = brain.processMessage(inputVal);
     if (reply.intentId === 'fallback') {
-      logUnhandledQuestion(inputVal);
+      logToGoogleSheet('unhandled', inputVal);
     }
     simulateResponse(reply.text, reply.chips);
   }
@@ -874,25 +994,39 @@ if (avatarImg) {
 }
 
 function exportUnhandledQuestions() {
-  const list = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
-  if (list.length === 0) {
-    alert("No unhandled questions logged yet! The portfolio index successfully answered all queries.");
+  // 1. Export Unhandled Questions
+  const questionsList = JSON.parse(localStorage.getItem('unhandled_questions') || '[]');
+  if (questionsList.length > 0) {
+    const content = questionsList.join('\n\n');
+    triggerTextDownload(content, 'unhandled_questions.txt');
+  }
+
+  // 2. Export User Provided Leads
+  const leadsList = JSON.parse(localStorage.getItem('user_provided_data') || '[]');
+  if (leadsList.length > 0) {
+    const content = leadsList.join('\n\n');
+    triggerTextDownload(content, 'user_provided_leads.txt');
+  }
+
+  if (questionsList.length === 0 && leadsList.length === 0) {
+    alert("No logged queries or contact leads found yet!");
     return;
   }
-  
-  const content = list.join('\n\n');
+
+  if (confirm("Data exported successfully! Would you like to clear the logged history in your browser?")) {
+    localStorage.removeItem('unhandled_questions');
+    localStorage.removeItem('user_provided_data');
+  }
+}
+
+function triggerTextDownload(content, filename) {
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
-  
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'unhandled_questions.txt';
+  link.download = filename;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
-  
-  if (confirm("Unhandled questions exported! Would you like to clear the logged questions history?")) {
-    localStorage.removeItem('unhandled_questions');
-  }
 }

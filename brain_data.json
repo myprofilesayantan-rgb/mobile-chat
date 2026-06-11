@@ -7,20 +7,40 @@
   },
   "fallback": {
     "responses": [
-      "I didn't quite catch that. Since I am a structured, rule-based design directory (not a generative AI chatbot), try asking about my **skills**, **work history**, **projects**, or select one of the options below.",
-      "My local database is focused specifically on my product design career, tools, and experience. Ask me about my projects, technical expertise, or choose a shortcut below."
+      "Ohh! I think I can answer this question better in a 1:1 discussion. I am always open to direct conversations—please call me on my mobile (+91 99596 29041) or email me your question (ghosh.sayantan1982@gmail.com) so we can connect directly!",
+      "I don't have a programmed response for this topic in my local database, but I am always open to a direct 1:1 discussion! Feel free to call me on my mobile or email me your questions anytime."
     ],
-    "chips": ["View Skills", "Explore Projects", "Get Contact Details", "About Sayantan"]
+    "chips": ["Get Contact Details", "View Skills", "Explore Projects"]
   },
   "intents": [
     {
       "id": "greeting",
-      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init"],
+      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init", "good morning", "good afternoon", "good evening", "morning", "afternoon", "evening", "howdy", "hola", "namaste", "hey there", "hello there"],
       "responses": [
         "Hello! Welcome to my interactive portfolio. **This is a custom layout directory (not a generative AI chatbot)**. I designed this interface and co-created its code using AI assistants. I'll do my best to answer your questions—if I miss anything, please contact me directly to discuss my journey! What would you like to explore first?",
         "Hi! I set up this structured portfolio directory (not an open AI chat) to guide you. I design in Figma and use AI tools to co-create the frontend. I'll try to answer most of your questions—if the system doesn't have a response, feel free to reach out to me directly. How can I help you today?"
       ],
       "chips": ["View Skills", "Explore Projects", "About Sayantan"]
+    },
+    {
+      "id": "thanks",
+      "keywords": ["thanks", "thank you", "thank u", "thx", "appreciate it", "thank", "thankyou", "grateful", "much obliged", "thank you so much", "thanks a lot"],
+      "responses": [
+        "You're very welcome! I'm glad I could help. Let me know if you want to explore my **skills**, **projects**, or **experience**!",
+        "My pleasure! Feel free to ask more questions about my design journey, or let me know if you'd like to connect directly.",
+        "Glad to help! Let me know what else I can show you from my portfolio."
+      ],
+      "chips": ["View Skills", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "goodbye",
+      "keywords": ["bye", "goodbye", "exit", "quit", "see ya", "talk later", "have a good day", "have a nice day", "farewell", "bye bye"],
+      "responses": [
+        "Goodbye! Thank you for visiting my interactive portfolio. If you have any further questions or would like to discuss a project, feel free to reach out to me directly at ghosh.sayantan1982@gmail.com. Have a great day!",
+        "Thanks for stopping by! Hope you enjoyed exploring my work. You can download my resume or contact me anytime. Have a wonderful day!",
+        "Bye! It was great sharing my product design journey with you. Feel free to connect via LinkedIn or email whenever you're ready. Take care!"
+      ],
+      "chips": ["Start Over", "Get Contact Details"]
     },
     {
       "id": "about",
@@ -223,6 +243,46 @@
         "Hmm, it seems like your last message is incomplete or brief. Feel free to explore my structured portfolio guide by asking about my **skills**, **experience**, or **projects**!"
       ],
       "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    },
+    {
+      "id": "reason_for_change",
+      "keywords": ["change", "looking for a change", "why change", "leave last job", "reason for leaving", "new job", "seeking", "why looking", "looking for new"],
+      "responses": [
+        "I am looking for a new role to take on larger enterprise product challenges. With over 22+ years of design experience (including 9 years in UX/Product ownership), I want to lead B2B SaaS strategies, scale design systems, and leverage AI UX workflows in a high-impact, collaborative full-time team environment."
+      ],
+      "chips": ["Work History", "About Sayantan", "Get Contact Details"]
+    },
+    {
+      "id": "developer_collaboration",
+      "keywords": ["developer handoff", "working with developers", "collaboration with engineers", "developer collaboration", "engineer handoff", "translation to code", "dev handoff", "work with dev", "handoff"],
+      "responses": [
+        "I bridge the gap between design and engineering by delivering highly structured Figma files with token-based variables and clean grid spacing. Additionally, by using AI-assisted layout staging (like Antigravity to generate pixel-perfect responsive HTML/CSS structures), I show developers exactly how layouts behave under real browser constraints, eliminating implementation lag."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "portfolio_links",
+      "keywords": ["portfolio links", "case study links", "where are your case studies", "live projects", "websites", "uxsayantan", "read case study", "links", "case studies", "website"],
+      "responses": [
+        "Here are my primary live project and case study links:\n\n- 🌐 **My Desktop Portfolio**: [uxsayantan.com](https://uxsayantan.com) (Includes all strategic case studies and full desktop visualizations)\n- 📊 **SmartBI Case Study**: [SmartBI Presentation Page](https://myprofilesayantan-rgb.github.io/Smart-BI/)\n- ✍️ **UX & AI Articles**: [Sayantan's Medium Profile](https://medium.com/@myprofile.sayantan)"
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "visa_remote",
+      "keywords": ["visa sponsorship", "sponsorship", "remote work", "work in us", "relocate internationally", "remote role", "work authorization", "authorized", "remote"],
+      "responses": [
+        "I am based in Hyderabad, India, and am fully authorized to work locally. I am open to remote global roles and can easily coordinate hours with US, European, or APAC teams. For on-site international opportunities, I require visa sponsorship support."
+      ],
+      "chips": ["Location Preference", "Get Contact Details"]
+    },
+    {
+      "id": "design_philosophy",
+      "keywords": ["design philosophy", "what is good design", "my philosophy", "design view", "belief in design", "philosophy"],
+      "responses": [
+        "My core design philosophy is simple: **If users have to think about the interface, they are already late.** Design should not draw attention to itself; it should make the right options and information obvious at the right moment, balancing user cognition with business goals."
+      ],
+      "chips": ["About Sayantan", "AI Workflow", "Explore Projects"]
     },
     {
       "id": "abuse_block",
