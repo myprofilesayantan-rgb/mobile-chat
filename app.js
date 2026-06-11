@@ -146,21 +146,27 @@ if ('speechSynthesis' in window) {
  * Clean markdown symbols and emojis for clean Speech Synthesis output.
  */
 function cleanSpeechText(text) {
+  if (!text) return "";
   return text
+    // 1. Remove markdown links: [Text](URL) -> Text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    
+    // 2. Remove double asterisks (bold) and underscores (italics)
     .replace(/\*\*/g, '')
-    .replace(/⚡/g, '')
-    .replace(/[•\-\*]\s+/g, '')
-    .replace(/🛸/g, '')
-    .replace(/💎/g, '')
-    .replace(/📦/g, '')
-    .replace(/🚀/g, '')
-    .replace(/💻/g, '')
-    .replace(/🎓/g, '')
-    .replace(/📧/g, '')
-    .replace(/🐙/g, '')
-    .replace(/💼/g, '')
-    .replace(/✉️/g, '')
-    .replace(/\n/g, ' ');
+    .replace(/_/g, '')
+    
+    // 3. Remove all emojis (standard ranges + miscellaneous symbols like stars)
+    .replace(/[\u{1F300}-\u{1F9FF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2B50}]/gu, '')
+    
+    // 4. Remove '+' symbol explicitly so country codes like '+91' don't read out as 'plus ninety-one'
+    .replace(/\+/g, ' ')
+    
+    // 5. Remove special symbols that speech synthesizer might read aloud
+    .replace(/[•\-\*~#$%\^&_+=|\\\/<>`()]/g, ' ')
+    
+    // 6. Clean up multiple spaces or newlines into single spaces
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**
