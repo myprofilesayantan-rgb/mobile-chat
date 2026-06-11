@@ -57,15 +57,56 @@ export class ChatBrain {
   }
 
   /**
-   * Checks if a keyword exists in the text as a whole word or phrase.
-   * @param {string} text
+   * Checks if the keyword tokens exist as a sub-sequence within the message tokens.
+   * @param {string[]} messageTokens
    * @param {string} keyword
    * @returns {boolean}
    */
-  hasWholeWordOrPhrase(text, keyword) {
-    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`\\b${escaped}\\b`, 'i');
-    return regex.test(text);
+  hasKeywordTokens(messageTokens, keyword) {
+    const keywordTokens = this.tokenize(keyword);
+    if (keywordTokens.length === 0) return false;
+    
+    for (let i = 0; i <= messageTokens.length - keywordTokens.length; i++) {
+      let match = true;
+      for (let j = 0; j < keywordTokens.length; j++) {
+        if (messageTokens[i + j] !== keywordTokens[j]) {
+          match = false;
+          break;
+        }
+      }
+      if (match) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Calculates the Levenshtein distance between two strings.
+   * @param {string} a
+   * @param {string} b
+   * @returns {number}
+   */
+  getLevenshteinDistance(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+      matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+      matrix[0][j] = j;
+    }
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1, // substitution
+            matrix[i][j - 1] + 1,     // insertion
+            matrix[i - 1][j] + 1      // deletion
+          );
+        }
+      }
+    }
+    return matrix[b.length][a.length];
   }
 
   /**
@@ -83,6 +124,34 @@ export class ChatBrain {
     }
 
     const cleanedMessage = userMessage.trim().toLowerCase();
+
+    // 1. Check if we are waiting for a Y/N confirmation for a typo suggestion
+    if (this.currentState.pendingConfirmation) {
+      const pending = this.currentState.pendingConfirmation;
+      this.currentState.pendingConfirmation = null; // Clear immediately
+      
+      const yesWords = ['y', 'yes', 'yeah', 'yep', 'sure', 'correct', 'indeed', 'yes, please'];
+      const noWords = ['n', 'no', 'nope', 'nah', 'incorrect', 'no, thanks'];
+      
+      if (yesWords.includes(cleanedMessage)) {
+        const matchedIntent = this.data.intents.find(i => i.id === pending.suggestedIntentId);
+        if (matchedIntent) {
+          this.currentState.lastIntentId = matchedIntent.id;
+          this.currentState.contextDepth += 1;
+          return {
+            text: this.getRandomElement(matchedIntent.responses),
+            chips: matchedIntent.chips,
+            intentId: matchedIntent.id
+          };
+        }
+      } else if (noWords.includes(cleanedMessage)) {
+        return {
+          text: "Understood. What else would you like to explore? You can ask about my **skills**, **projects**, or **experience**.",
+          chips: ["View Skills", "Explore Projects", "Get Contact Details"],
+          intentId: "fallback"
+        };
+      }
+    }
 
     // Special exact matches (e.g. for suggestion chips)
     if (cleanedMessage === 'start over' || cleanedMessage === 'reset' || cleanedMessage === 'clear') {
@@ -102,7 +171,7 @@ export class ChatBrain {
     const abuseIntent = this.data.intents.find(i => i.id === "abuse_block");
     if (abuseIntent) {
       const isAbusive = abuseIntent.keywords.some(keyword => {
-        return this.hasWholeWordOrPhrase(cleanedMessage, keyword);
+        return this.hasKeywordTokens(tokens, keyword);
       });
       if (isAbusive) {
         return {
@@ -124,7 +193,7 @@ export class ChatBrain {
       // Look for keyword matches
       for (const keyword of intent.keywords) {
         // Full phrase check (e.g. "contact details", "aero chat")
-        if (this.hasWholeWordOrPhrase(cleanedMessage, keyword)) {
+        if (this.hasKeywordTokens(tokens, keyword)) {
           // Increase weight for exact/longer matches
           score += keyword.split(' ').length * 2.5;
         }
@@ -179,7 +248,54 @@ export class ChatBrain {
       this.currentState.lastIntentId = bestMatch.id;
       this.currentState.contextDepth += 1;
     } else {
-      // Fallback
+      // Fuzzy spelling autocorrect / suggestion edge-cases
+      const suggestionTargets = [
+        { term: "contact", intentId: "contact", displayName: "contact details" },
+        { term: "portfolio", intentId: "projects", displayName: "portfolio" },
+        { term: "projects", intentId: "projects", displayName: "projects" },
+        { term: "resume", intentId: "experience", displayName: "resume" },
+        { term: "skills", intentId: "skills", displayName: "skills" },
+        { term: "experience", intentId: "experience", displayName: "experience" }
+      ];
+
+      for (const token of tokens) {
+        const cleanedToken = token.replace(/[^a-zA-Z]/g, ""); // Remove trailing/leading symbols
+        if (cleanedToken.length < 3) continue;
+
+        for (const target of suggestionTargets) {
+          let isMatch = false;
+
+          // 1. Prefix match (e.g. "con-" or "con" for "contact")
+          if (cleanedToken.length >= 3 && target.term.startsWith(cleanedToken)) {
+            isMatch = true;
+          }
+
+          // 2. Levenshtein edit distance check (e.g. "pornfolio" -> "portfolio", "ridume" -> "resume")
+          if (!isMatch) {
+            const dist = this.getLevenshteinDistance(cleanedToken, target.term);
+            const maxAllowedDist = target.term.length >= 6 ? 2 : 1;
+            if (dist <= maxAllowedDist) {
+              isMatch = true;
+            }
+          }
+
+          if (isMatch) {
+            this.currentState.pendingConfirmation = {
+              originalInput: userMessage,
+              suggestedIntentId: target.intentId,
+              suggestionText: target.displayName
+            };
+            
+            return {
+              text: `Are you asking for my **${target.displayName}**?`,
+              chips: ["Yes", "No"],
+              intentId: "clarification"
+            };
+          }
+        }
+      }
+
+      // Fallback if no fuzzy matches found
       const fallback = this.data.fallback;
       responseText = this.getRandomElement(fallback.responses);
       suggestionChips = fallback.chips;

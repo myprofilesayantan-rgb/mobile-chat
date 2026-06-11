@@ -14,11 +14,11 @@ async function runTests() {
   console.log("Brain initialized successfully with database.\n");
 
   const testCases = [
+    // Standard inputs
     { input: "hello there", expectedIntent: "greeting" },
     { input: "hi", expectedIntent: "greeting" },
     { input: "thank you", expectedIntent: "thanks" },
     { input: "bye", expectedIntent: "goodbye" },
-    { input: "this", expectedIntent: "fallback" },
     { input: "what's his contact details ?", expectedIntent: "contact" },
     { input: "who are you?", expectedIntent: "about" },
     { input: "what is your stack?", expectedIntent: "skills" },
@@ -35,7 +35,33 @@ async function runTests() {
     { input: "where are your case study links?", expectedIntent: "portfolio_links" },
     { input: "do you require visa sponsorship?", expectedIntent: "visa_remote" },
     { input: "what is your design philosophy?", expectedIntent: "design_philosophy" },
-    { input: "aksdjhfklashdf", expectedIntent: "fallback" }
+    { input: "aksdjhfklashdf", expectedIntent: "fallback" },
+
+    // Edge Cases: Case Sensitivity & Spaces
+    { input: "   HI   ", expectedIntent: "greeting" },
+    { input: "HeLlO tHeRe", expectedIntent: "greeting" },
+    { input: "tHaNkS a LoT", expectedIntent: "thanks" },
+    { input: "bYe ByE!", expectedIntent: "goodbye" },
+
+    // Edge Cases: Punctuation & Special Characters
+    { input: "...hello...", expectedIntent: "greeting" },
+    { input: "thanks!!!", expectedIntent: "thanks" },
+    { input: "what is your stack???", expectedIntent: "skills" },
+    { input: "???!!!", expectedIntent: "fallback" },
+    { input: "", expectedIntent: "fallback" },
+    { input: "   ", expectedIntent: "fallback" },
+
+    // Edge Cases: Substring vs. Whole Word matching (Crucial Fix validation)
+    { input: "this", expectedIntent: "fallback" }, // 'hi' in 'this'
+    { input: "history", expectedIntent: "experience" }, // 'hi' in 'history'
+    { input: "contact", expectedIntent: "contact" }, // 'con' in 'contact' (abusive 'con' must not flag it)
+    { input: "initiate", expectedIntent: "fallback" }, // 'init' in 'initiate'
+    { input: "welcome-back", expectedIntent: "fallback" }, // 'welcome' with dash
+    { input: "starting", expectedIntent: "fallback" }, // 'start' in 'starting'
+    
+    // Edge Cases: Abuse Block (caps/spaces/punctuation)
+    { input: " FUCK ", expectedIntent: "abuse_block" },
+    { input: "!!!shit!!!", expectedIntent: "abuse_block" }
   ];
 
   let passed = 0;
@@ -51,11 +77,69 @@ async function runTests() {
     }
   }
 
-  console.log(`\nSummary: ${passed}/${testCases.length} tests passed.`);
-  if (passed === testCases.length) {
-    console.log("🚀 All tests passed! The brain is working perfectly.");
+  // State-Based Edge Case (Context follow-up)
+  console.log("\n--- Testing Context State Edge Cases ---");
+  brain.reset();
+  
+  // Step 1: Set context to skills
+  let r1 = brain.processMessage("what is your stack?");
+  let step1Passed = r1.intentId === "skills";
+  console.log(`${step1Passed ? "✅" : "❌"} Step 1 (Set Context to skills): ${r1.intentId}`);
+
+  // Step 2: Follow up with "tell me more" without specifying topic
+  let r2 = brain.processMessage("tell me more");
+  let step2Passed = r2.intentId === "skills";
+  console.log(`${step2Passed ? "✅" : "❌"} Step 2 (Follow up 'tell me more' inherits skills): ${r2.intentId}`);
+
+  // Step 3: Reset context and verify follow-up goes to fallback
+  brain.reset();
+  let r3 = brain.processMessage("tell me more");
+  let step3Passed = r3.intentId === "fallback";
+  console.log(`${step3Passed ? "✅" : "❌"} Step 3 (Follow up without context goes to fallback): ${r3.intentId}`);
+
+  if (step1Passed && step2Passed && step3Passed) {
+    passed += 3;
+  }
+  
+  // Step 4: Spelling suggestion / fuzzy matching verification for "con-" -> YES
+  console.log("\n--- Testing Fuzzy Matches & Spelling Autocorrect ---");
+  brain.reset();
+  let r4 = brain.processMessage("con-");
+  let step4Passed = r4.intentId === "clarification" && r4.text.includes("contact details");
+  console.log(`${step4Passed ? "✅" : "❌"} Step 4 (Con- triggers clarification for contact details): ${r4.intentId} (${r4.text})`);
+  
+  let r4Confirm = brain.processMessage("yes");
+  let step4ConfirmPassed = r4Confirm.intentId === "contact";
+  console.log(`${step4ConfirmPassed ? "✅" : "❌"} Step 4 Confirm (Yes displays contact details): ${r4Confirm.intentId}`);
+
+  // Step 5: Spelling suggestion for "pornfolio" -> YES
+  let r5 = brain.processMessage("pornfolio");
+  let step5Passed = r5.intentId === "clarification" && r5.text.includes("portfolio");
+  console.log(`${step5Passed ? "✅" : "❌"} Step 5 (Pornfolio triggers clarification for portfolio): ${r5.intentId} (${r5.text})`);
+  
+  let r5Confirm = brain.processMessage("yes");
+  let step5ConfirmPassed = r5Confirm.intentId === "projects";
+  console.log(`${step5ConfirmPassed ? "✅" : "❌"} Step 5 Confirm (Yes displays projects): ${r5Confirm.intentId}`);
+
+  // Step 6: Spelling suggestion for "ridume" -> NO
+  let r6 = brain.processMessage("ridume");
+  let step6Passed = r6.intentId === "clarification" && r6.text.includes("resume");
+  console.log(`${step6Passed ? "✅" : "❌"} Step 6 (Ridume triggers clarification for resume): ${r6.intentId} (${r6.text})`);
+  
+  let r6Confirm = brain.processMessage("no");
+  let step6ConfirmPassed = r6Confirm.intentId === "fallback";
+  console.log(`${step6ConfirmPassed ? "✅" : "❌"} Step 6 Reject (No triggers standard fallback): ${r6Confirm.intentId}`);
+
+  if (step4Passed && step4ConfirmPassed && step5Passed && step5ConfirmPassed && step6Passed && step6ConfirmPassed) {
+    passed += 6;
+  }
+
+  const totalTests = testCases.length + 9;
+  console.log(`\nSummary: ${passed}/${totalTests} tests passed.`);
+  if (passed === totalTests) {
+    console.log("🚀 All edge case, standard, context, and fuzzy suggestion tests passed successfully!");
   } else {
-    console.log("⚠️ Some tests failed. Check logic rules.");
+    console.log("⚠️ Test suite failures found. Verify keyword matches and boundary logic.");
   }
 }
 
