@@ -102,8 +102,7 @@ export class ChatBrain {
     const abuseIntent = this.data.intents.find(i => i.id === "abuse_block");
     if (abuseIntent) {
       const isAbusive = abuseIntent.keywords.some(keyword => {
-        // Match full phrase or single word token
-        return cleanedMessage.includes(keyword) || tokens.includes(keyword);
+        return this.hasWholeWordOrPhrase(cleanedMessage, keyword);
       });
       if (isAbusive) {
         return {

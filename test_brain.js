@@ -19,6 +19,7 @@ async function runTests() {
     { input: "thank you", expectedIntent: "thanks" },
     { input: "bye", expectedIntent: "goodbye" },
     { input: "this", expectedIntent: "fallback" },
+    { input: "what's his contact details ?", expectedIntent: "contact" },
     { input: "who are you?", expectedIntent: "about" },
     { input: "what is your stack?", expectedIntent: "skills" },
     { input: "show me some of your work", expectedIntent: "projects" },
