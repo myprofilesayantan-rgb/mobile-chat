@@ -894,24 +894,24 @@ if (tabInteractive && tabClassic) {
 
 async function handleResumeDownloadOrShare(e) {
   if (e) e.preventDefault();
-  const pdfUrl = 'resume/Sayantan_Ghosh_Product_Designer_Resume_V2.pdf';
+  const pdfUrl = 'Sayantan_Ghosh_UX_Architect_Resume.pdf';
   
   try {
     const response = await fetch(pdfUrl);
     const blob = await response.blob();
-    const file = new File([blob], 'Sayantan_Ghosh_Product_Designer_Resume_V2.pdf', { type: 'application/pdf' });
+    const file = new File([blob], 'Sayantan_Ghosh_UX_Architect_Resume.pdf', { type: 'application/pdf' });
     
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
-        title: "Sayantan Ghosh - Product Designer Resume",
-        text: "Sharing Sayantan Ghosh's Product Designer Resume V2"
+        title: "Sayantan Ghosh - UX Architect Resume",
+        text: "Sharing Sayantan Ghosh's UX Architect Resume"
       });
     } else if (navigator.share) {
       const absoluteUrl = new URL(pdfUrl, window.location.href).href;
       await navigator.share({
-        title: "Sayantan Ghosh - Product Designer Resume",
-        text: "Check out Sayantan Ghosh's Product Designer Resume V2",
+        title: "Sayantan Ghosh - UX Architect Resume",
+        text: "Check out Sayantan Ghosh's UX Architect Resume",
         url: absoluteUrl
       });
     } else {
@@ -926,7 +926,7 @@ async function handleResumeDownloadOrShare(e) {
 function triggerFallbackDownload(url) {
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'Sayantan_Ghosh_Product_Designer_Resume_V2.pdf';
+  link.download = 'Sayantan_Ghosh_UX_Architect_Resume.pdf';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
