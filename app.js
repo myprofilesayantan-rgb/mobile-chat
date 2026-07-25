@@ -113,10 +113,10 @@ function updateVoiceSupport() {
       micBtn.style.display = 'none';
     }
   } else {
-    // Male voice found -> enable controls and defaults
-    isMuted = false;
+    // Male voice found -> enable controls and defaults (muted by default)
+    isMuted = true;
     if (speakerToggle) {
-      speakerToggle.classList.remove('speaker-muted');
+      speakerToggle.classList.add('speaker-muted');
       speakerToggle.style.display = '';
     }
     if (micBtn && hasSpeechRec) {
@@ -494,17 +494,6 @@ function checkAndAppendRichContent(text, container) {
     `;
     p1.addEventListener('click', () => handleUserSubmit("SmartBI"));
 
-    const p2 = document.createElement('div');
-    p2.className = 'project-card';
-    p2.innerHTML = `
-      <div class="project-card-title">🛡️ SENTINEL</div>
-      <div class="project-card-desc">Interactive system mapping tool built to coordinate tracking states and clear project friction.</div>
-      <div class="project-tags">
-        <span class="project-tag">UX Strategy</span><span class="project-tag">App Mapping</span><span class="project-tag">System Audits</span>
-      </div>
-    `;
-    p2.addEventListener('click', () => handleUserSubmit("SENTINEL"));
-
     const p3 = document.createElement('div');
     p3.className = 'project-card';
     p3.innerHTML = `
@@ -516,12 +505,57 @@ function checkAndAppendRichContent(text, container) {
     `;
     p3.addEventListener('click', () => handleUserSubmit("TRACTO"));
 
-    container.appendChild(p1);
-    container.appendChild(p2);
-    container.appendChild(p3);
-  }
-}
+    const p4 = document.createElement('div');
+    p4.className = 'project-card';
+    p4.innerHTML = `
+      <div class="project-card-title">🔒 Asparz</div>
+      <div class="project-card-desc">Actionable dashboard simplifying dense cryptographic data and SSL management.</div>
+      <div class="project-tags">
+        <span class="project-tag">SaaS</span><span class="project-tag">UX Research</span><span class="project-tag">Security UX</span>
+      </div>
+    `;
+    p4.addEventListener('click', () => handleUserSubmit("Asparz"));
 
+    const p5 = document.createElement('div');
+    p5.className = 'project-card';
+    p5.innerHTML = `
+      <div class="project-card-title">📅 Govt Guest Booking</div>
+      <div class="project-card-desc">Fully functional booking platform built by orchestrating AI as an engineering partner.</div>
+      <div class="project-tags">
+        <span class="project-tag">AI Dev</span><span class="project-tag">Laravel</span><span class="project-tag">Full-Stack</span>
+      </div>
+    `;
+    p5.addEventListener('click', () => handleUserSubmit("Govt Guest Booking"));
+
+    const p6 = document.createElement('div');
+    p6.className = 'project-card';
+    p6.innerHTML = `
+      <div class="project-card-title">🧠 Design OS for AI</div>
+      <div class="project-card-desc">Conceptual framework to transfer high-level human design intuition into AI models.</div>
+      <div class="project-tags">
+        <span class="project-tag">Framework</span><span class="project-tag">LLMs</span><span class="project-tag">AI Design</span>
+      </div>
+    `;
+    p6.addEventListener('click', () => handleUserSubmit("Design OS for AI"));
+
+    const p7 = document.createElement('div');
+    p7.className = 'project-card';
+    p7.innerHTML = `
+      <div class="project-card-title">⚡ tenXengage Redesign</div>
+      <div class="project-card-desc">Restructured UX architecture for Google/Cisco partner portals to reduce manual steps.</div>
+      <div class="project-tags">
+        <span class="project-tag">Workflow</span><span class="project-tag">Cognitive Load</span><span class="project-tag">B2B SaaS</span>
+      </div>
+    `;
+    p7.addEventListener('click', () => handleUserSubmit("tenXengage Redesign"));
+
+    container.appendChild(p1);
+    container.appendChild(p3);
+    container.appendChild(p4);
+    container.appendChild(p5);
+    container.appendChild(p6);
+    container.appendChild(p7);
+  }
 /**
  * Appends user messages.
  */
@@ -894,12 +928,12 @@ if (tabInteractive && tabClassic) {
 
 async function handleResumeDownloadOrShare(e) {
   if (e) e.preventDefault();
-  const pdfUrl = 'Sayantan_Ghosh_UX_Architect_Resume.pdf';
+  const pdfUrl = 'Sayantan_Ghosh_UX_Architect_Resume_V2.pdf';
   
   try {
     const response = await fetch(pdfUrl);
     const blob = await response.blob();
-    const file = new File([blob], 'Sayantan_Ghosh_UX_Architect_Resume.pdf', { type: 'application/pdf' });
+    const file = new File([blob], 'Sayantan_Ghosh_UX_Architect_Resume_V2.pdf', { type: 'application/pdf' });
     
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       await navigator.share({
@@ -926,7 +960,7 @@ async function handleResumeDownloadOrShare(e) {
 function triggerFallbackDownload(url) {
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'Sayantan_Ghosh_UX_Architect_Resume.pdf';
+  link.download = 'Sayantan_Ghosh_UX_Architect_Resume_V2.pdf';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

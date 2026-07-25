@@ -7,7 +7,7 @@
   },
   "fallback": {
     "responses": [
-      "Ohh! I think I can answer this question better in a 1:1 discussion. I am always open to direct conversations—please call me on my mobile (+91 99596 29041) or email me your question (ghosh.sayantan1982@gmail.com) so we can connect directly!",
+      "Ohh! I think I can answer this question better in a 1:1 discussion. I am always open to direct conversations—please call me on my mobile (+91 9346-579-316) or email me your question (ghosh.sayantan1982@gmail.com) so we can connect directly!",
       "I don't have a programmed response for this topic in my local database, but I am always open to a direct 1:1 discussion! Feel free to call me on my mobile or email me your questions anytime."
     ],
     "chips": ["Get Contact Details", "View Skills", "Explore Projects"]
@@ -44,7 +44,7 @@
     },
     {
       "id": "about",
-      "keywords": ["about", "who", "developer", "creator", "profile", "bio", "designer", "architect", "you", "sayantan", "ghosh"],
+      "keywords": ["about you", "about yourself", "who are you", "who is sayantan", "developer", "creator", "profile", "bio", "designer", "architect", "sayantan", "ghosh", "ux architect", "product designer", "b2b saas", "system designer", "lead designer", "sayantan ghosh"],
       "responses": [
         "I am a seasoned **UX Strategist & Product Thinker** with over 22 years of total experience (9 years in UX/Product Design and 13 years in visual/screen systems). I specialize in end-to-end product ownership, minimizing complexity in enterprise systems, and architecting scalable design systems with token structures.",
         "With a background spanning major enterprises and global partner portals (such as Google and Cisco), I excel at translating user friction and data insights into intuitive, production-ready responsive layouts. I recently completed an Executive PG Certification in UI/UX Design from IIT Roorkee."
@@ -53,7 +53,7 @@
     },
     {
       "id": "skills",
-      "keywords": ["skills", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research", "ux research", "user research"],
+      "keywords": ["skills", "skill", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research", "ux research", "user research", "competencies", "capabilities", "value proposition", "core competencies", "experience dna"],
       "responses": [
         "Here is my professional toolset and technology matrix:\n\n🛠️ **Design Systems & Prototyping**: Figma, Framer, Variables & Token Engineering, High-Fidelity App Shells, Sketch, Miro, Anima\n🤖 **AI UX & Workflow Tools**: Antigravity, Gemini, Claude, Codex, Google Stitch, Google AI Studio, Advanced Prompt Engineering\n🌐 **Frontend Prototyping (AI-Assisted)**: I design layout systems in Figma, then use Antigravity and AI tools to translate them into pixel-perfect, responsive HTML/CSS staging.\n📋 **Methodologies**: Human-Centered Design (HCD), Contextual Interviews, Mind Mapping, User Story Writing, Affinity & Empathy Mapping, Prototype Design, User Testing, A/B Testing, WCAG 2.1 Web Accessibility Guidelines, Information Architecture (IA), Wireframing"
       ],
@@ -69,18 +69,50 @@
     },
     {
       "id": "projects",
-      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products", "case studies"],
+      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products", "case studies", "featured work", "selected work", "product design highlights"],
       "responses": [
-        "Here are my selected product design highlights:\n\n1. 📊 **SmartBI**: Enterprise Conversational AI Space translating complex multi-layered SQL query paths into natural language charts and reporting views.\n2. 🛡️ **SENTINEL**: System mapping tool built to streamline project coordination and isolate navigation blocks.\n3. 🩺 **TRACTO**: High-contrast health ecosystem dashboard for elderly care usability.\n\nSelect a project below or type its name to learn more details!",
-        "Selected work highlights include **SmartBI**, **SENTINEL**, and **TRACTO** in the enterprise space. Which project would you like to explore?"
+        "Here are my selected product design highlights:\n\n1. 📊 **SmartBI**: Enterprise Conversational AI Space translating database queries into natural language views.\n2. 🩺 **TRACTO**: High-contrast health ecosystem dashboard for elderly care usability.\n3. 🔒 **Asparz**: Dashboard simplifying dense cryptographic data and SSL management.\n4. 📅 **Govt Guest Booking (RSBV1)**: Welfare booking platform for Ex-Servicemen developed by orchestrating AI.\n5. 🧠 **Design OS for AI**: Conceptual framework transferring human design intuition into LLMs.\n6. ⚡ **tenXengage**: Workflow redesign for Cisco & Google reducing manual steps.\n\n*(I also have archived design work on **SENTINEL**, an AI-driven project management system, and **RummyCircle** gaming UI.)*\n\nSelect a project below or type its name to learn more details!",
+        "Selected work highlights include **SmartBI**, **TRACTO**, **Asparz**, **Govt Guest Booking**, **Design OS**, and **tenXengage**. Which project would you like to explore?"
       ],
-      "chips": ["SmartBI Info", "SENTINEL Info", "TRACTO Info", "Explore Skills"]
+      "chips": ["SmartBI Info", "TRACTO Info", "Asparz Info", "Guest Booking Info", "Design OS Info", "tenXengage Info"]
     },
     {
       "id": "smartbi",
-      "keywords": ["smartbi", "smart bi", "conversational ai", "sql", "business intelligence"],
+      "keywords": ["smartbi", "smart bi", "conversational ai", "sql", "business intelligence", "calculated fields", "data transparency", "onboarding tracker", "input rail"],
       "responses": [
-        "**SmartBI — Enterprise Conversational AI Space**\n\n- **Objective**: Converts complex, multi-layered SQL query paths into a clean conversational natural language user experience.\n- **Design Work**: Designed responsive visualization layouts allowing non-technical stakeholders to build real-time charts and data reporting tables effortlessly.\n- **Impact**: Reduced user search-to-insight friction by optimizing information hierarchy, visual indicators, and cross-device responsive layout standards.\n\n🔗 **Explore the Interactive Prototype**: Visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor to interact with the real, fully functional prototype dashboard, or check out my [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)!"
+        "**SmartBI — Lead UX Architect (Enterprise Conversational AI Space)**\n\n- **Objective**: Converts complex, multi-layered SQL query paths into a clean conversational natural language user experience.\n- **Design Strategy**: Designed a 4-phase onboarding tracker, state-locked bottom input rail (locks when selecting countries/cities), and a faceted location assistant (automatically handles cities bypass or CSV upload).\n- **Architecture**: Designed the human-in-the-loop verification layer, data transparency architecture, and zero-trust security UX compliance model for non-technical stakeholders.\n\n🔗 **Explore the Interactive Prototype**: Visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor to interact with the real, fully functional prototype dashboard, or check out my [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)!"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "asparz",
+      "keywords": ["asparz", "ssl", "ssl management", "cryptographic", "cryptographic data", "predictive alerting", "renewal workflows", "ssh", "ssh key", "key lifecycle", "host dependency", "openssl"],
+      "responses": [
+        "**Asparz — UX Consultant & Architect (Enterprise SSL Management SaaS)**\n\n- **Objective**: Led deep-dive UX research and architected an actionable dashboard for IT administrators, simplifying dense cryptographic data.\n- **Key Features**:\n  1. **SSL Inventory Panel**: Aggregates certificate domain hosts, environments, and CAs with weak key length warnings.\n  2. **SSH Key Lifecycle Tracking**: Tracks authorized/orphaned keys, permission levels (`0644`/`0600`), and encryption algorithms.\n  3. **Host Dependency Audits**: Flags library mismatches or outdated OpenSSL versions.\n- **Design Strategy**: Designed predictive alerting mechanisms and streamlined certificate renewal workflows, dramatically improving data visibility and platform adoption."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "govt_guest_booking",
+      "keywords": ["govt guest booking", "guest booking", "booking platform", "ai product architect", "rbac", "laravel", "php", "mysql", "rsbv1", "ssb", "state sainik board", "welfare platform", "guest house", "operator", "super-admin"],
+      "responses": [
+        "**Govt Guest Booking (RSBV1) — AI Product Architect (100% AI-Driven Platform Development)**\n\n- **Objective**: Replace manual paper-based booking systems across West Bengal's 23 districts to prevent revenue leakage and eliminate room allocation discrepancies for Ex-Servicemen (ESM) and Active Defense personnel.\n- **Execution**:\n  1. **Dual-App Laravel Architecture**: Unified codebase separating Super Admin (`/super-admin/`) and Local Operator (`/operator/`).\n  2. **Role-Based Access Control (RBAC)**: Super Admin manages listings and global records; Operator manages room registers (Available, Occupied, Maintenance).\n  3. **Financial Discrepancy Audits**: Created digital audit trails linked to the West Bengal Defense Welfare Fund to stop offline cash pocketing.\n- **Outcome**: Proved design feasibility at scale by utilizing AI as an integrated engineering partner to generate dynamic PHP/Laravel/MySQL backend logic and a functional frontend."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "design_os_for_ai",
+      "keywords": ["design os for ai", "design os", "conceptual framework", "knowledge engineering", "intuition into ai", "ai agents", "structured logic", "autonomous architectural decisions"],
+      "responses": [
+        "**Design OS for AI — Conceptual Framework (Knowledge Engineering)**\n\n- **Objective**: Pioneering a conceptual framework to transfer high-level human design intuition into AI models.\n- **Key Features**:\n  1. **Rule Enforcement**: Systematically teaching human-centered design to AI agents.\n  2. **Structure Translation**: Translating complex design principles (like typography engines, grids, and access thresholds) into structured, programmable logic for autonomous architectural decisions."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "tenxengage_project",
+      "keywords": ["tenxengage project", "workflow redesign", "cisco google redesign", "manual steps", "cognitive load gap", "tenxengage redesign", "partner portal", "engagement rise", "ticket reduction"],
+      "responses": [
+        "**tenXengage — UX Architect (Workflow Redesign for Cisco & Google)**\n\n- **Objective**: Redesigned complex B2B partner portal workflows where users were forced to execute 40+ manual steps despite AI-predicted business outputs.\n- **Execution**: Diagnosed the cognitive load gap, restructured the UX architecture, and delivered wireframes to inject AI predictions directly into the core content creation canvas.\n- **Outcome**: Achieved a **30% rise in partner portal engagement**, a **22% reduction in support costs**, and a **20-25% drop in service tickets**."
       ],
       "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
     },
@@ -88,7 +120,7 @@
       "id": "sentinel",
       "keywords": ["sentinel", "automation", "project management", "pm tool"],
       "responses": [
-        "**SENTINEL — AI-Driven Project Management Space**\n\n- **Objective**: Designed the interface architecture for a project system mapping tool built to replace operational friction with system awareness.\n- **Design Strategy**: Modeled AI as an \"intelligence layer\" rather than a human replacement. The interface maps fragmented communications and documents to automatically highlight risk patterns, identify missing project details, and preserve decision history.\n- **Design Work**: Conducted operational audits to isolate user navigation blocks, generating a unified dashboard layout of context-aware state cards. This drastically reduces the manual coordination burden on project managers, allowing them to focus on strategy and leadership.\n- **Philosophy**: *Projects are fundamentally human endeavors. The role of AI is to quietly assist human decision-making and keep the team aligned, keeping the human user at the center of the process.*"
+        "**SENTINEL — AI-Driven Project Management Space**\n\n- **Objective**: Designed the interface architecture for a project system mapping tool built to replace operational friction with system awareness.\n- **Key Features**:\n  1. **Methodology Blocker Gate**: Toggles Agile/Waterfall frameworks, calculating a Weighted Completeness Score to display low-risk vs red blocker flags.\n  2. **Agile Friction Deflectors**: Includes a *Velocity Theatre Detector* (cross-referencing Jira with Git commits) and a *Technical Debt Guardrail*.\n  3. **Support Anomaly Intervention**: Triggers alerts if client requests copy competitors too closely.\n- **Philosophy**: *The role of AI is to quietly assist human decision-making and map communication fatigue, keeping the human user at the center of the process.*"
       ],
       "chips": ["Explore Projects", "Get Contact Details"]
     },
@@ -96,7 +128,7 @@
       "id": "tracto",
       "keywords": ["tracto", "healthcare", "elderly care", "health suite", "user research case study", "ux research case study"],
       "responses": [
-        "**TRACTO — Elderly Healthcare Suite (Core UX Research Project)**\n\n- **Objective**: Led the end-to-end UX research and interface design for an integrated healthcare data ecosystem built to safeguard usability for elderly patients with limited tech literacy.\n- **UX Research & Methodology**: Conducted **contextual interviews** and usability tests directly with elderly users, mapping findings into **empathy maps** and **affinity mapping** clusters to identify cognitive friction points. Structured the platform flow using **user story writing** and **mind mapping** tools.\n- **Design & Validation**: Designed high-contrast visual dashboard screens and custom UI kits in Figma, translating structures into responsive staging using AI layout assistants. Validated density through targeted **user testing** to replace complex analytical charts with clear, obvious health markers.\n\n🔗 **Explore the Interactive Prototype**: To interact with the live healthcare dashboard screens and responsive UI kit components, visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor."
+        "**TRACTO — Elderly Healthcare Suite (Core UX Research Project)**\n\n- **Objective**: Led the end-to-end UX research and interface design for an integrated healthcare data ecosystem built to safeguard usability and independence for elderly patients (60-80+ yrs) with limited digital literacy.\n- **UX Research & Insights**: Conducted **13 in-depth contextual interviews**. Discovered that while medicine adherence is high, meal-time variations cause confusion. Resolved the *Caregiver-Elder Anxiety Loop* by replacing intrusive tracking with passive, silent telemetry.\n- **Design & Validation**: Designed high-contrast visual dashboard screens and custom UI kits in Figma, incorporating geofenced errand alerts. Validated density through targeted user testing to achieve a 100% interface comprehension rate."
       ],
       "chips": ["Explore Projects", "Get Contact Details"]
     },
@@ -104,15 +136,15 @@
       "id": "rummycircle",
       "keywords": ["rummycircle", "rummy circle", "playgames24x7", "gaming ui", "multiplayer gaming", "rummy", "card game"],
       "responses": [
-        "**Playgames24x7 (RummyCircle) — Gameplay Interface Redesign**\n\n- **Objective**: Redesigned the gameplay layout for millions of active cash players who were losing games not because they lacked skill, but because they couldn't parse the visual indicators fast enough.\n- **Research**: Conducted field observations and user alignments with 40 to 50 active cash players playing with real money.\n- **Design Work**: Cleaned up visual table structures so timer, Joker, and declare cards stopped competing for attention; redesigned card grouping to be natural; and optimized turn indicators to prevent focus diversion.\n- **Impact**: Reduced visual friction and accidental misclicks during critical gameplay moments. The design was so successful it was later deployed to the free-to-play app version.\n- **Philosophy**: *If players have to think about the interface, they are already late. Design is about making sure the right things are obvious at the right moment.*"
+        "**Playgames24x7 (RummyCircle) — Gameplay Interface Redesign**\n\n- **Objective**: Redesigned the gameplay layout for millions of active cash players who were losing games due to visual indicator lag and accidental misclicks.\n- **UX Work**: Conducted field observations and user alignments with 40 to 50 active cash players. Optimized spatial grouping of timer indicators, Joker cards, and the declare zone so they stopped competing for attention. Redesigned hit areas to map naturally to thumb reach ranges.\n- **Impact**: Dramatically reduced accidental touch occurrences and visual friction during high-stakes turns. The redesign was so successful it was deployed as the default theme for both free-to-play and cash mobile apps."
       ],
       "chips": ["Work History", "Explore Projects", "Get Contact Details"]
     },
     {
       "id": "experience",
-      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles", "timeline", "tenxengage", "fastcollab", "ayantek", "codelogics", "rummycircle", "playgames24x7", "archive", "blueprint"],
+      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles", "timeline", "tenxengage", "geni", "fastcollab", "ayantek", "codelogics", "rummycircle", "playgames24x7", "archive", "blueprint"],
       "responses": [
-        "**Professional Experience & Industry Domains**:\n\n- 💼 **Senior Product Designer / Consultant** @ **TenXengage** (Feb 2021 — May 2026)\n  *Domain: Enterprise Portals & Global Collaborations (Google, Cisco)*\n  * Managed complete user journeys and assets for partner portals, raising recurring user satisfaction index scores by 15%.\n\n- 💼 **Senior Product Designer** @ **FastCollab** (June 2020 — Jan 2021)\n  *Domain: AI-driven Financial Corporate Travel (Fintech)*\n  * Formulated responsive wireframes and simplified complex financial ledger tracking logic.\n\n- 💼 **Senior Product Designer / Consultant** @ **Ayantek** (Apr 2017 — Jan 2020)\n  *Domain: High-Density Enterprise B2B SaaS Platforms*\n  * Developed interaction patterns, web app shells, and blueprints for dense client environments.\n\n- 💼 **Senior Product Designer** @ **CodeLogics** (Aug 2013 — Apr 2017)\n  *Domain: Interactive Interface Systems & Modular Scaffolding*\n  * Created pattern libraries to prevent developer layout implementation lag.\n\n- 💼 **Product Designer (UX/UI)** @ **Playgames24x7 (RummyCircle)** (May 2012 — Sep 2013)\n  *Domain: Multiplayer B2C Gaming UI & High-Volume Viewports*\n  * Optimized multiplayer layouts to eliminate accidental misclicks for millions of users.\n\n**Career Blueprint Archive (2003 — 2012)**:\n\n- 💼 **Lean UI Designer** @ **HurixDigital** (2011-2012) *(Domain: E-learning & Digital Publishing)*\n- 💼 **UI Manager & Designer** @ **RoyTech Software** (2008-2011) *(Domain: Enterprise Management Systems)*\n- 💼 **Freelance UI Practice** (2005-2008) *(Domain: Web Graphics & Site Assets)*\n- 💼 **Web Designer** @ **Aforeserve.com** (2003-2005) *(Domain: Web Layouts)*\n\n*(Note: For my full 22-year work history details, please check my LinkedIn profile or download the PDF resume.)*"
+        "**Professional Experience & Industry Domains**:\n\n- 💼 **Freelance UX Consultant & AI Product Architect** @ **Independent Consultant** (Jan 2020 — Present)\n  *Domain: Strategic UX, AI Orchestration & Full-Stack Prototyping*\n  * Acted as strategic consultant bridging deep human insights, enterprise architecture, and technical execution. Architected booking platforms, PHP/MySQL backends, and developed \"Design OS\" frameworks.\n\n- 💼 **Sr. UX Designer &gt; UX Architect** @ **TenXengage** (Oct 2023 — May 2026)\n  *Domain: B2B SaaS Partner Portals (Google, Cisco)*\n  * Led end-to-end user experience and interaction design, scaling B2B frameworks through rigorous Agile collaboration.\n\n- 💼 **Sr. UX Designer & Researcher** @ **Geni** (Feb 2021 — Sep 2023)\n  *Domain: Predecessor legal entity to TenXengage (Google, Cisco partner portals)*\n  * Architected B2B SaaS partner portal information structures, navigation models, and data schemas.\n\n- 💼 **Senior UX Designer** @ **FastCollab** (May 2020 — Feb 2021)\n  *Domain: AI-driven Financial Corporate Travel (Fintech)*\n  * Simplified complex business logic into frictionless, linear screen architectures.\n\n- 💼 **Lead UX Designer** @ **Ayantek** (Apr 2017 — Jan 2020)\n  *Domain: High-Density Enterprise B2B SaaS Platforms*\n  * Executed end-to-end UX strategy for a diverse B2B SaaS portfolio, managing sprints grounded in intensive user research.\n\n- 💼 **Design Manager** @ **CodeLogics** (Aug 2013 — Apr 2017)\n  *Domain: Interactive Interface Systems & Modular Scaffolding*\n  * Managed design output for multi-client product teams, translating visions into dev-ready prototypes.\n\n- 💼 **Product Designer (Senior Creative)** @ **Playgames24x7 (RummyCircle)** (May 2012 — Sep 2013)\n  *Domain: Multiplayer B2C Gaming UI & High-Volume Viewports*\n  * Conceptualized the Main Game Table interaction model to minimize cognitive load for millions of concurrent users.\n\n**Career Evolution Archive (2003 — 2012)**:\n\n- 💼 **Lean UI Designer** @ **HurixDigital** (2011-2012) *(Domain: E-learning & Digital Publishing)*\n- 💼 **UI Manager** @ **RoyTech Software** (2008-2011) *(Domain: Enterprise Management Systems)*\n- 💼 **Freelance UI Practice** (2005-2008) *(Domain: Visual Identity)*\n- 💼 **Jr. Web Designer** @ **Aforeserve.com** (2003-2005) *(Domain: Web Layouts)*\n\n*(Note: For my full 22-year work history details, please check my LinkedIn profile or download the PDF resume.)*"
       ],
       "chips": ["Explore Projects", "View Skills", "Education Background"]
     },
@@ -128,7 +160,7 @@
       "id": "certifications",
       "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials"],
       "responses": [
-        "Here are my professional certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-2025): Specialized in cognitive human behavior patterns, scalable navigation structures, and data display mechanics.\n🏆 **AI for Designers Professional Certification** — **Interaction Design Foundation (IxDF)** (2026): Focused on AI-assisted visual layout engineering, predictive UI models, and design loops.\n🏆 **Professional Diploma in Web Design & Multi-platform Interactive Media** — **Arena Animation**."
+        "Here are my professional certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-2025): Specialized in cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n🏆 **AI for Designers Professional Certification** — **Interaction Design Foundation (IxDF)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **Interaction Design Foundation (IxDF)**: Specialized in cognitive load principles applicable to complex interface design.\n🏆 **Professional Diploma in Web Design & Multi-platform Interactive Media** — **Arena Animation**."
       ],
       "chips": ["Education Background", "View Skills", "Work History"]
     },
@@ -136,7 +168,7 @@
       "id": "contact",
       "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "reach", "message", "write", "medium", "mail", "tel", "mobile"],
       "responses": [
-        "Let's build something incredible together! Here is how you can reach me:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 📞 **Mobile**: +91 99596 29041\n\n*(To view my **LinkedIn** or **Medium** profiles, please open the mobile menu by tapping the menu icon ☰ at the top left!)*"
+        "Let's build something incredible together! Here is how you can reach me:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 📞 **Mobile**: +91 9346-579-316\n\n*(To view my **LinkedIn** or **Medium** profiles, please open the mobile menu by tapping the menu icon ☰ at the top left!)*"
       ],
       "chips": ["Start Over", "Explore Projects"]
     },
@@ -192,7 +224,7 @@
       "id": "current_role",
       "keywords": ["current role", "present role", "present organization", "current job", "where do you work", "organization"],
       "responses": [
-        "I am currently operating as a **Senior Product Designer & UX Consultant** at **TenXengage**, where I have been leading user journey mapping and layout systems for global Google and Cisco partner portals since February 2021."
+        "In my most recent role (until May 2026), I was **Sr. UX Designer &gt; UX Architect** at **TenXengage** (including predecessor Geni since Feb 2021). I led end-to-end user experience and interaction design for Google and Cisco partner portals, designing information structures, navigation models, and governing B2B design systems."
       ],
       "chips": ["Work History", "Explore Projects"]
     },
@@ -214,7 +246,7 @@
     },
     {
       "id": "ai_workflow",
-      "keywords": ["ai workflow", "ai use", "how do you use ai", "utilize ai", "ai tools", "antigravity", "google stitch", "google ai studio", "prompt engineering", "claude", "gemini", "ai integration", "ai design", "ai skill", "ai skills", "skills in ai", "skills on ai"],
+      "keywords": ["ai workflow", "ai use", "how do you use ai", "utilize ai", "ai tools", "antigravity", "google stitch", "google ai studio", "prompt engineering", "claude", "gemini", "ai integration", "ai design", "ai skill", "ai skills", "skills in ai", "skills on ai", "skill on ai", "skill in ai"],
       "responses": [
         "I treat AI as a design accelerator, not a strategy replacement. As I wrote in my article, *\"AI Shouldn’t Drive Your UX. You Should Drive the AI\"*—my workflow relies on strict human orchestration:\n\n1. 🍳 **Discovery (The 'Master Chef' Principle)**: I use LLMs (Gemini & Claude) as high-speed research assistants to tag emotional codes and user comments. Since raw transcripts miss pauses and hesitations, I manually inject these human-perceived contextual cues back into the synthesis prompts to build personas grounded in true emotion.\n2. 💡 **Collaborative Ideation**: I sketch visual layout directions on paper first to prevent AI hallucinations, then ask AI tools to act as a design critic to uncover 'blind areas' and behavioral gaps. I then build out the final high-fidelity layouts using **Figma**.\n3. ⚡ **Layout Staging (AI Translation)**: Once the design is finalized in Figma, I utilize **Antigravity** and specialized AI code staging assistants to translate my component logic and design tokens into pixel-perfect, responsive HTML/CSS prototypes.\n4. 📊 **Delivery & Analytics Loop**: Post-launch, I ingest live user analytics (GA4, Microsoft Clarity heatmaps, and 'tap rage' session recordings) and prompt AI to locate friction points, using those findings to refine layout details iteratively rather than recreate interfaces blindly.\n\nMy core philosophy: **Provide the soul. Use the engine for speed. Be the driver.**"
       ],
@@ -232,7 +264,7 @@
       "id": "deflect_ctc",
       "keywords": ["ctc", "salary", "expected ctc", "compensation", "package", "charge", "rates", "money", "how much"],
       "responses": [
-        "Salary requirements, compensation expectations, and consulting rates are best discussed directly to align on project terms. Please contact me at ghosh.sayantan1982@gmail.com or call +91 99596 29041 to discuss custom terms."
+        "Salary requirements, compensation expectations, and consulting rates are best discussed directly to align on project terms. Please contact me at ghosh.sayantan1982@gmail.com or call +91 9346-579-316 to discuss custom terms."
       ],
       "chips": ["Get Contact Details", "About Sayantan"]
     },
@@ -254,7 +286,7 @@
     },
     {
       "id": "developer_collaboration",
-      "keywords": ["developer handoff", "working with developers", "collaboration with engineers", "developer collaboration", "engineer handoff", "translation to code", "dev handoff", "work with dev", "handoff"],
+      "keywords": ["developer handoff", "working with developers", "collaboration with engineers", "developer collaboration", "engineer handoff", "translation to code", "dev handoff", "work with dev", "handoff", "collaborate", "collaboration", "collaborate with developers", "work with developers", "work with engineers"],
       "responses": [
         "I bridge the gap between design and engineering by delivering highly structured Figma files with token-based variables and clean grid spacing. Additionally, by using AI-assisted layout staging (like Antigravity to generate pixel-perfect responsive HTML/CSS structures), I show developers exactly how layouts behave under real browser constraints, eliminating implementation lag."
       ],
@@ -285,6 +317,70 @@
       "chips": ["About Sayantan", "AI Workflow", "Explore Projects"]
     },
     {
+      "id": "skills_figma",
+      "keywords": ["figma", "framer", "sketch", "variables", "token", "tokens", "token engineering", "component systems", "component libraries", "variables in figma", "high-fidelity", "prototyping"],
+      "responses": [
+        "💻 **Figma, Framer & Design Systems**:\n\n*   **Figma Master**: I build structured, token-based design systems utilizing Figma Variables, nested components, and responsive auto-layouts.\n*   **Interactive Prototyping**: Experienced in Framer, Miro, Sketch, and Anima for high-fidelity interactive user flows.\n*   **Handoff Excellence**: Spacing and styles follow strict geometric constraints (IBM Multiplier Grid) for clean, developer-ready translation."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "skills_ai_tools",
+      "keywords": ["ai tool", "ai tools", "orchestration", "google stitch", "google ai studio", "ux pilot", "prompt engineering"],
+      "responses": [
+        "🤖 **AI UX & Design Orchestration**:\n\n*   **Workflow Acceleration**: I orchestrate AI agents (Antigravity, Claude, Gemini, Google Stitch) to accelerate user story writing, backlog readiness, and layout staging.\n*   **Functional Prototyping**: I use AI to bridge the gap between design and production code, directing AI to generate full-stack Laravel/PHP/MySQL MVPs to validate design feasibility.\n*   **Prompt Engineering**: Highly skilled in prompt refinement and LLM context-mapping for UX research synthesis."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "skills_methodologies",
+      "keywords": ["methodologies", "user research", "ux research", "hcd", "contextual inquiry", "interviews", "usability testing", "persona", "empathy mapping", "affinity mapping", "wcag", "accessibility", "information architecture"],
+      "responses": [
+        "📋 **UX Methodologies & Research**:\n\n*   **Human-Centered Design (HCD)**: Grounded in cognitive load optimization (Miller's Law) and visual ergonomics (IIT Roorkee backed).\n*   **Research Rigor**: Conducted contextual interviews, heuristic evaluations, usability testing, and journey mapping.\n*   **Accessibility**: Strict WCAG 2.1 compliance integration to ensure systems are inclusive for all tech-literacy levels."
+      ],
+      "chips": ["View Skills", "AI Workflow", "Get Contact Details"]
+    },
+    {
+      "id": "exp_tenxengage",
+      "keywords": ["tenxengage", "sr ux designer", "ux architect", "cisco", "google partner", "elevation"],
+      "responses": [
+        "💼 **TenXengage (Oct 2023 — May 2026) | Sr. UX Designer > UX Architect**\n\n*   **Role**: Lead UX Architect for Cisco & Google B2B partner portals.\n*   **Impact**: Restructured workflow architectures to reduce manual coordination friction, achieving a **30% rise in engagement** and **22% reduction in support tickets**.\n*   **Promotion**: Formally elevated to UX Architect in recognition of system architecture responsibilities handled since joining Geni."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_geni",
+      "keywords": ["geni", "sr ux designer & researcher", "predecessor"],
+      "responses": [
+        "💼 **Geni (Feb 2021 — Sep 2023) | Sr. UX Designer & Researcher**\n\n*   **Role**: Predecessor legal entity to TenXengage (same team, clients, and projects).\n*   **Work**: Architected information structures, navigation networks, and data schemas across Google and Cisco partner ecosystems. Led journey mapping workshops and user research."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_freelance",
+      "keywords": ["freelance", "independent consultant", "consultant", "ai product architect"],
+      "responses": [
+        "💼 **Freelance UX Consultant & AI Product Architect (Jan 2020 — Present)**\n\n*   **Role**: Independent strategic consultant bridging deep human insights with high-velocity technical execution.\n*   **Highlights**: Architected multi-tiered booking platforms (Govt Guest Booking) and enterprise SSL management dashboards (Asparz). Developed 'Design OS' methodologies to transfer human intuition into LLMs."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_fastcollab",
+      "keywords": ["fastcollab", "senior ux designer", "travel platform"],
+      "responses": [
+        "💼 **FastCollab (May 2020 — Feb 2021) | Senior UX Designer**\n\n*   **Role**: Senior Designer for corporate fintech travel platforms.\n*   **Work**: Simplified complex corporate travel business logic into linear screen architectures, reducing rework through daily Agile syncs."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_ayantek",
+      "keywords": ["ayantek", "lead ux designer"],
+      "responses": [
+        "💼 **Ayantek (Apr 2017 — Jan 2020) | Lead UX Designer**\n\n*   **Role**: Lead UX Designer managing a diverse B2B SaaS portfolio.\n*   **Work**: Managed design sprints grounded in intensive user research and business KPIs. Created low-to-high fidelity prototypes and user stories."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
       "id": "abuse_block",
       "keywords": [
         "fuck", "shit", "ass", "bitch", "bastard", "idiot", "dick", "cunt", "abuse", "abusive", "stupid", "asshole", "motherfucker", "whore", "slut", "crap", "bullshit", "jerk", "dumbass", "piss", "cocksucker",
@@ -292,7 +388,7 @@
         "bokachoda", "balchada", "khanki", "gandu", "shala", "chudirbhai", "shuor",
         "scheisse", "arschloch", "schlampe", "wichser", "hurensohn", "fotze", "miststueck",
         "suka", "blyat", "pizda", "khuy", "ebat", "chmo", "mudak",
-        "merde", "connard", "salope", "putain", "encule", "con", "chieur"
+        "merde", "connard", "salope", "putain", "encule", "chieur"
       ],
       "responses": [
         "Let's maintain a professional conversation. I am here to present my UX design portfolio, technical skills, and projects. Please let me know if you have any questions about my work."
