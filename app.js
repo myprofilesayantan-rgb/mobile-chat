@@ -263,7 +263,7 @@ const BRAIN_DATA = {
     },
     {
       "id": "deflect_ctc",
-      "keywords": ["ctc", "salary", "expected ctc", "compensation", "package", "charge", "rates", "money", "how much"],
+      "keywords": ["ctc", "salary", "salaries", "expected ctc", "current ctc", "compensation", "package", "packages", "annual package", "remuneration", "charge", "rates", "rate", "hourly rate", "daily rate", "consulting fee", "consulting fees", "billing rate", "freelance rate", "money", "budget", "pricing", "cost", "fee", "fees", "payment", "earnings", "variable pay", "variable ctc", "fixed ctc", "company share", "company shares", "shares", "stock options", "esop", "esops", "rsu", "rsus", "equity", "stocks", "vesting", "bonus", "bonuses", "performance bonus", "joining bonus", "sign-on bonus", "incentive", "incentives", "allowance", "allowances", "perks", "benefits", "employee benefits", "medical benefits", "health insurance", "how much do you charge", "how much salary", "how much ctc", "expected salary", "desired package", "salary range", "salary expectations"],
       "responses": [
         "Salary requirements, compensation expectations, and consulting rates are best discussed directly. I prefer not to share specific compensation figures on this interactive mobile guide. Please contact me directly at ghosh.sayantan1982@gmail.com or call +91 9346-579-316 to discuss details 1:1."
       ],
@@ -384,7 +384,7 @@ const BRAIN_DATA = {
     {
       "id": "abuse_block",
       "keywords": [
-        "fuck", "shit", "ass", "bitch", "bastard", "idiot", "dick", "cunt", "abuse", "abusive", "stupid", "asshole", "motherfucker", "whore", "slut", "crap", "bullshit", "jerk", "dumbass", "piss", "cocksucker",
+        "fuck", "shit", "ass", "bitch", "bastard", "idiot", "dick", "cunt", "abuse", "abusive", "stupid", "asshole", "motherfucker", "whore", "slut", "crap", "bullshit", "jerk", "dumbass", "piss", "cocksucker", "porn", "pornography", "sexy", "nude", "nudes", "sex", "orgasm", "naked", "prostitute",
         "chutiya", "bhenchod", "madarchod", "gandu", "saala", "harami", "laundu", "bhonsri", "randi", "bhadwa", "kutta", "kamine", "lavda",
         "bokachoda", "balchada", "khanki", "gandu", "shala", "chudirbhai", "shuor",
         "scheisse", "arschloch", "schlampe", "wichser", "hurensohn", "fotze", "miststueck",
@@ -392,7 +392,7 @@ const BRAIN_DATA = {
         "merde", "connard", "salope", "putain", "encule", "chieur"
       ],
       "responses": [
-        "Let's maintain a professional conversation. I am here to present my UX design portfolio, technical skills, and projects. Please let me know if you have any questions about my work."
+        "Please maintain professionalism. This interactive portfolio is strictly for reviewing my professional UX architecture, project strategy, and technical skills. Let's keep our communication respectful and focused on my work."
       ],
       "chips": ["Explore Projects", "View Skills", "About Sayantan"]
     }

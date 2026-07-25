@@ -62,9 +62,18 @@ async function runTests() {
     { input: "welcome-back", expectedIntent: "fallback" }, // 'welcome' with dash
     { input: "starting", expectedIntent: "fallback" }, // 'start' in 'starting'
     
+    { input: "okay how much experience you have in dingdong", expectedIntent: "experience" },
+    { input: "do you have variable pay?", expectedIntent: "deflect_ctc" },
+    { input: "what is the company share component?", expectedIntent: "deflect_ctc" },
+    { input: "what health insurance do you offer?", expectedIntent: "deflect_ctc" },
+    { input: "what is your hourly rate?", expectedIntent: "deflect_ctc" },
+    { input: "what are your stock options?", expectedIntent: "deflect_ctc" },
+    { input: "what is your expected salary?", expectedIntent: "deflect_ctc" },
+    
     // Edge Cases: Abuse Block (caps/spaces/punctuation)
     { input: " FUCK ", expectedIntent: "abuse_block" },
-    { input: "!!!shit!!!", expectedIntent: "abuse_block" }
+    { input: "!!!shit!!!", expectedIntent: "abuse_block" },
+    { input: "porn", expectedIntent: "abuse_block" }
   ];
 
   let passed = 0;
