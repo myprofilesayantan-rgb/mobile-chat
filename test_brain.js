@@ -162,7 +162,22 @@ async function runTests() {
     passed += 2;
   }
 
-  const totalTests = testCases.length + 11;
+  // Step 8: Spelling suggestion for "mane" -> "name"
+  console.log("\n--- Testing Spelling Suggestion for mane -> name ---");
+  brain.reset();
+  let r8 = brain.processMessage("What is you mane?");
+  let step8Passed = r8.intentId === "clarification" && r8.text.includes("name");
+  console.log(`${step8Passed ? "✅" : "❌"} Step 8 (What is you mane? triggers clarification for name): ${r8.intentId} (${r8.text})`);
+
+  let r8Confirm = brain.processMessage("yes");
+  let step8ConfirmPassed = r8Confirm.intentId === "about";
+  console.log(`${step8ConfirmPassed ? "✅" : "❌"} Step 8 Confirm (Yes displays about details): ${r8Confirm.intentId}`);
+
+  if (step8Passed && step8ConfirmPassed) {
+    passed += 2;
+  }
+
+  const totalTests = testCases.length + 13;
   console.log(`\nSummary: ${passed}/${totalTests} tests passed.`);
   if (passed === totalTests) {
     console.log("🚀 All edge case, standard, context, and fuzzy suggestion tests passed successfully!");

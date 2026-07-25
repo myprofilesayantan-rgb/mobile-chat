@@ -652,6 +652,7 @@ class ChatBrain {
     } else {
       // Fuzzy spelling autocorrect / suggestion edge-cases
       const suggestionTargets = [
+        { term: "name", intentId: "about", displayName: "name" },
         { term: "contact", intentId: "contact", displayName: "contact details" },
         { term: "portfolio", intentId: "projects", displayName: "portfolio" },
         { term: "projects", intentId: "projects", displayName: "projects" },
@@ -675,7 +676,7 @@ class ChatBrain {
           // 2. Levenshtein edit distance check (e.g. "pornfolio" -> "portfolio", "ridume" -> "resume")
           if (!isMatch) {
             const dist = this.getLevenshteinDistance(cleanedToken, target.term);
-            const maxAllowedDist = target.term.length >= 6 ? 2 : 1;
+            const maxAllowedDist = target.term.length >= 4 ? 2 : 1;
             if (dist <= maxAllowedDist) {
               isMatch = true;
             }
