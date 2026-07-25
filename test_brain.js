@@ -35,7 +35,7 @@ async function runTests() {
     { input: "where are your case study links?", expectedIntent: "portfolio_links" },
     { input: "do you require visa sponsorship?", expectedIntent: "visa_remote" },
     { input: "what is your design philosophy?", expectedIntent: "design_philosophy" },
-    { input: "aksdjhfklashdf", expectedIntent: "fallback" },
+    { input: "aksdjhfklashdf", expectedIntent: "typing_mistake" },
     { input: "dfdfdf", expectedIntent: "typing_mistake" },
     { input: "sdsdere", expectedIntent: "typing_mistake" },
     { input: "jdfkr", expectedIntent: "typing_mistake" },
@@ -146,7 +146,23 @@ async function runTests() {
     passed += 6;
   }
 
-  const totalTests = testCases.length + 9;
+  // Step 7: First-time typo welcome verification
+  console.log("\n--- Testing First-Time Typo Welcome ---");
+  brain.reset();
+  let r7 = brain.processMessage("hfdfo");
+  let step7Passed = r7.intentId === "typing_mistake" && r7.text.startsWith("Welcome!");
+  console.log(`${step7Passed ? "✅" : "❌"} Step 7 (First-time typo welcomes the user): ${r7.intentId}`);
+  
+  // Subsequent typo does NOT have Welcome
+  let r7Subsequent = brain.processMessage("dfdfdf");
+  let step7SubsequentPassed = r7Subsequent.intentId === "typing_mistake" && !r7Subsequent.text.startsWith("Welcome!");
+  console.log(`${step7SubsequentPassed ? "✅" : "❌"} Step 7 Subsequent (Second typo does not welcome): ${r7Subsequent.intentId}`);
+
+  if (step7Passed && step7SubsequentPassed) {
+    passed += 2;
+  }
+
+  const totalTests = testCases.length + 11;
   console.log(`\nSummary: ${passed}/${totalTests} tests passed.`);
   if (passed === totalTests) {
     console.log("🚀 All edge case, standard, context, and fuzzy suggestion tests passed successfully!");

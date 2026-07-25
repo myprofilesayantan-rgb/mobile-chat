@@ -697,7 +697,7 @@ class ChatBrain {
         }
       }
 
-      // Check if it looks like a typing mistake / gibberish (e.g. "dfdfdf", "sdsdere", "jdfkr")
+      // Check if it looks like a typing mistake / gibberish (e.g. "dfdfdf", "sdsdere", "jdfkr", "hfdfo")
       const hasGibberishToken = tokens.some(token => {
         const cleanToken = token.replace(/[^a-z]/g, "");
         if (cleanToken.length < 3) return false;
@@ -714,15 +714,22 @@ class ChatBrain {
           if (cleanToken.split(part).join("") === "") return true;
         }
         
+        // 4 or more consecutive consonants (e.g., "hfdfo", "jdfkr")
+        if (/[bcdfghjklmnpqrstvwxz]{4,}/.test(cleanToken)) return true;
+        
         // Specific common gibberish strings / structures
-        const commonGibberish = ["asdf", "qwerty", "zxcv", "jdfk", "dfdf", "sdsd", "fdfd", "jdfkr", "sdsdere"];
+        const commonGibberish = ["asdf", "qwerty", "zxcv", "jdfk", "dfdf", "sdsd", "fdfd", "jdfkr", "sdsdere", "hfdfo"];
         if (commonGibberish.some(g => cleanToken.includes(g))) return true;
         
         return false;
       });
 
       if (hasGibberishToken) {
-        responseText = "Hmmm! It seems like you wanted to say something, but you made a typing mistake. Feel free to ask about my **skills**, **projects**, or **experience**!";
+        if (this.history.length === 0) {
+          responseText = "Welcome! Hmmm, it seems like your very first message contains a typing mistake. Please type something meaningful to explore my journey, or ask about my **skills**, **projects**, or **experience**!";
+        } else {
+          responseText = "Hmmm! It seems like you wanted to say something, but you made a typing mistake. Feel free to ask about my **skills**, **projects**, or **experience**!";
+        }
         suggestionChips = ["View Skills", "Explore Projects", "Get Contact Details"];
         matchedIntentId = "typing_mistake";
       } else {
