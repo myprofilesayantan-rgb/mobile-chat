@@ -16,7 +16,7 @@ const BRAIN_DATA = {
   "intents": [
     {
       "id": "greeting",
-      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init", "good morning", "good afternoon", "good evening", "morning", "afternoon", "evening", "howdy", "hola", "namaste", "hey there", "hello there"],
+      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init", "good morning", "good afternoon", "good evening", "morning", "afternoon", "evening", "howdy", "hola", "namaste", "hey there", "hello there", "ho", "hii", "hlo"],
       "responses": [
         "Hello! Welcome to my interactive portfolio. **This is a custom layout directory (not a generative AI chatbot)**. I designed this interface and co-created its code using AI assistants. I'll do my best to answer your questions—if I miss anything, please contact me directly to discuss my journey! What would you like to explore first?",
         "Hi! I set up this structured portfolio directory (not an open AI chat) to guide you. I design in Figma and use AI tools to co-create the frontend. I'll try to answer most of your questions—if the system doesn't have a response, feel free to reach out to me directly. How can I help you today?"

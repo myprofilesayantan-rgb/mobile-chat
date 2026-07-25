@@ -45,6 +45,9 @@ async function runTests() {
     { input: "HeLlO tHeRe", expectedIntent: "greeting" },
     { input: "tHaNkS a LoT", expectedIntent: "thanks" },
     { input: "bYe ByE!", expectedIntent: "goodbye" },
+    { input: "ho", expectedIntent: "greeting" },
+    { input: "hii", expectedIntent: "greeting" },
+    { input: "hlo", expectedIntent: "greeting" },
 
     // Edge Cases: Punctuation & Special Characters
     { input: "...hello...", expectedIntent: "greeting" },
