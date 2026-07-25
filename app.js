@@ -1,4 +1,735 @@
-import { ChatBrain } from './brain.js';
+// Inlined database for local/offline file:// compatibility
+const BRAIN_DATA = {
+  "welcome": {
+    "responses": [
+      "Welcome! I am a **custom-coded interaction prototype** mapping my professional journey. I designed this prototype and co-created its frontend code using AI assistants to demonstrate layout hierarchy, system variables, and clean frontend logic using a deterministic JSON database (no generic AI wrappers). What would you like to explore first?"
+    ],
+    "chips": ["Explore Projects", "View Skills", "About Sayantan", "Get Contact Details"]
+  },
+  "fallback": {
+    "responses": [
+      "Ohh! I think I can answer this question better in a 1:1 discussion. I am always open to direct conversations—please call me on my mobile (+91 9346-579-316) or email me your question (ghosh.sayantan1982@gmail.com) so we can connect directly!",
+      "I don't have a programmed response for this topic in my local database, but I am always open to a direct 1:1 discussion! Feel free to call me on my mobile or email me your questions anytime."
+    ],
+    "chips": ["Get Contact Details", "View Skills", "Explore Projects"]
+  },
+  "intents": [
+    {
+      "id": "greeting",
+      "keywords": ["hi", "hello", "hey", "greetings", "yo", "sup", "start", "welcome", "init", "good morning", "good afternoon", "good evening", "morning", "afternoon", "evening", "howdy", "hola", "namaste", "hey there", "hello there"],
+      "responses": [
+        "Hello! Welcome to my interactive portfolio. **This is a custom layout directory (not a generative AI chatbot)**. I designed this interface and co-created its code using AI assistants. I'll do my best to answer your questions—if I miss anything, please contact me directly to discuss my journey! What would you like to explore first?",
+        "Hi! I set up this structured portfolio directory (not an open AI chat) to guide you. I design in Figma and use AI tools to co-create the frontend. I'll try to answer most of your questions—if the system doesn't have a response, feel free to reach out to me directly. How can I help you today?"
+      ],
+      "chips": ["View Skills", "Explore Projects", "About Sayantan"]
+    },
+    {
+      "id": "thanks",
+      "keywords": ["thanks", "thank you", "thank u", "thx", "appreciate it", "thank", "thankyou", "grateful", "much obliged", "thank you so much", "thanks a lot"],
+      "responses": [
+        "You're very welcome! I'm glad I could help. Let me know if you want to explore my **skills**, **projects**, or **experience**!",
+        "My pleasure! Feel free to ask more questions about my design journey, or let me know if you'd like to connect directly.",
+        "Glad to help! Let me know what else I can show you from my portfolio."
+      ],
+      "chips": ["View Skills", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "goodbye",
+      "keywords": ["bye", "goodbye", "exit", "quit", "see ya", "talk later", "have a good day", "have a nice day", "farewell", "bye bye"],
+      "responses": [
+        "Goodbye! Thank you for visiting my interactive portfolio. If you have any further questions or would like to discuss a project, feel free to reach out to me directly at ghosh.sayantan1982@gmail.com. Have a great day!",
+        "Thanks for stopping by! Hope you enjoyed exploring my work. You can download my resume or contact me anytime. Have a wonderful day!",
+        "Bye! It was great sharing my product design journey with you. Feel free to connect via LinkedIn or email whenever you're ready. Take care!"
+      ],
+      "chips": ["Start Over", "Get Contact Details"]
+    },
+    {
+      "id": "about",
+      "keywords": ["about you", "about yourself", "who are you", "who is sayantan", "developer", "creator", "profile", "bio", "designer", "architect", "sayantan", "ghosh", "ux architect", "product designer", "b2b saas", "system designer", "lead designer", "sayantan ghosh"],
+      "responses": [
+        "I am a seasoned **UX Architect & AI Product Architect** with 21+ years of total experience (9+ years in UX/Product Design and 12 years in visual & UI foundation). I single-handedly drive products from initial UX architecture to fully functional, deployed software by orchestrating AI agents as my engineering team to translate complex user needs and business logic into production-ready frontends, robust backends, and complete platforms.",
+        "Across my B2B SaaS career, I have delivered Google and Cisco B2B partner ecosystems (9+ years enterprise UX), healthcare networks, fintech platforms, and AI-powered dashboards. I bridge the gap between design and technical execution, approaching UX from the structural skeleton outward—IA, navigation models, and system-wide patterns."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "skills",
+      "keywords": ["skills", "skill", "tech", "languages", "stack", "frameworks", "tools", "toolkit", "code", "frontend", "javascript", "css", "html", "figma", "design systems", "tokens", "ux", "ui", "research", "ux research", "user research", "competencies", "capabilities", "value proposition", "core competencies", "experience dna"],
+      "responses": [
+        "Here is my professional toolset and technology matrix:\n\n🛠️ **UX & Architecture Tools**: Figma (IA mapping, flows, component systems), Framer (interactive prototyping), Miro (journey mapping, structural workshops), Sketch, Anima\n🤖 **AI Orchestration**: Antigravity, Gemini, Claude, Codex, Open Design, Google Stitch, Google AI Studio, UX Pilot\n⚡ **AI-Augmented Workflows**: Using Claude, Gemini and Antigravity for IA synthesis, journey map generation, user story drafting, acceptance criteria writing, and design documentation acceleration\n🌐 **AI-Assisted Development**: Translating UX architecture into fully functional applications and production-ready code across any tech stack by orchestrating AI agents, bridging the gap between design and technical execution\n📋 **Research & UX Foundations**: Prompt Engineering for UX Research, WCAG 2.1 Accessibility, HCD, Design Thinking, Lean UX\n🎓 **Frameworks**: Human-Centered Design, Information Architecture, Design Systems, Lean Product Lifecycle, Agile UX Integration"
+      ],
+      "chips": ["AI Workflow", "Skill Ratings", "Explore Projects"]
+    },
+    {
+      "id": "skill_ratings",
+      "keywords": ["rate your skills", "skill ratings", "rating out of 5", "how would you rate yourself", "ratings", "score"],
+      "responses": [
+        "Based on my 21+ years of experience, here are my core skill ratings:\n\n⭐ **UX Strategy & Interaction Architecture**: 4.9 / 5\n⭐ **Design Systems & Token Engineering**: 4.9 / 5\n⭐ **Enterprise System Simplification**: 4.8 / 5\n⭐ **AI-Assisted Full-Stack Prototyping**: 4.7 / 5\n⭐ **AI Orchestration & Design Workflows**: 4.6 / 5\n\n*(Note: I drive products from initial UX architecture to fully functional, deployed software. By orchestrating AI agents as my engineering team, I translate complex user needs and business logic into production-ready frontends, robust backends, and complete platforms.)*"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "projects",
+      "keywords": ["projects", "work", "apps", "portfolio", "creations", "github", "codebase", "websites", "products", "case studies", "featured work", "selected work", "product design highlights"],
+      "responses": [
+        "Here are my selected product design highlights:\n\n1. 📊 **SmartBI**: Enterprise Conversational AI Space translating database queries into natural language views.\n2. 🩺 **TRACTO**: High-contrast health ecosystem dashboard for elderly care usability.\n3. 🔒 **Asparz**: Dashboard simplifying dense cryptographic data and SSL management.\n4. 📅 **Govt Guest Booking (RSBV1)**: Welfare booking platform for Ex-Servicemen developed by orchestrating AI.\n5. 🧠 **Design OS for AI**: Conceptual framework transferring human design intuition into LLMs.\n6. ⚡ **tenXengage**: Workflow redesign for Cisco & Google reducing manual steps.\n\n*(I also have archived design work on **SENTINEL**, an AI-driven project management system, and **RummyCircle** gaming UI.)*\n\nSelect a project below or type its name to learn more details!",
+        "Selected work highlights include **SmartBI**, **TRACTO**, **Asparz**, **Govt Guest Booking**, **Design OS**, and **tenXengage**. Which project would you like to explore?"
+      ],
+      "chips": ["SmartBI Info", "TRACTO Info", "Asparz Info", "Guest Booking Info", "Design OS Info", "tenXengage Info"]
+    },
+    {
+      "id": "smartbi",
+      "keywords": ["smartbi", "smart bi", "conversational ai", "sql", "business intelligence", "calculated fields", "data transparency", "onboarding tracker", "input rail"],
+      "responses": [
+        "**SmartBI — Lead AI Product Designer & Strategist (Enterprise Conversational BI Platform)**\n\n- **Role**: Lead AI Product Designer & Strategist (Freelancer)\n- **Objective**: Conversational BI platform translating complex SQL queries and multi-layered data into an intuitive natural language interface.\n- **Impact & Key Deliverables**:\n  1. **Reduced Engineering Rework**: Minimized sprint rework and alignment bugs by creating deterministic interactive prototypes.\n  2. **Accelerated Discovery & Insights**: Enabled business users to build reports rapidly through automated location assistants and cities-bypass workflows.\n  3. **High-Fidelity Component Staging**: 100% compliance with data-dense UI/UX hierarchy and responsive web accessibility (WCAG 2.1) guidelines.\n\n🔗 **Explore the Interactive Prototype**: Visit my desktop site at [uxsayantan.com](https://uxsayantan.com) on a laptop or desktop monitor to interact with the real, fully functional prototype dashboard, or check out my [Smart-BI Case Study](https://myprofilesayantan-rgb.github.io/Smart-BI/)!"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "asparz",
+      "keywords": ["asparz", "ssl", "ssl management", "cryptographic", "cryptographic data", "predictive alerting", "renewal workflows", "ssh", "ssh key", "key lifecycle", "host dependency", "openssl"],
+      "responses": [
+        "**Asparz — UX Consultant & Architect (Enterprise SSL & Cybersecurity SaaS)**\n\n- **Role**: UX Consultant & Architect (Freelance, Solo Project)\n- **Objective**: Translating highly technical cryptographic data into an intuitive, manageable interface for IT administrators to prevent critical security lapses and certificate expirations.\n- **Key Architectural Dimensions**:\n  1. **Deep-Dive UX Research**: Conducted extensive user research with IT administrators to map operational bottlenecks, cognitive load, and daily workflows.\n  2. **SSL Inventory Panel**: Aggregates certificate domain hosts, environments, and CAs with weak key length warnings.\n  3. **SSH Key Lifecycle Tracking**: Tracks authorized/orphaned keys, permission levels (`0644`/`0600`), and encryption algorithms.\n  4. **Host Dependency Audits**: Flags library mismatches or outdated OpenSSL versions."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "govt_guest_booking",
+      "keywords": ["govt guest booking", "guest booking", "booking platform", "ai product architect", "rbac", "laravel", "php", "mysql", "rsbv1", "ssb", "state sainik board", "welfare platform", "guest house", "operator", "super-admin"],
+      "responses": [
+        "**Govt Guest Booking (RSBV1) — AI Product Architect (100% AI-Driven Platform Development)**\n\n- **Role**: AI Product Architect (Solo Architecture + AI Engineering Partner)\n- **Objective**: Replaced manual paper-based booking systems across West Bengal's 23 districts to prevent revenue leakage and eliminate room allocation discrepancies for Ex-Servicemen (ESM) and Active Defense personnel.\n- **Execution & Deliverables**:\n  1. **AI Orchestration**: Orchestrated AI agents (Claude, Gemini) to translate UX architecture directly into production-ready HTML/CSS/JS frontend and PHP/Laravel/MySQL backend code.\n  2. **Role-Based Access Control (RBAC)**: Created unified dual-app architecture separating Super Admin (`/super-admin/`) and Local Operator (`/operator/`).\n  3. **Financial Discrepancy Audits**: Developed digital audit trails linked to the West Bengal Defense Welfare Fund to stop offline cash pocketing."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "design_os_for_ai",
+      "keywords": ["design os for ai", "design os", "conceptual framework", "knowledge engineering", "intuition into ai", "ai agents", "structured logic", "autonomous architectural decisions"],
+      "responses": [
+        "**Design OS for AI — Conceptual Framework (Knowledge Engineering)**\n\n- **Objective**: Pioneering a conceptual framework to transfer high-level human design intuition into AI models.\n- **Key Features**:\n  1. **Rule Enforcement**: Systematically teaching human-centered design to AI agents.\n  2. **Structure Translation**: Translating complex design principles (like typography engines, grids, and access thresholds) into structured, programmable logic for autonomous architectural decisions."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "tenxengage_project",
+      "keywords": ["tenxengage project", "workflow redesign", "cisco google redesign", "manual steps", "cognitive load gap", "tenxengage redesign", "partner portal", "engagement rise", "ticket reduction"],
+      "responses": [
+        "**tenXengage — UX Architect (Workflow Redesign for Cisco & Google)**\n\n- **Objective**: Redesigned complex B2B partner portal workflows where users were forced to execute 40+ manual steps despite AI-predicted business outputs.\n- **Execution**: Diagnosed the cognitive load gap, restructured the UX architecture, and delivered wireframes to inject AI predictions directly into the core content creation canvas.\n- **Outcome**: Achieved a **30% rise in partner portal engagement**, a **22% reduction in support costs**, and a **20-25% drop in service tickets**."
+      ],
+      "chips": ["Explore Projects", "View Skills", "Get Contact Details"]
+    },
+    {
+      "id": "sentinel",
+      "keywords": ["sentinel", "automation", "project management", "pm tool"],
+      "responses": [
+        "**SENTINEL — AI-Driven Project Management Space**\n\n- **Objective**: Designed the interface architecture for a project system mapping tool built to replace operational friction with system awareness.\n- **Key Features**:\n  1. **Methodology Blocker Gate**: Toggles Agile/Waterfall frameworks, calculating a Weighted Completeness Score to display low-risk vs red blocker flags.\n  2. **Agile Friction Deflectors**: Includes a *Velocity Theatre Detector* (cross-referencing Jira with Git commits) and a *Technical Debt Guardrail*.\n  3. **Support Anomaly Intervention**: Triggers alerts if client requests copy competitors too closely.\n- **Philosophy**: *The role of AI is to quietly assist human decision-making and map communication fatigue, keeping the human user at the center of the process.*"
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "tracto",
+      "keywords": ["tracto", "healthcare", "elderly care", "health suite", "user research case study", "ux research case study"],
+      "responses": [
+        "**TRACTO — Connected Healthcare Network Ecosystem (Elderly Care Tech)**\n\n- **Role**: Lead UX Architect (Freelance Consultant, Solo Project)\n- **Objective**: Owned the end-to-end product design lifecycle from discovery to validated delivery for a safety and health monitoring ecosystem.\n- **UX Design & Conversational UX**:\n  1. **Passive Telemetry**: Reframed monitoring around family peace of mind using passive coordinates instead of intrusive check-in calls.\n  2. **Low-Literacy Interface Design**: Created high-contrast, glanceable dashboard interfaces engineered specifically for low-literacy and elderly users (60-80+ yrs).\n  3. **Human-in-the-Loop Conversational UX**: Designed safe, validated interaction loops mapping real-time biometric streams."
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "rummycircle",
+      "keywords": ["rummycircle", "rummy circle", "playgames24x7", "gaming ui", "multiplayer gaming", "rummy", "card game"],
+      "responses": [
+        "**Playgames24x7 (RummyCircle) — Gameplay Interface Redesign**\n\n- **Objective**: Redesigned the gameplay layout for millions of active cash players who were losing games due to visual indicator lag and accidental misclicks.\n- **UX Work**: Conducted field observations and user alignments with 40 to 50 active cash players. Optimized spatial grouping of timer indicators, Joker cards, and the declare zone so they stopped competing for attention. Redesigned hit areas to map naturally to thumb reach ranges.\n- **Impact**: Dramatically reduced accidental touch occurrences and visual friction during high-stakes turns. The redesign was so successful it was deployed as the default theme for both free-to-play and cash mobile apps."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "experience",
+      "keywords": ["experience", "career", "job", "history", "resume", "work history", "employment", "roles", "timeline", "tenxengage", "geni", "fastcollab", "ayantek", "codelogics", "rummycircle", "playgames24x7", "archive", "blueprint"],
+      "responses": [
+        "**Professional Experience & Industry Domains**:\n\n- 💼 **Freelance UX Consultant & AI Product Architect** @ **Independent Consultant** (Jan 2020 — Present)\n  *Domain: Strategic UX, AI Orchestration & Full-Stack Prototyping*\n  * Single-handedly architected and developed a comprehensive, multi-tiered booking platform by orchestrating AI as an integrated development partner. Led deep-dive UX research and designed predictive alerting mechanisms for enterprise SSL management platforms.\n\n- 💼 **Sr. UX Designer &gt; UX Architect** @ **TenXengage** (Oct 2023 — May 2026)\n  *Domain: B2B SaaS Partner Portals (Google, Cisco)*\n  * Strategic UX Architect leading end-to-end user experience and interaction design within Google and Cisco partner networks, engineering scalable B2B frameworks through rigorous Agile collaboration. Formally elevated to UX Architect in recognition of systems architecture responsibilities.\n\n- 💼 **Sr. UX Designer & Researcher** @ **Geni** (Feb 2021 — Sep 2023)\n  *Domain: Predecessor legal entity to TenXengage (Google, Cisco partner portals)*\n  * Architected information structures, navigation networks, and content hierarchies across Google and Cisco partner ecosystems.\n\n- 💼 **Senior UX Designer** @ **FastCollab** (May 2020 — Feb 2021)\n  *Domain: AI-driven Financial Corporate Travel (Fintech)*\n  * Simplified complex business logic into frictionless, linear screen architectures.\n\n- 💼 **Lead UX Designer** @ **Ayantek** (Apr 2017 — Jan 2020)\n  *Domain: High-Density Enterprise B2B SaaS Platforms*\n  * Executed end-to-end UX strategy for a diverse B2B SaaS portfolio, managing sprints grounded in intensive user research.\n\n- 💼 **Design Manager** @ **CodeLogics** (Aug 2013 — Apr 2017)\n  *Domain: Interactive Interface Systems & Modular Scaffolding*\n  * Managed design output for multi-client product teams, translating visions into dev-ready prototypes.\n\n- 💼 **Product Designer (Senior Creative)** @ **Playgames24x7 (RummyCircle)** (May 2012 — Sep 2013)\n  *Domain: Multiplayer B2C Gaming UI & High-Volume Viewports*\n  * Conceptualized the Main Game Table interaction model to minimize cognitive load for millions of concurrent users.\n\n**Career Evolution Archive (2003 — 2012)**:\n\n- 💼 **Lean UI Designer** @ **HurixDigital** (2011-2012) *(Domain: E-learning & Digital Publishing)*\n- 💼 **Client Projects** @ **Nat Geo, Star India** *(Domain: Client Visual Design)*\n- 💼 **UI Manager** @ **RoyTech Software** (2008-2011) *(Domain: Enterprise Management Systems)*\n- 💼 **Freelance UI Practice** (2005-2008) *(Domain: Visual Identity)*\n- 💼 **Jr. Web Designer** @ **Aforeserve.com** (2003-2005) *(Domain: Web Layouts)*\n\n*(Note: For my full 21+ year work history details, please check my LinkedIn profile or download the PDF resume.)*"
+      ],
+      "chips": ["Explore Projects", "View Skills", "Education Background"]
+    },
+    {
+      "id": "education",
+      "keywords": ["education", "academic", "degree", "qualifications", "foundation", "learning", "study", "general education", "college", "schooling", "hsc", "10+2", "commerce"],
+      "responses": [
+        "My academic background blends advanced human-centered design frameworks, technology, and visual media:\n\n🎓 **Diploma in Graphic/Web Designing** — **Indian Institute of Technology, Roorkee** (2025-2026)\n🎓 **PG Diploma in Computers** — **Indian Institute of Technology, Roorkee** (2023-2024)\n🎓 **Diploma in Web and Multimedia** — **Arena Multimedia** (2001-2002)\n🎓 **Class XII (Commerce)** — **West Bengal** (2001)\n🎓 **Class X** — **West Bengal** (1999)\n\n*(Note: For official validation of my academic records and PG/Diploma certifications, feel free to ask about my **certifications**.)*"
+      ],
+      "chips": ["View Certifications", "View Skills", "Work History"]
+    },
+    {
+      "id": "certifications",
+      "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials"],
+      "responses": [
+        "Here are my professional certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-2025): Specialized in cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n🏆 **AI for Designers Professional Certification** — **Interaction Design Foundation (IxDF)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **Interaction Design Foundation (IxDF)**: Specialized in cognitive load principles applicable to complex interface design.\n🏆 **Professional Diploma in Web Design & Multi-platform Interactive Media** — **Arena Animation**."
+      ],
+      "chips": ["Education Background", "View Skills", "Work History"]
+    },
+    {
+      "id": "contact",
+      "keywords": ["contact", "email", "hire", "social", "phone", "linkedin", "reach", "message", "write", "medium", "mail", "tel", "mobile"],
+      "responses": [
+        "Let's build something incredible together! Here is how you can reach me:\n\n- 📧 **Email**: ghosh.sayantan1982@gmail.com\n- 📞 **Mobile**: +91 9346-579-316\n\n*(To view my **LinkedIn** or **Medium** profiles, please open the mobile menu by tapping the menu icon ☰ at the top left!)*"
+      ],
+      "chips": ["Start Over", "Explore Projects"]
+    },
+    {
+      "id": "personal",
+      "keywords": ["personal", "family", "schooling", "hobby", "hobbies", "dob", "birth", "age", "private life"],
+      "responses": [
+        "I am based in **Hyderabad, India**, where I pursue hobbies related to design systems, exploring new AI-assisted UX paradigms, and digital artwork. I completed my schooling/visual training in West Bengal. To keep this interaction professional, I keep specific personal dates or family background details private."
+      ],
+      "chips": ["View Skills", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "location_preference",
+      "keywords": ["location", "preferred location", "cities", "hyderabad", "relocate", "relocation", "where", "india", "telangana", "pan india", "pan-india", "mumbai", "bangalore", "pune", "delhi", "noida"],
+      "responses": [
+        "I am based in **Hyderabad, India**, and am fully open to **PAN India** opportunities (including relocation to major tech hubs like Bangalore, Mumbai, Pune, Noida/Delhi NCR, etc.). I am comfortable working in remote, hybrid, or on-site models depending on the role scale."
+      ],
+      "chips": ["Get Contact Details", "Explore Projects"]
+    },
+    {
+      "id": "methodology",
+      "keywords": ["methodology", "research", "methods", "user testing", "hcd", "design thinking", "wireframing", "information architecture", "ia", "heuristics", "process", "ab testing", "user stories", "empathy mapping", "affinity mapping", "mind mapping", "interviews", "ux research", "user research"],
+      "responses": [
+        "I apply a structured **Human-Centered Design (HCD)** process:\n\n1. 🔍 **Research & Discovery**: Conducting contextual interviews, mind mapping, user story writing, and drafting empathy & affinity maps to isolate core user needs.\n2. 🗺️ **Information Architecture (IA)**: Sculpting user flows, wireframe structures, and mapping detailed navigation frameworks.\n3. 🎨 **Design & Prototyping**: Engineering visual design tokens, figma layouts, and staging interactive prototypes using AI tools.\n4. 🧪 **Validation & Analytics**: Conducting user testing, running targeted A/B tests, applying heuristic frameworks, and verifying WCAG 2.1 compliance."
+      ],
+      "chips": ["Explore Projects", "View Skills"]
+    },
+    {
+      "id": "leadership",
+      "keywords": ["leadership", "manage", "lead", "leading", "team", "mentorship", "collaboration", "ownership"],
+      "responses": [
+        "With 21+ years of total experience (9+ years in UX/Product Design and 12 years in visual & UI foundation), I bring robust leadership and end-to-end product ownership. I bridge communication gaps between executive stakeholders, design resources, and engineering teams, translating business targets into actionable components and pixel-perfect design system handoffs."
+      ],
+      "chips": ["Work History", "Get Contact Details"]
+    },
+    {
+      "id": "languages",
+      "keywords": ["languages", "language", "speak", "english", "hindi", "bengali"],
+      "responses": [
+        "I am fully fluent (reading, writing, and speaking) in **English** and **Bengali**, and proficient verbally (speaking) in **Hindi**, which enables smooth collaboration with cross-functional global teams."
+      ],
+      "chips": ["Get Contact Details", "Work History"]
+    },
+    {
+      "id": "notice_period",
+      "keywords": ["notice", "notice period", "availability", "when can you start", "start date", "joining", "immediate", "joiner"],
+      "responses": [
+        "I am an **Immediate Joiner within 5 days**. I am ready to begin work immediately upon alignment of terms. Please contact me at ghosh.sayantan1982@gmail.com to schedule an interview."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "current_role",
+      "keywords": ["current role", "present role", "present organization", "current job", "where do you work", "organization"],
+      "responses": [
+        "In my most recent role (until May 2026), I was **Sr. UX Designer &gt; UX Architect** at **TenXengage** (including predecessor Geni since Feb 2021). I led end-to-end user experience and interaction design for Google and Cisco partner portals, designing information structures, navigation models, and governing B2B design systems."
+      ],
+      "chips": ["Work History", "Explore Projects"]
+    },
+    {
+      "id": "privacy_block",
+      "keywords": ["aadhaar", "pan", "passport", "bank", "account", "documents", "proof", "id number", "salary slip", "identity", "password", "passwords", "login", "credentials", "pin"],
+      "responses": [
+        "To protect data privacy, this portal does not store or share legal documents, identification numbers (Aadhaar, PAN, Passport), account passwords, or banking details. For official onboarding verifications, please reach out to me directly at ghosh.sayantan1982@gmail.com."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "why_chat",
+      "keywords": ["why chat", "why chatbot", "is this ai", "are you ai", "generative ai", "ai portfolio", "why interactive", "hiding behind ai", "bot", "reliance on ai"],
+      "responses": [
+        "I built this interactive directory using custom JavaScript and a localized JSON database to showcase interaction design and front-end engineering in practice. By replacing open-ended generative AI models with a structured, rule-based lookup, I ensure complete data accuracy and prevent AI hallucinations—proving that complex enterprise requirements can be mapped into reliable, lightweight, and engaging UI environments. This is a deliberate showcase of my interaction design capabilities, not a reliance on generic AI wrappers."
+      ],
+      "chips": ["AI Workflow", "Explore Projects", "View Skills"]
+    },
+    {
+      "id": "ai_workflow",
+      "keywords": ["ai workflow", "ai use", "how do you use ai", "utilize ai", "ai tools", "antigravity", "google stitch", "google ai studio", "prompt engineering", "claude", "gemini", "ai integration", "ai design", "ai skill", "ai skills", "skills in ai", "skills on ai", "skill on ai", "skill in ai"],
+      "responses": [
+        "I treat AI as a design accelerator, not a strategy replacement. As I wrote in my article, *\"AI Shouldn’t Drive Your UX. You Should Drive the AI\"*—my workflow relies on strict human orchestration:\n\n1. 🍳 **Discovery (The 'Master Chef' Principle)**: I use LLMs (Gemini & Claude) as high-speed research assistants to tag emotional codes and user comments. Since raw transcripts miss pauses and hesitations, I manually inject these human-perceived contextual cues back into the synthesis prompts to build personas grounded in true emotion.\n2. 💡 **Collaborative Ideation**: I sketch visual layout directions on paper first to prevent AI hallucinations, then ask AI tools to act as a design critic to uncover 'blind areas' and behavioral gaps. I then build out the final high-fidelity layouts using **Figma**.\n3. ⚡ **Layout Staging (AI Translation)**: Once the design is finalized in Figma, I utilize **Antigravity** and specialized AI code staging assistants to translate my component logic and design tokens into pixel-perfect, responsive HTML/CSS prototypes.\n4. 📊 **Delivery & Analytics Loop**: Post-launch, I ingest live user analytics (GA4, Microsoft Clarity heatmaps, and 'tap rage' session recordings) and prompt AI to locate friction points, using those findings to refine layout details iteratively rather than recreate interfaces blindly.\n\nMy core philosophy: **Provide the soul. Use the engine for speed. Be the driver.**"
+      ],
+      "chips": ["Why Chat", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "deflect_jokes",
+      "keywords": ["joke", "jokes", "funny", "laugh", "tell me a joke"],
+      "responses": [
+        "I'd love to share a joke, but my program is currently optimized strictly for design portfolio reviews. Let's keep the focus on my product strategy! Feel free to ask about my UX skills or highlight projects."
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    },
+    {
+      "id": "deflect_ctc",
+      "keywords": ["ctc", "salary", "expected ctc", "compensation", "package", "charge", "rates", "money", "how much"],
+      "responses": [
+        "Salary requirements, compensation expectations, and consulting rates are best discussed directly. I prefer not to share specific compensation figures on this interactive mobile guide. Please contact me directly at ghosh.sayantan1982@gmail.com or call +91 9346-579-316 to discuss details 1:1."
+      ],
+      "chips": ["Get Contact Details", "About Sayantan"]
+    },
+    {
+      "id": "deflect_junk",
+      "keywords": ["test", "asdf", "qwerty", "junk", "gibberish", "hmm", "ok", "cool", "fine"],
+      "responses": [
+        "Hmm, it seems like your last message is incomplete or brief. Feel free to explore my structured portfolio guide by asking about my **skills**, **experience**, or **projects**!"
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    },
+    {
+      "id": "reason_for_change",
+      "keywords": ["change", "looking for a change", "why change", "leave last job", "reason for leaving", "new job", "seeking", "why looking", "looking for new"],
+      "responses": [
+        "I am looking for a new role to take on larger enterprise product challenges. With 21+ years of total experience (including 9+ years in UX & interaction), I want to lead B2B SaaS strategies, scale design systems, and leverage AI UX workflows in a high-impact, collaborative full-time team environment."
+      ],
+      "chips": ["Work History", "About Sayantan", "Get Contact Details"]
+    },
+    {
+      "id": "developer_collaboration",
+      "keywords": ["developer handoff", "working with developers", "collaboration with engineers", "developer collaboration", "engineer handoff", "translation to code", "dev handoff", "work with dev", "handoff", "collaborate", "collaboration", "collaborate with developers", "work with developers", "work with engineers"],
+      "responses": [
+        "I bridge the gap between design and engineering by delivering highly structured Figma files with token-based variables and clean grid spacing. Additionally, by utilizing AI-assisted development, I translate UX architecture into fully functional applications and production-ready code across any tech stack by orchestrating AI agents, bridging the gap between design and technical execution."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "portfolio_links",
+      "keywords": ["portfolio links", "case study links", "where are your case studies", "live projects", "websites", "uxsayantan", "read case study", "links", "case studies", "website"],
+      "responses": [
+        "Here are my primary live project and case study links:\n\n- 🌐 **My Desktop Portfolio**: [uxsayantan.com](https://uxsayantan.com) (Includes all strategic case studies and full desktop visualizations)\n- 📊 **SmartBI Case Study**: [SmartBI Presentation Page](https://myprofilesayantan-rgb.github.io/Smart-BI/)\n- ✍️ **UX & AI Articles**: [Sayantan's Medium Profile](https://medium.com/@myprofile.sayantan)"
+      ],
+      "chips": ["Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "visa_remote",
+      "keywords": ["visa sponsorship", "sponsorship", "remote work", "work in us", "relocate internationally", "remote role", "work authorization", "authorized", "remote"],
+      "responses": [
+        "I am based in Hyderabad, India, and am fully authorized to work locally. I am open to remote global roles and can easily coordinate hours with US, European, or APAC teams. For on-site international opportunities, I require visa sponsorship support."
+      ],
+      "chips": ["Location Preference", "Get Contact Details"]
+    },
+    {
+      "id": "design_philosophy",
+      "keywords": ["design philosophy", "what is good design", "my philosophy", "design view", "belief in design", "philosophy"],
+      "responses": [
+        "My core design philosophy is simple: **If users have to think about the interface, they are already late.** Design should not draw attention to itself; it should make the right options and information obvious at the right moment, balancing user cognition with business goals."
+      ],
+      "chips": ["About Sayantan", "AI Workflow", "Explore Projects"]
+    },
+    {
+      "id": "skills_figma",
+      "keywords": ["figma", "framer", "sketch", "variables", "token", "tokens", "token engineering", "component systems", "component libraries", "variables in figma", "high-fidelity", "prototyping"],
+      "responses": [
+        "💻 **Figma, Framer & Design Systems**:\n\n*   **Figma Master**: I build structured, token-based design systems utilizing Figma Variables, nested components, and responsive auto-layouts.\n*   **Interactive Prototyping**: Experienced in Framer, Miro, Sketch, and Anima for high-fidelity interactive user flows.\n*   **Handoff Excellence**: Spacing and styles follow strict geometric constraints (IBM Multiplier Grid) for clean, developer-ready translation."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "skills_ai_tools",
+      "keywords": ["ai tool", "ai tools", "orchestration", "google stitch", "google ai studio", "ux pilot", "prompt engineering"],
+      "responses": [
+        "🤖 **AI UX & Design Orchestration**:\n\n*   **Workflow Acceleration**: I orchestrate AI agents (Antigravity, Claude, Gemini, Google Stitch) to accelerate user story writing, backlog readiness, and layout staging.\n*   **Functional Prototyping**: I use AI to bridge the gap between design and production code, directing AI to generate full-stack Laravel/PHP/MySQL MVPs to validate design feasibility.\n*   **Prompt Engineering**: Highly skilled in prompt refinement and LLM context-mapping for UX research synthesis."
+      ],
+      "chips": ["AI Workflow", "View Skills", "Explore Projects"]
+    },
+    {
+      "id": "skills_methodologies",
+      "keywords": ["methodologies", "user research", "ux research", "hcd", "contextual inquiry", "interviews", "usability testing", "persona", "empathy mapping", "affinity mapping", "wcag", "accessibility", "information architecture"],
+      "responses": [
+        "📋 **UX Methodologies & Research**:\n\n*   **Human-Centered Design (HCD)**: Grounded in cognitive load optimization (Miller's Law) and visual ergonomics (IIT Roorkee backed).\n*   **Research Rigor**: Conducted contextual interviews, heuristic evaluations, usability testing, and journey mapping.\n*   **Accessibility**: Strict WCAG 2.1 compliance integration to ensure systems are inclusive for all tech-literacy levels."
+      ],
+      "chips": ["View Skills", "AI Workflow", "Get Contact Details"]
+    },
+    {
+      "id": "exp_tenxengage",
+      "keywords": ["tenxengage", "sr ux designer", "ux architect", "cisco", "google partner", "elevation"],
+      "responses": [
+        "💼 **TenXengage (Oct 2023 — May 2026) | Sr. UX Designer > UX Architect**\n\n*   **Role**: Lead UX Architect for Cisco & Google B2B partner portals.\n*   **Impact**: Restructured workflow architectures to reduce manual coordination friction, achieving a **30% rise in engagement** and **22% reduction in support tickets**.\n*   **Promotion**: Formally elevated to UX Architect in recognition of system architecture responsibilities handled since joining Geni."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_geni",
+      "keywords": ["geni", "sr ux designer & researcher", "predecessor"],
+      "responses": [
+        "💼 **Geni (Feb 2021 — Sep 2023) | Sr. UX Designer & Researcher**\n\n*   **Role**: Predecessor legal entity to TenXengage (same team, clients, and projects).\n*   **Work**: Architected information structures, navigation networks, and data schemas across Google and Cisco partner ecosystems. Led journey mapping workshops and user research."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_freelance",
+      "keywords": ["freelance", "independent consultant", "consultant", "ai product architect"],
+      "responses": [
+        "💼 **Freelance UX Consultant & AI Product Architect (Jan 2020 — Present)**\n\n*   **Role**: Independent strategic consultant bridging deep human insights with high-velocity technical execution.\n*   **Highlights**: Architected multi-tiered booking platforms (Govt Guest Booking) and enterprise SSL management dashboards (Asparz). Developed 'Design OS' methodologies to transfer human intuition into LLMs."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_fastcollab",
+      "keywords": ["fastcollab", "senior ux designer", "travel platform"],
+      "responses": [
+        "💼 **FastCollab (May 2020 — Feb 2021) | Senior UX Designer**\n\n*   **Role**: Senior Designer for corporate fintech travel platforms.\n*   **Work**: Simplified complex corporate travel business logic into linear screen architectures, reducing rework through daily Agile syncs."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "exp_ayantek",
+      "keywords": ["ayantek", "lead ux designer"],
+      "responses": [
+        "💼 **Ayantek (Apr 2017 — Jan 2020) | Lead UX Designer**\n\n*   **Role**: Lead UX Designer managing a diverse B2B SaaS portfolio.\n*   **Work**: Managed design sprints grounded in intensive user research and business KPIs. Created low-to-high fidelity prototypes and user stories."
+      ],
+      "chips": ["Work History", "Explore Projects", "Get Contact Details"]
+    },
+    {
+      "id": "abuse_block",
+      "keywords": [
+        "fuck", "shit", "ass", "bitch", "bastard", "idiot", "dick", "cunt", "abuse", "abusive", "stupid", "asshole", "motherfucker", "whore", "slut", "crap", "bullshit", "jerk", "dumbass", "piss", "cocksucker",
+        "chutiya", "bhenchod", "madarchod", "gandu", "saala", "harami", "laundu", "bhonsri", "randi", "bhadwa", "kutta", "kamine", "lavda",
+        "bokachoda", "balchada", "khanki", "gandu", "shala", "chudirbhai", "shuor",
+        "scheisse", "arschloch", "schlampe", "wichser", "hurensohn", "fotze", "miststueck",
+        "suka", "blyat", "pizda", "khuy", "ebat", "chmo", "mudak",
+        "merde", "connard", "salope", "putain", "encule", "chieur"
+      ],
+      "responses": [
+        "Let's maintain a professional conversation. I am here to present my UX design portfolio, technical skills, and projects. Please let me know if you have any questions about my work."
+      ],
+      "chips": ["Explore Projects", "View Skills", "About Sayantan"]
+    }
+  ]
+}
+;
+
+/**
+ * ChatBrain - The logic engine of the portfolio chat system.
+ * It processes user messages, performs keyword scoring against a JSON database,
+ * manages conversation state, and returns matches.
+ */
+class ChatBrain {
+  constructor() {
+    this.data = null;
+    this.history = [];
+    this.currentState = {
+      lastIntentId: null,
+      contextDepth: 0
+    };
+  }
+
+  /**
+   * Initializes the brain by loading the JSON database.
+   * @param {string|object} dataSource - URL to the JSON file or a pre-loaded object.
+   */
+  async init(dataSource = './brain_data.json') {
+    if (typeof dataSource === 'object') {
+      this.data = dataSource;
+    } else {
+      try {
+        const response = await fetch(dataSource);
+        this.data = await response.json();
+      } catch (error) {
+        console.warn('Failed to fetch data, falling back to inlined database:', error);
+        this.data = BRAIN_DATA;
+      }
+    }
+  }
+
+  /**
+   * Resets the conversation state.
+   */
+  reset() {
+    this.history = [];
+    this.currentState = {
+      lastIntentId: null,
+      contextDepth: 0
+    };
+  }
+
+  /**
+   * Cleans and tokenizes text for keyword matching.
+   * @param {string} text 
+   * @returns {string[]} tokens
+   */
+  tokenize(text) {
+    if (!text) return [];
+    return text
+      .toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
+      .split(/\s+/)
+      .filter(token => token.length > 0);
+  }
+
+  /**
+   * Checks if the keyword tokens exist as a sub-sequence within the message tokens.
+   * @param {string[]} messageTokens
+   * @param {string} keyword
+   * @returns {boolean}
+   */
+  hasKeywordTokens(messageTokens, keyword) {
+    const keywordTokens = this.tokenize(keyword);
+    if (keywordTokens.length === 0) return false;
+    
+    for (let i = 0; i <= messageTokens.length - keywordTokens.length; i++) {
+      let match = true;
+      for (let j = 0; j < keywordTokens.length; j++) {
+        if (messageTokens[i + j] !== keywordTokens[j]) {
+          match = false;
+          break;
+        }
+      }
+      if (match) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Calculates the Levenshtein distance between two strings.
+   * @param {string} a
+   * @param {string} b
+   * @returns {number}
+   */
+  getLevenshteinDistance(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+      matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+      matrix[0][j] = j;
+    }
+    for (let i = 1; i <= b.length; i++) {
+      for (let j = 1; j <= a.length; j++) {
+        if (b.charAt(i - 1) === a.charAt(j - 1)) {
+          matrix[i][j] = matrix[i - 1][j - 1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j - 1] + 1, // substitution
+            matrix[i][j - 1] + 1,     // insertion
+            matrix[i - 1][j] + 1      // deletion
+          );
+        }
+      }
+    }
+    return matrix[b.length][a.length];
+  }
+
+  /**
+   * Processes a user message and returns a reply.
+   * @param {string} userMessage 
+   * @returns {Object} response { text: string, chips: string[], intentId: string }
+   */
+  processMessage(userMessage) {
+    if (!this.data) {
+      return {
+        text: "System loading... Matrix is not yet fully initialized.",
+        chips: [],
+        intentId: "system_loading"
+      };
+    }
+
+    const cleanedMessage = userMessage.trim().toLowerCase();
+
+    // 1. Check if we are waiting for a Y/N confirmation for a typo suggestion
+    if (this.currentState.pendingConfirmation) {
+      const pending = this.currentState.pendingConfirmation;
+      this.currentState.pendingConfirmation = null; // Clear immediately
+      
+      const yesWords = ['y', 'yes', 'yeah', 'yep', 'sure', 'correct', 'indeed', 'yes, please'];
+      const noWords = ['n', 'no', 'nope', 'nah', 'incorrect', 'no, thanks'];
+      
+      if (yesWords.includes(cleanedMessage)) {
+        const matchedIntent = this.data.intents.find(i => i.id === pending.suggestedIntentId);
+        if (matchedIntent) {
+          this.currentState.lastIntentId = matchedIntent.id;
+          this.currentState.contextDepth += 1;
+          return {
+            text: this.getRandomElement(matchedIntent.responses),
+            chips: matchedIntent.chips,
+            intentId: matchedIntent.id
+          };
+        }
+      } else if (noWords.includes(cleanedMessage)) {
+        return {
+          text: "Understood. What else would you like to explore? You can ask about my **skills**, **projects**, or **experience**.",
+          chips: ["View Skills", "Explore Projects", "Get Contact Details"],
+          intentId: "fallback"
+        };
+      }
+    }
+
+    // Special exact matches (e.g. for suggestion chips)
+    if (cleanedMessage === 'start over' || cleanedMessage === 'reset' || cleanedMessage === 'clear') {
+      this.reset();
+      const welcome = this.data.welcome;
+      return {
+        text: this.getRandomElement(welcome.responses),
+        chips: welcome.chips,
+        intentId: "welcome"
+      };
+    }
+
+    // Tokenize the input
+    const tokens = this.tokenize(userMessage);
+
+    // Strict multi-language abuse check before scoring any other intent
+    const abuseIntent = this.data.intents.find(i => i.id === "abuse_block");
+    if (abuseIntent) {
+      const isAbusive = abuseIntent.keywords.some(keyword => {
+        return this.hasKeywordTokens(tokens, keyword);
+      });
+      if (isAbusive) {
+        return {
+          text: this.getRandomElement(abuseIntent.responses),
+          chips: abuseIntent.chips,
+          intentId: "abuse_block"
+        };
+      }
+    }
+
+    // Track intent matches and scores
+    let bestMatch = null;
+    let highestScore = 0;
+
+    // Evaluate all intents in the JSON database
+    for (const intent of this.data.intents) {
+      let score = 0;
+      
+      // Look for keyword matches
+      for (const keyword of intent.keywords) {
+        // Full phrase check (e.g. "contact details", "aero chat")
+        if (this.hasKeywordTokens(tokens, keyword)) {
+          // Increase weight for exact/longer matches
+          score += keyword.split(' ').length * 2.5;
+        }
+
+        // Individual token matching
+        for (const token of tokens) {
+          if (token === keyword) {
+            score += 1.0;
+          }
+        }
+      }
+
+      // Contextual boosting (e.g., if user mentions details/more and the last intent was related)
+      if (this.currentState.lastIntentId && intent.id === this.currentState.lastIntentId) {
+        // Boost slightly if they check details
+        const detailsKeywords = ['more', 'details', 'tell', 'explain', 'show', 'info', 'information'];
+        if (tokens.some(t => detailsKeywords.includes(t))) {
+          score += 1.5;
+        }
+      }
+
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = intent;
+      }
+    }
+
+    // Contextual handling: check if user asks "tell me more" or "details" without naming a topic
+    if (highestScore < 1.0 && this.currentState.lastIntentId) {
+      const followUpTokens = ['more', 'details', 'explain', 'expand', 'what', 'show'];
+      if (tokens.some(t => followUpTokens.includes(t))) {
+        // Find the intent matching the last active one
+        const lastIntent = this.data.intents.find(i => i.id === this.currentState.lastIntentId);
+        if (lastIntent) {
+          bestMatch = lastIntent;
+          highestScore = 1.0; // force a match
+        }
+      }
+    }
+
+    // Determine the response
+    let responseText = "";
+    let suggestionChips = [];
+    let matchedIntentId = null;
+
+    if (bestMatch && highestScore >= 1.0) {
+      responseText = this.getRandomElement(bestMatch.responses);
+      suggestionChips = bestMatch.chips;
+      matchedIntentId = bestMatch.id;
+      
+      // Update state
+      this.currentState.lastIntentId = bestMatch.id;
+      this.currentState.contextDepth += 1;
+    } else {
+      // Fuzzy spelling autocorrect / suggestion edge-cases
+      const suggestionTargets = [
+        { term: "contact", intentId: "contact", displayName: "contact details" },
+        { term: "portfolio", intentId: "projects", displayName: "portfolio" },
+        { term: "projects", intentId: "projects", displayName: "projects" },
+        { term: "resume", intentId: "experience", displayName: "resume" },
+        { term: "skills", intentId: "skills", displayName: "skills" },
+        { term: "experience", intentId: "experience", displayName: "experience" }
+      ];
+
+      for (const token of tokens) {
+        const cleanedToken = token.replace(/[^a-zA-Z]/g, ""); // Remove trailing/leading symbols
+        if (cleanedToken.length < 3) continue;
+
+        for (const target of suggestionTargets) {
+          let isMatch = false;
+
+          // 1. Prefix match (e.g. "con-" or "con" for "contact")
+          if (cleanedToken.length >= 3 && target.term.startsWith(cleanedToken)) {
+            isMatch = true;
+          }
+
+          // 2. Levenshtein edit distance check (e.g. "pornfolio" -> "portfolio", "ridume" -> "resume")
+          if (!isMatch) {
+            const dist = this.getLevenshteinDistance(cleanedToken, target.term);
+            const maxAllowedDist = target.term.length >= 6 ? 2 : 1;
+            if (dist <= maxAllowedDist) {
+              isMatch = true;
+            }
+          }
+
+          if (isMatch) {
+            this.currentState.pendingConfirmation = {
+              originalInput: userMessage,
+              suggestedIntentId: target.intentId,
+              suggestionText: target.displayName
+            };
+            
+            return {
+              text: `Are you asking for my **${target.displayName}**?`,
+              chips: ["Yes", "No"],
+              intentId: "clarification"
+            };
+          }
+        }
+      }
+
+      // Fallback if no fuzzy matches found
+      const fallback = this.data.fallback;
+      responseText = this.getRandomElement(fallback.responses);
+      suggestionChips = fallback.chips;
+      matchedIntentId = "fallback";
+    }
+
+    // Record history
+    this.history.push({
+      user: userMessage,
+      bot: responseText,
+      intent: matchedIntentId
+    });
+
+    return {
+      text: responseText,
+      chips: suggestionChips,
+      intentId: matchedIntentId
+    };
+  }
+
+  /**
+   * Gets a random element from an array.
+   */
+  getRandomElement(array) {
+    if (!array || array.length === 0) return "";
+    const index = Math.floor(Math.random() * array.length);
+    return array[index];
+  }
+}
+
+
+
 
 // Initialize core components
 const brain = new ChatBrain();
@@ -93,126 +824,41 @@ function getSystemMaleVoice() {
  * Updates voice/speaker/mic visibility based on whether a male English voice is present.
  */
 function updateVoiceSupport() {
-  const hasSpeechRec = (window.SpeechRecognition || window.webkitSpeechRecognition);
-  
-  if (!('speechSynthesis' in window)) {
-    if (speakerToggle) speakerToggle.style.display = 'none';
-    if (micBtn) micBtn.style.display = 'none';
-    return;
-  }
-  
-  const maleVoice = getSystemMaleVoice();
-  if (!maleVoice) {
-    // If no male voice is available, hide both speaker toggle and mic input to protect the persona
-    isMuted = true;
-    if (speakerToggle) {
-      speakerToggle.classList.add('speaker-muted');
-      speakerToggle.style.display = 'none';
-    }
-    if (micBtn) {
-      micBtn.style.display = 'none';
-    }
-  } else {
-    // Male voice found -> enable controls and defaults (muted by default)
-    isMuted = true;
-    if (speakerToggle) {
-      speakerToggle.classList.add('speaker-muted');
-      speakerToggle.style.display = '';
-    }
-    if (micBtn && hasSpeechRec) {
-      micBtn.style.display = '';
-    }
-  }
+  if (speakerToggle) speakerToggle.style.display = 'none';
+  if (micBtn) micBtn.style.display = 'none';
 }
 
-// Handle Speaker Toggle click
-speakerToggle.addEventListener('click', () => {
-  isMuted = !isMuted;
-  speakerToggle.classList.toggle('speaker-muted', isMuted);
-  if (isMuted && ('speechSynthesis' in window)) {
-    window.speechSynthesis.cancel();
-  }
-});
+// Hide controls immediately
+updateVoiceSupport();
 
-// Cache and verify browser voices when loaded/changed
-if ('speechSynthesis' in window) {
-  updateVoiceSupport();
-  window.speechSynthesis.onvoiceschanged = () => {
-    updateVoiceSupport();
-  };
+// Handle Speaker Toggle click (no-op)
+if (speakerToggle) {
+  speakerToggle.addEventListener('click', () => {
+    isMuted = true;
+    speakerToggle.style.display = 'none';
+  });
 }
 
 /**
- * Clean markdown symbols and emojis for clean Speech Synthesis output.
+ * Clean markdown symbols and emojis.
  */
 function cleanSpeechText(text) {
-  if (!text) return "";
-  return text
-    // 1. Remove markdown links: [Text](URL) -> Text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    
-    // 2. Remove double asterisks (bold) and underscores (italics)
-    .replace(/\*\*/g, '')
-    .replace(/_/g, '')
-    
-    // 3. Remove all emojis (standard ranges + miscellaneous symbols like stars)
-    .replace(/[\u{1F300}-\u{1F9FF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2B50}]/gu, '')
-    
-    // 4. Remove '+' symbol explicitly so country codes like '+91' don't read out as 'plus ninety-one'
-    .replace(/\+/g, ' ')
-    
-    // 5. Remove special symbols that speech synthesizer might read aloud
-    .replace(/[•\-\*~#$%\^&_+=|\\\/<>`()]/g, ' ')
-    
-    // 6. Clean up multiple spaces or newlines into single spaces
-    .replace(/\s+/g, ' ')
-    .trim();
+  return "";
 }
 
 /**
- * Read text out loud using Web Speech Synthesis.
+ * Read text out loud using Web Speech Synthesis (disabled).
  */
 function speakText(text) {
-  if (isMuted || !('speechSynthesis' in window)) return;
-
-  // Interrupt any current speaking
-  window.speechSynthesis.cancel();
-
-  const maleVoice = getSystemMaleVoice();
-  if (!maleVoice) return; // Do not use generic fallback if it is a female/mismatched voice
-
-  const cleaned = cleanSpeechText(text);
-  const utterance = new SpeechSynthesisUtterance(cleaned);
-  utterance.voice = maleVoice;
-  
-  // Confident calibration parameters
-  utterance.rate = 1.08;   // Fluent, natural speed
-  utterance.pitch = 0.96;  // Deeper, authoritative resonance
-  utterance.volume = 1.0;  // Full scale volume
-  
-  window.speechSynthesis.speak(utterance);
+  return;
 }
 
 /**
- * Speaks the landing welcome introduction.
+ * Speaks the landing welcome introduction (disabled).
  */
 function triggerLandingVoiceover() {
-  if (hasSpokenIntro || !welcomeIntro || app.classList.contains('chat-mode')) return;
-  hasSpokenIntro = true;
-  
-  const textToRead = "Hi, I'm Sayantan. I bridge the gap between complex systems and intuitive user experiences. Welcome to my custom-coded interactive text directory, built to showcase front-end logic, clean layout structures, and deterministic interaction design without relying on generic A I wrappers.";
-  setTimeout(() => {
-    speakText(textToRead);
-  }, 600);
-
-  // Remove interaction triggers
-  document.removeEventListener('click', triggerLandingVoiceover);
-  document.removeEventListener('touchstart', triggerLandingVoiceover);
+  return;
 }
-
-document.addEventListener('click', triggerLandingVoiceover);
-document.addEventListener('touchstart', triggerLandingVoiceover);
-window.addEventListener('DOMContentLoaded', triggerLandingVoiceover);
 
 /**
  * Drawer Toggle Event Listeners
@@ -257,57 +903,7 @@ setupShortcut(promptProjects, "Show me your projects");
 setupShortcut(promptSkills, "What are your skills?");
 setupShortcut(promptContact, "How can I contact you?");
 
-/**
- * Web Speech Recognition Configuration
- */
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition = null;
-let isListening = false;
-
-if (SpeechRecognition) {
-  recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = 'en-US';
-
-  recognition.onstart = () => {
-    isListening = true;
-    micBtn.classList.add('listening');
-    messageInput.placeholder = "Listening... Speak now";
-  };
-
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    if (transcript.trim()) {
-      handleUserSubmit(transcript);
-    }
-  };
-
-  recognition.onerror = (event) => {
-    console.error("Speech recognition error:", event.error);
-    stopListeningState();
-  };
-
-  recognition.onend = () => {
-    stopListeningState();
-  };
-
-  micBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isListening) {
-      recognition.stop();
-    } else {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-      try {
-        recognition.start();
-      } catch (e) {
-        console.error("Failed to start speech recognition:", e);
-      }
-    }
-  });
-} else {
+if (micBtn) {
   micBtn.style.display = 'none';
 }
 
@@ -556,6 +1152,8 @@ function checkAndAppendRichContent(text, container) {
     container.appendChild(p6);
     container.appendChild(p7);
   }
+}
+
 /**
  * Appends user messages.
  */
@@ -1070,3 +1668,4 @@ function triggerTextDownload(content, filename) {
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
