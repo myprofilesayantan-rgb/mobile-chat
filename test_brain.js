@@ -36,6 +36,9 @@ async function runTests() {
     { input: "do you require visa sponsorship?", expectedIntent: "visa_remote" },
     { input: "what is your design philosophy?", expectedIntent: "design_philosophy" },
     { input: "aksdjhfklashdf", expectedIntent: "fallback" },
+    { input: "dfdfdf", expectedIntent: "typing_mistake" },
+    { input: "sdsdere", expectedIntent: "typing_mistake" },
+    { input: "jdfkr", expectedIntent: "typing_mistake" },
 
     // Edge Cases: Case Sensitivity & Spaces
     { input: "   HI   ", expectedIntent: "greeting" },

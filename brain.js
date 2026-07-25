@@ -295,11 +295,41 @@ export class ChatBrain {
         }
       }
 
-      // Fallback if no fuzzy matches found
-      const fallback = this.data.fallback;
-      responseText = this.getRandomElement(fallback.responses);
-      suggestionChips = fallback.chips;
-      matchedIntentId = "fallback";
+      // Check if it looks like a typing mistake / gibberish (e.g. "dfdfdf", "sdsdere", "jdfkr")
+      const hasGibberishToken = tokens.some(token => {
+        const cleanToken = token.replace(/[^a-z]/g, "");
+        if (cleanToken.length < 3) return false;
+        
+        // No vowels at all (e.g. "jdfkr")
+        if (!/[aeiouy]/.test(cleanToken)) return true;
+        
+        // Repeating characters (e.g., "aaaaa")
+        if (/([a-z])\1{3,}/.test(cleanToken)) return true;
+        
+        // Repeated 2-letter patterns (e.g., "dfdfdf")
+        if (cleanToken.length >= 6) {
+          const part = cleanToken.slice(0, 2);
+          if (cleanToken.split(part).join("") === "") return true;
+        }
+        
+        // Specific common gibberish strings / structures
+        const commonGibberish = ["asdf", "qwerty", "zxcv", "jdfk", "dfdf", "sdsd", "fdfd", "jdfkr", "sdsdere"];
+        if (commonGibberish.some(g => cleanToken.includes(g))) return true;
+        
+        return false;
+      });
+
+      if (hasGibberishToken) {
+        responseText = "Hmmm! It seems like you wanted to say something, but you made a typing mistake. Feel free to ask about my **skills**, **projects**, or **experience**!";
+        suggestionChips = ["View Skills", "Explore Projects", "Get Contact Details"];
+        matchedIntentId = "typing_mistake";
+      } else {
+        // Fallback if no fuzzy matches found
+        const fallback = this.data.fallback;
+        responseText = this.getRandomElement(fallback.responses);
+        suggestionChips = fallback.chips;
+        matchedIntentId = "fallback";
+      }
     }
 
     // Record history
