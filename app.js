@@ -153,7 +153,7 @@ const BRAIN_DATA = {
       "id": "education",
       "keywords": ["education", "academic", "degree", "qualifications", "foundation", "learning", "study", "general education", "college", "schooling", "hsc", "10+2", "commerce"],
       "responses": [
-        "My academic background blends advanced human-centered design frameworks, technology, and visual media:\n\n🎓 **Diploma in Graphic/Web Designing** — **Indian Institute of Technology, Roorkee** (2025-2026)\n🎓 **PG Diploma in Computers** — **Indian Institute of Technology, Roorkee** (2023-2024)\n🎓 **Diploma in Web and Multimedia** — **Arena Multimedia** (2001-2002)\n🎓 **Class XII (Commerce)** — **West Bengal** (2001)\n🎓 **Class X** — **West Bengal** (1999)\n\n*(Note: For official validation of my academic records and PG/Diploma certifications, feel free to ask about my **certifications**.)*"
+        "My academic foundation and educational background:\n\n🎓 **Professional Diploma in Web Design and Multimedia** — Arena Animation\n🎓 **Commerce Stream (10+2)** — West Bengal Council of Higher Secondary Education (2001)\n\n*(To view my specialized design PG and industry credentials, please ask about my **certifications**!)*"
       ],
       "chips": ["View Certifications", "View Skills", "Work History"]
     },
@@ -161,7 +161,7 @@ const BRAIN_DATA = {
       "id": "certifications",
       "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials"],
       "responses": [
-        "Here are my professional certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-2025): Specialized in cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n🏆 **AI for Designers Professional Certification** — **Interaction Design Foundation (IxDF)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **Interaction Design Foundation (IxDF)**: Specialized in cognitive load principles applicable to complex interface design.\n🏆 **Professional Diploma in Web Design & Multi-platform Interactive Media** — **Arena Animation**."
+        "Here are my professional design credentials and certifications:\n\n🏆 **AI for Designers Professional Certification** — **IxDF (Interaction Design Foundation)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **IxDF (Interaction Design Foundation)**: Specialized in cognitive load principles applicable to complex interface design.\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-25): Focused on cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n\n🔗 **My IxDF Profile**: [ixdf.org/members/sayantan-ghosh](https://ixdf.org/members/sayantan-ghosh)"
       ],
       "chips": ["Education Background", "View Skills", "Work History"]
     },

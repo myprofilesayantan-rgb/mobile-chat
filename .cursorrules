@@ -1,0 +1,38 @@
+# Interactive Portfolio Development Rules
+
+This file governs visual design patterns, layout constraints, interactive routing, and JSON database synchronization for Sayantan Ghosh's Interactive Portfolio.
+
+## 1. Visual & Theme Standards
+- **Theme**: Light-themed, modern grotesque interface with subtle micro-animations and drop-shadows.
+- **Aesthetic**: White/off-white backgrounds, slate/charcoal text, and bright blue accents (`#3b82f6` / `var(--accent-blue)`) for highlight states and borders. No dark-themed neon glowing indicators.
+- **Bot Bubbles**: Placed left-aligned with a white background, light gray border, and a solid left accent border: `border-left: 3px solid var(--accent-blue)`.
+- **User Bubbles**: Placed right-aligned with a soft gray background: `#f3f4f6`.
+
+## 2. Layout & Responsive Constraints
+- **Orientation Lock**: Strict Portrait mode warning overlay visible when the viewport width is `< 980px` and in `landscape` orientation.
+- **Scroll Containment**: Avoid overlapping controls. Maintain a healthy margin-bottom/padding-bottom inside the scroll container (`.messages-container`) so that the bottom-most message bubbles are never obscured by the fixed input bar wrapper.
+- **Safe Area Insets**: Accommodate iOS virtual notch spaces and bottom screen swipes using CSS variables or viewport fits (`env(safe-area-inset-bottom)`).
+
+## 3. Side Drawer Menu IA
+- Must contain:
+  1. **LinkedIn Link**: Linked to `https://linkedin.com/in/uxsayantan` with LinkedIn SVG.
+  2. **Medium Link**: Linked to `https://medium.com/@ghosh.sayantan1982` with Medium SVG.
+  3. **Email Link**: Linked to `mailto:ghosh.sayantan1982@gmail.com` with Email SVG.
+  4. **Desktop Note**: A styled box advising users to visit `https://uxsayantan.com` on desktop for the full strategic portfolio.
+  5. **Location Tag**: A footer block reading:
+     ```
+     Hyderabad,
+     Telangana, India
+     ```
+- Links must have `text-decoration: none;` on `.drawer-item` and use hover states matching the primary theme text.
+
+## 4. Interactive Chat & JSON Brain
+- Keep the `brain_data.json` database synced with Sayantan Ghosh's real experience:
+  - **Highlighted Projects**: SmartBI, SENTINEL, TRACTO, AeroChat, and Lumina Dashboard.
+  - **Toolsets**: Figma, Framer, CSS Variables, Tokens, HCD, WCAG, and AI-assisted UX workflows.
+  - **Credentials**: Executive PG Certification in UI/UX from IIT Roorkee.
+- Prompt text matches must check for precise keyword weights and use suggestion chips to assist routing.
+- Keep the landing voiceover introductory text matched to the resume data. Do not refer to the portfolio as a generative AI bot.
+
+## 5. Deployment, Git, and Push Protocols
+- **Strict Git Rule**: NEVER upload, stage, commit, or push any files from the local environment to any GitHub/Git repository unless the user explicitly asks for it in the chat prompt. Any and all upload/commit/push requests MUST come from the user's end only. Do not perform automatic, proactive, or background git pushes or commits.
