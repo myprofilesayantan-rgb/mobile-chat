@@ -34,5 +34,7 @@ This file governs visual design patterns, layout constraints, interactive routin
 - Prompt text matches must check for precise keyword weights and use suggestion chips to assist routing.
 - Keep the landing voiceover introductory text matched to the resume data. Do not refer to the portfolio as a generative AI bot.
 
-## 5. Deployment, Git, and Push Protocols
-- **Strict Git Rule**: NEVER upload, stage, commit, or push any files from the local environment to any GitHub/Git repository unless the user explicitly asks for it in the chat prompt. Any and all upload/commit/push requests MUST come from the user's end only. Do not perform automatic, proactive, or background git pushes or commits.
+## 5. 3-Layer Protection & Deployment Architecture
+- **Layer 1 (Active Local Environment)**: `d:\Projects\uxsayantandotcom_mob_Production\` — Active development, editing, debugging, and test runs take place exclusively here.
+- **Layer 2 (Local Working Copy Mirror)**: `C:\Users\HI\OneDrive\Documents\GitHub\mobile-chat\` — Local Git folder holding a working copy. Files are copied/synced to this folder ONLY when explicitly instructed by the user.
+- **Layer 3 (Live GitHub Remote Repository)**: `origin/main` — Remote live deployment. Git staging (`add`), `commit`, and `push` operations to remote GitHub occur ONLY upon direct, explicit user command in the chat prompt.

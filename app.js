@@ -859,12 +859,11 @@ function getSystemMaleVoice() {
 }
 
 /**
- * Updates voice/speaker visibility and ensures default state is muted.
+ * Controls visibility of legacy bottom voice elements.
  */
 function updateVoiceSupport() {
   if (speakerToggle) {
-    speakerToggle.style.display = 'flex';
-    speakerToggle.classList.add('speaker-muted');
+    speakerToggle.style.display = 'none';
   }
   if (micBtn) {
     micBtn.style.display = 'none';
@@ -873,21 +872,6 @@ function updateVoiceSupport() {
 
 // Set up controls immediately
 updateVoiceSupport();
-
-// Handle Speaker Toggle click (toggles mute/unmute)
-if (speakerToggle) {
-  speakerToggle.addEventListener('click', () => {
-    isMuted = !isMuted;
-    if (isMuted) {
-      speakerToggle.classList.add('speaker-muted');
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    } else {
-      speakerToggle.classList.remove('speaker-muted');
-    }
-  });
-}
 
 /**
  * Clean markdown symbols and emojis.
@@ -1075,16 +1059,29 @@ function formatMarkdown(text) {
   return finalHTML;
 }
 
+let currentSpeakingBtn = null;
+let currentSpeakingText = null;
+
+function stopCurrentBubbleSpeech() {
+  if (currentSpeakingBtn) {
+    currentSpeakingBtn.classList.remove('speaking-active');
+    currentSpeakingBtn = null;
+    currentSpeakingText = null;
+  }
+}
+
 /**
- * Appends copy button panel to bot bubbles.
+ * Appends copy button & speaker read-aloud button to bot bubbles.
  */
 function createMessageActions(textToCopy) {
   const container = document.createElement('div');
   container.className = 'message-actions';
 
+  // 1. Copy Response Button
   const copyBtn = document.createElement('button');
   copyBtn.className = 'action-btn';
   copyBtn.title = 'Copy response';
+  copyBtn.setAttribute('aria-label', 'Copy response');
   copyBtn.innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -1097,12 +1094,72 @@ function createMessageActions(textToCopy) {
     navigator.clipboard.writeText(textToCopy).then(() => {
       copyBtn.style.color = 'var(--accent-blue)';
       setTimeout(() => {
-        copyBtn.style.color = 'var(--text-secondary)';
-      }, 1000);
+        copyBtn.style.color = '#8e8e93';
+      }, 1200);
     });
   });
 
+  // 2. Read Aloud Speaker Button (AI Reply Bubble only)
+  const speakerBtn = document.createElement('button');
+  speakerBtn.className = 'action-btn voice-action-btn';
+  speakerBtn.title = 'Listen to response';
+  speakerBtn.setAttribute('aria-label', 'Listen to response');
+  speakerBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+  `;
+
+  speakerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // Toggle off if currently speaking this bubble
+    if (currentSpeakingBtn === speakerBtn && ('speechSynthesis' in window) && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      stopCurrentBubbleSpeech();
+      return;
+    }
+
+    // Cancel any other active speech
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    stopCurrentBubbleSpeech();
+
+    // Start speaking this message
+    if ('speechSynthesis' in window) {
+      const clean = cleanSpeechText(textToCopy);
+      if (!clean) return;
+
+      const utterance = new SpeechSynthesisUtterance(clean);
+      const voice = getSystemMaleVoice();
+      if (voice) {
+        utterance.voice = voice;
+      }
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => {
+        currentSpeakingBtn = speakerBtn;
+        currentSpeakingText = textToCopy;
+        speakerBtn.classList.add('speaking-active');
+      };
+
+      utterance.onend = () => {
+        stopCurrentBubbleSpeech();
+      };
+
+      utterance.onerror = () => {
+        stopCurrentBubbleSpeech();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+  });
+
   container.appendChild(copyBtn);
+  container.appendChild(speakerBtn);
   return container;
 }
 
@@ -1260,11 +1317,18 @@ function streamBotMessage(fullText, chips) {
   cursorSpan.className = 'typing-cursor';
   messageDiv.appendChild(cursorSpan);
 
+  // Bot Speech Bubble Footer (Timestamp & Action Buttons)
+  const footerDiv = document.createElement('div');
+  footerDiv.className = 'message-footer';
+
   const timeSpan = document.createElement('span');
   timeSpan.className = 'time-stamp';
   const now = new Date();
   timeSpan.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  messageDiv.appendChild(timeSpan);
+  footerDiv.appendChild(timeSpan);
+
+  footerDiv.appendChild(createMessageActions(fullText));
+  messageDiv.appendChild(footerDiv);
 
   messagesLog.appendChild(messageDiv);
   scrollToBottom();
@@ -1294,9 +1358,6 @@ function streamBotMessage(fullText, chips) {
       messagesLog.removeEventListener('scroll', scrollHandler);
       cursorSpan.remove();
       
-      // Actions
-      messageDiv.appendChild(createMessageActions(fullText));
-      
       // Rich Components
       checkAndAppendRichContent(fullText, messageDiv);
       
@@ -1308,8 +1369,6 @@ function streamBotMessage(fullText, chips) {
       if (shouldAutoScroll) {
         scrollToBottom();
       }
-      
-      speakText(fullText);
     }
   }, 45);
 }
