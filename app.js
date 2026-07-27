@@ -859,21 +859,33 @@ function getSystemMaleVoice() {
 }
 
 /**
- * Updates voice/speaker/mic visibility based on whether a male English voice is present.
+ * Updates voice/speaker visibility and ensures default state is muted.
  */
 function updateVoiceSupport() {
-  if (speakerToggle) speakerToggle.style.display = 'none';
-  if (micBtn) micBtn.style.display = 'none';
+  if (speakerToggle) {
+    speakerToggle.style.display = 'flex';
+    speakerToggle.classList.add('speaker-muted');
+  }
+  if (micBtn) {
+    micBtn.style.display = 'none';
+  }
 }
 
-// Hide controls immediately
+// Set up controls immediately
 updateVoiceSupport();
 
-// Handle Speaker Toggle click (no-op)
+// Handle Speaker Toggle click (toggles mute/unmute)
 if (speakerToggle) {
   speakerToggle.addEventListener('click', () => {
-    isMuted = true;
-    speakerToggle.style.display = 'none';
+    isMuted = !isMuted;
+    if (isMuted) {
+      speakerToggle.classList.add('speaker-muted');
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    } else {
+      speakerToggle.classList.remove('speaker-muted');
+    }
   });
 }
 
@@ -881,21 +893,41 @@ if (speakerToggle) {
  * Clean markdown symbols and emojis.
  */
 function cleanSpeechText(text) {
-  return "";
+  if (!text) return "";
+  return text
+    .replace(/<[^>]*>/g, "")
+    .replace(/[*_#`~\[\]()]/g, "")
+    .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "")
+    .trim();
 }
 
 /**
- * Read text out loud using Web Speech Synthesis (disabled).
+ * Read text out loud using Web Speech Synthesis if unmuted.
  */
 function speakText(text) {
-  return;
+  if (isMuted || !('speechSynthesis' in window)) return;
+  
+  window.speechSynthesis.cancel();
+  const clean = cleanSpeechText(text);
+  if (!clean) return;
+
+  const utterance = new SpeechSynthesisUtterance(clean);
+  const voice = getSystemMaleVoice();
+  if (voice) {
+    utterance.voice = voice;
+  }
+  utterance.rate = 1.0;
+  utterance.pitch = 1.0;
+  window.speechSynthesis.speak(utterance);
 }
 
 /**
- * Speaks the landing welcome introduction (disabled).
+ * Speaks the landing welcome introduction (disabled by default since muted).
  */
 function triggerLandingVoiceover() {
-  return;
+  if (isMuted) return;
+  const introText = "Hi! Welcome to my interactive portfolio. I designed this interface to guide you through my professional journey.";
+  speakText(introText);
 }
 
 /**
