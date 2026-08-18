@@ -256,7 +256,9 @@ export class ChatBrain {
         { term: "projects", intentId: "projects", displayName: "projects" },
         { term: "resume", intentId: "experience", displayName: "resume" },
         { term: "skills", intentId: "skills", displayName: "skills" },
-        { term: "experience", intentId: "experience", displayName: "experience" }
+        { term: "experience", intentId: "experience", displayName: "experience" },
+        { term: "certifications", intentId: "certifications", displayName: "certifications" },
+        { term: "certification", intentId: "certifications", displayName: "certifications" }
       ];
 
       for (const token of tokens) {
@@ -298,14 +300,11 @@ export class ChatBrain {
 
       // Check if it looks like a typing mistake / gibberish (e.g. "dfdfdf", "sdsdere", "jdfkr", "hfdfo")
       const hasGibberishToken = tokens.some(token => {
-        const cleanToken = token.replace(/[^a-z]/g, "");
-        if (cleanToken.length < 3) return false;
+        const cleanToken = token.replace(/[^a-zA-Z0-9]/g, "");
+        if (cleanToken.length < 4) return false;
         
-        // No vowels at all (e.g. "jdfkr")
-        if (!/[aeiouy]/.test(cleanToken)) return true;
-        
-        // Repeating characters (e.g., "aaaaa")
-        if (/([a-z])\1{3,}/.test(cleanToken)) return true;
+        // Single character repeated 3 or more times (e.g., "aaaa", "zzzz")
+        if (/^(.)\1{2,}$/.test(cleanToken)) return true;
         
         // Repeated 2-letter patterns (e.g., "dfdfdf")
         if (cleanToken.length >= 6) {
@@ -329,7 +328,7 @@ export class ChatBrain {
         } else {
           responseText = "Hmmm! It seems like you wanted to say something, but you made a typing mistake. Feel free to ask about my **skills**, **projects**, or **experience**!";
         }
-        suggestionChips = ["View Skills", "Explore Projects", "Get Contact Details"];
+        suggestionChips = ["Work History", "Explore Projects", "Certifications", "View Skills", "Get Contact Details"];
         matchedIntentId = "typing_mistake";
       } else {
         // Fallback if no fuzzy matches found
@@ -338,6 +337,11 @@ export class ChatBrain {
         suggestionChips = fallback.chips;
         matchedIntentId = "fallback";
       }
+    }
+
+    // Safeguard: Ensure suggestion chips are never empty or missing
+    if (!suggestionChips || suggestionChips.length === 0) {
+      suggestionChips = ["Work History", "Explore Projects", "Certifications", "View Skills", "Get Contact Details"];
     }
 
     // Record history

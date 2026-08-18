@@ -109,12 +109,23 @@
         </div>
       </div>
       
-      <!-- Reset/Clear Button -->
-      <button class="header-actions" id="reset-btn" title="Reset Conversation" aria-label="Reset Chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-        </svg>
-      </button>
+      <!-- Header Right Actions: Download Resume button + Reset/Clear Button -->
+      <div class="header-right-actions">
+        <a href="Sayantan_Ghosh_UX_Architect_Resume.pdf" download="Sayantan_Ghosh_UX_Architect_Resume.pdf" class="header-download-btn" id="download-btn" aria-label="Download Resume" title="Download Resume">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" class="header-download-icon">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span class="header-download-label">Resume</span>
+        </a>
+        <!-- Reset/Clear Button -->
+        <button class="header-actions" id="reset-btn" title="Reset Conversation" aria-label="Reset Chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <!-- CONTENT WRAPPER -->
@@ -147,6 +158,13 @@
           <h1 class="welcome-title">Hi, I'm Sayantan.</h1>
           <p class="welcome-subtitle">I bridge the gap between complex systems and intuitive user experiences.</p>
           <p class="welcome-desc">Explore my professional journey through this custom-coded, rule-based text directory. <span style="display: block; font-size: 11px; margin-top: 6px; opacity: 0.95; font-weight: 600; color: var(--accent-blue);">Designed by me and co-created with AI coding assistants to showcase layout structures, system variables, and deterministic interaction design (no generic AI wrappers).</span></p>
+          <div class="welcome-chips-container" id="welcome-chips">
+            <button type="button" class="quick-chip landing-chip" data-query="Work History">Work History</button>
+            <button type="button" class="quick-chip landing-chip" data-query="Explore Projects">Explore Projects</button>
+            <button type="button" class="quick-chip landing-chip" data-query="Certifications">Certifications</button>
+            <button type="button" class="quick-chip landing-chip" data-query="View Skills">View Skills</button>
+            <button type="button" class="quick-chip landing-chip" data-query="Get Contact Details">Get Contact Details</button>
+          </div>
         </div>
 
         <!-- Chat Messages Scroll Area -->
@@ -165,25 +183,13 @@
 
         <!-- Chat Input Box Card (Glides from center to bottom) -->
         <div class="input-box-wrapper" id="input-box-wrap">
-          <!-- Suggestion Chips (Visible only in Chat Mode) -->
-          <div class="quick-reply-wrapper" id="chips-container">
-            <!-- Dynamic chips load here -->
-          </div>
-
           <form class="input-container-card" id="chat-form" autocomplete="off">
             <div class="chat-input-row">
               <textarea class="chat-input" id="message-input" placeholder="Explore my professional journey..." rows="1"></textarea>
             </div>
             <div class="chat-input-controls">
-              <!-- Bottom Left CV Download Button -->
-              <div class="controls-left" style="display: flex; gap: 8px;">
-                <a href="Sayantan_Ghosh_UX_Architect_Resume.pdf" download="Sayantan_Ghosh_UX_Architect_Resume" class="circle-btn" id="download-btn" title="Download CV &amp; Case Studies" aria-label="Download CV">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                </a>
+              <!-- Bottom Left Controls -->
+              <div class="controls-left">
                 <a href="tel:+919346579316" class="circle-btn" id="call-action-btn" title="Call Sayantan" aria-label="Call Sayantan">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
