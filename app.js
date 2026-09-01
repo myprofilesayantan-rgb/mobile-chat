@@ -151,17 +151,17 @@ const BRAIN_DATA = {
     },
     {
       "id": "education",
-      "keywords": ["education", "academic", "degree", "qualifications", "foundation", "learning", "study", "general education", "college", "schooling", "hsc", "10+2", "commerce"],
+      "keywords": ["education", "academic", "degree", "qualifications", "foundation", "learning", "study", "general education", "college", "schooling", "hsc", "10+2", "commerce", "graduation", "graduate", "graduated", "postgraduate", "postgraduation", "post-graduation", "pg", "ba", "bachelor", "ddu", "gorakhpur", "university"],
       "responses": [
-        "My academic foundation and educational background:\n\n🎓 **Professional Diploma in Web Design and Multimedia** — Arena Animation\n🎓 **Commerce Stream (10+2)** — West Bengal Council of Higher Secondary Education (2001)\n\n*(To view my specialized design PG and industry credentials, please ask about my **certifications**!)*"
+        "My academic degrees and educational background:\n\n🎓 **Bachelor of Arts (B.A.)** — **D.D.U. Gorakhpur University** (2005)\n🎓 **Commerce Stream (10+2)** — **West Bengal Council of Higher Secondary Education** (2001)\n\n*(To view my Executive Postgraduate Certification from **IIT Roorkee**, Arena Animation diploma, and IxDF credentials, please ask about my **certifications**!)*"
       ],
       "chips": ["Certifications", "Work History", "Explore Projects", "View Skills"]
     },
     {
       "id": "certifications",
-      "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials"],
+      "keywords": ["certifications", "certification", "certified", "credentials", "course", "courses", "ixdf", "iit", "roorkee", "credentials", "arena", "animation", "multimedia"],
       "responses": [
-        "Here are my professional design credentials and certifications:\n\n🏆 **AI for Designers Professional Certification** — **IxDF (Interaction Design Foundation)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **IxDF (Interaction Design Foundation)**: Specialized in cognitive load principles applicable to complex interface design.\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-25): Focused on cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n\n🔗 **My IxDF Profile**: [ixdf.org/members/sayantan-ghosh](https://ixdf.org/members/sayantan-ghosh)"
+        "Here are my professional design credentials and certifications:\n\n🏆 **Executive Postgraduate Certification in UI/UX Design** — **IIT Roorkee** (2024-25): Focused on cognitive psychology, enterprise navigation frameworks, and data display mechanics.\n🏆 **Professional Diploma in Web Design and Multimedia** — **Arena Animation**\n🏆 **AI for Designers Professional Certification** — **IxDF (Interaction Design Foundation)** (2026): Focused on AI orchestration, LLM prompt refinement, and human-in-the-loop UX.\n🏆 **Perception and Memory in HCI and UX** — **IxDF (Interaction Design Foundation)**: Specialized in cognitive load principles applicable to complex interface design.\n\n🔗 **My IxDF Profile**: [ixdf.org/members/sayantan-ghosh](https://ixdf.org/members/sayantan-ghosh)"
       ],
       "chips": ["Work History", "Explore Projects", "View Skills", "Education Background"]
     },

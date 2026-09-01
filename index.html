@@ -6,6 +6,21 @@
   <title>Sayantan Ghosh - Interactive Portfolio</title>
   <meta name="description" content="Ask anything about my skills, projects, and career history through this conversational UI.">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // Desktop Redirection: Redirect desktop visitors (>980px & non-mobile UA) to main desktop portfolio uxsayantan.com
+    (function() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('override') === 'true' || params.get('preview') === 'true') {
+          return;
+        }
+        var isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (!isMobileUA && window.innerWidth > 980) {
+          window.location.href = 'https://uxsayantan.com';
+        }
+      } catch(e) {}
+    })();
+  </script>
 </head>
 <body>
   <!-- Landscape Orientation Warning Overlay -->
@@ -475,15 +490,16 @@
               
               <h4 class="classic-resume-subheading" style="margin-top: 12px; margin-bottom: 6px; font-weight: bold; color: var(--text-dark);">Professional Certifications</h4>
               <ul class="classic-resume-list">
+                <li><strong>IIT Roorkee:</strong> Executive Postgraduate Certification in UI/UX Design (2024-25) – cognitive psychology, enterprise navigation frameworks, data display mechanics.</li>
+                <li><strong>Arena Animation:</strong> Professional Diploma in Web Design and Multimedia.</li>
                 <li><strong>IxDF (Interaction Design Foundation):</strong> AI for Designers Professional Certification (2026) – AI orchestration, LLM prompt refinement, human-in-the-loop UX.</li>
                 <li><strong>IxDF (Interaction Design Foundation):</strong> Perception and Memory in HCI and UX – cognitive load principles applicable to complex interface design.</li>
                 <li><strong>IxDF Profile:</strong> <a href="https://ixdf.org/members/sayantan-ghosh" target="_blank" rel="noopener noreferrer">ixdf.org/members/sayantan-ghosh</a></li>
-                <li><strong>IIT Roorkee:</strong> Executive Postgraduate Certification in UI/UX Design (2024-25) – cognitive psychology, enterprise navigation frameworks, data display mechanics.</li>
               </ul>
 
               <h4 class="classic-resume-subheading" style="margin-top: 12px; margin-bottom: 6px; font-weight: bold; color: var(--text-dark);">Education</h4>
               <ul class="classic-resume-list">
-                <li><strong>Arena Animation:</strong> Professional Diploma in Web Design and Multimedia.</li>
+                <li><strong>D.D.U. Gorakhpur University:</strong> Bachelor of Arts (B.A.), 2005.</li>
                 <li><strong>West Bengal Council of Higher Secondary Education:</strong> Commerce Stream (10+2), 2001.</li>
               </ul>
             </section>
